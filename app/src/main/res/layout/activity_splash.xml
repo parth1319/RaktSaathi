@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/llmain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/rs_bg_color"
+    >
+    <ImageView
+        android:id="@+id/ivmainlogo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:src="@drawable/rs_logo"
+        android:layout_marginTop="80sp"
+        android:layout_marginLeft="5sp" />
+
+    <TextView
+        android:id="@+id/tvmaintitle"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginLeft="5sp"
+        android:layout_marginTop="0sp"
+        android:layout_marginBottom="4sp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="RaktSaathi+"
+        android:textAlignment="center"
+        android:textColor="@color/rs_heading_color"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvmainslogan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4sp"
+        android:layout_marginTop="0sp"
+        android:fontFamily="@font/poppins"
+        android:text="Life Saving Connections"
+        android:textAlignment="center"
+        android:textColor="@color/rs_qoute_color"
+        android:textSize="15sp"
+        android:textStyle="normal"/>
+
+</LinearLayout>

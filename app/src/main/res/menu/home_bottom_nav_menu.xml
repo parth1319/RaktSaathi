@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/homebottomnavHome"
+        android:title="Home"
+        app:showAsAction="never"
+        android:icon="@drawable/rs_home_icon"
+       />
+
+    <item
+        android:id="@+id/homebottomnavRequests"
+        android:title="Requests"
+        app:showAsAction="never"
+        android:icon="@drawable/rs_bloodbag_icon"/>
+
+    <item
+        android:id="@+id/homebottomnavDonate"
+        android:title="Donate"
+        app:showAsAction="never"
+        android:icon="@drawable/rs_bloodrop_icon"/>
+
+    <item
+        android:id="@+id/homebottomnavProfile"
+        android:title="Profile"
+        app:showAsAction="never"
+        android:icon="@drawable/rs_homeprofile_icon"/>
+
+</menu>

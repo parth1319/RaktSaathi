@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/rs_bg_color">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Donate Blood"
+            android:textColor="@color/rs_heading_color"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            android:layout_marginBottom="15dp"
+            app:cardBackgroundColor="@color/rs_bg_color">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Donate Information"
+                    android:textColor="@color/rs_heading_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etdonatebloodname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:drawableLeft="@drawable/rs_homeprofile_icon"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Full Name"
+                    android:inputType="textPersonName"
+                    android:textColor="@color/rs_heading_color"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textSize="14dp"
+                    tools:ignore="TextFields" />
+
+                <EditText
+                    android:id="@+id/etdonatebloodphone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/rs_phone_icon"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Mobile Number"
+                    android:inputType="phone"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textColor="@color/rs_heading_color"
+                    android:textSize="14dp"
+                    tools:ignore="TextFields" />
+
+                <EditText
+                    android:id="@+id/etdonatebloodage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/rs_agelogo"
+                    android:drawablePadding="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Age"
+                    android:inputType="number"
+                    android:textColor="@color/rs_heading_color"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textSize="14dp" />
+
+                <Spinner
+                    android:id="@+id/spinnerbloodGroupSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:background="@android:drawable/editbox_background"
+                    android:textColor="@color/rs_heading_color"
+                    tools:ignore="InvalidId" />
+
+
+                <RadioGroup
+                    android:id="@+id/rgdonatebloodselectgender"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <RadioButton
+                        android:id="@+id/rbdonatebloodmale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins"
+                        android:text="Male"
+                        android:textColor="@color/black"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rbdonatebloodfemale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Female"
+                        android:textColor="@color/black"
+                        />
+
+                    <RadioButton
+                        android:id="@+id/rbdonatebloodother"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/poppins"
+                        android:text="Other"
+                        android:textColor="@color/black" />
+                </RadioGroup>
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/rs_bg_color">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Location Details"
+                    android:textColor="@color/rs_heading_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etdonatebloodaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Area / Address"
+                    android:textSize="14dp"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textColor="@color/rs_heading_color"/>
+
+                <EditText
+                    android:id="@+id/etdonatebloodcity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="City"
+                    android:textColor="@color/rs_heading_color"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@color/rs_bg_color">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="Health Info"
+                    android:textColor="@color/rs_heading_color"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etdonatebloodweight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Weight (kg)"
+                    android:textColor="@color/rs_heading_color"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textSize="14dp"
+                    />
+
+                <EditText
+                    android:id="@+id/etdonateblooddisease"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:hint="Any Disease?"
+                    android:textColorHint="@color/rs_qoute_color"
+                    android:textColor="@color/rs_heading_color"
+                    android:textSize="14dp"
+                    />
+
+                <CheckBox
+                    android:id="@+id/cbdonatebloodready"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/poppins"
+                    android:text="I am ready to donate blood"
+                    android:textColor="@color/black"
+                    />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <Button
+            android:id="@+id/donatebloodBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/rs_buttons_colour"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Register as Donor"
+            android:textColor="#FFFFFF"
+            android:textColorHint="@color/rs_heading_color"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>
