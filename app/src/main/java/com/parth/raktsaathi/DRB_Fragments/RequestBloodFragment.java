@@ -24,7 +24,6 @@ public class RequestBloodFragment extends Fragment {
     Button submitBtn;
 
     public RequestBloodFragment() {
-        // Required empty public constructor
     }
 
     @Override

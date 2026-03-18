@@ -36,7 +36,6 @@ public class DonateBloodFragment extends Fragment {
 
 
     public DonateBloodFragment() {
-        // Required empty public constructor
     }
 
 
@@ -79,7 +78,7 @@ public class DonateBloodFragment extends Fragment {
 
         spinnerbloodGroupSpinner.setAdapter(bloodAdapter);
 
-        // Button Click
+
         registerBtn.setOnClickListener(v -> {
 
             String donorName = name.getText().toString().trim();
