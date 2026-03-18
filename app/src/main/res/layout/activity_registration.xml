@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/rs_buttons_colour"
                     android:fontFamily="@font/poppins_bold"
-                    android:text="Register"
+                    android:text="Done"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
