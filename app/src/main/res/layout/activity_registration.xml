@@ -146,7 +146,7 @@
                     android:id="@+id/tvRegisterAlreadyHaveAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Already have an account? Login"
+                    android:text="Soniyaaa"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins"
