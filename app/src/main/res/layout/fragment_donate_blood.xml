@@ -50,7 +50,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/etdonatebloodname"
+                    android:id="@+id/etdonatebloodName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20sp"
@@ -65,7 +65,7 @@
                     tools:ignore="TextFields" />
 
                 <EditText
-                    android:id="@+id/etdonatebloodphone"
+                    android:id="@+id/etdonatebloodMobileNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
