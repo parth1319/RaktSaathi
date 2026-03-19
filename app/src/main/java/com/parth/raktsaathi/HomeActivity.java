@@ -49,11 +49,24 @@ public class HomeActivity extends AppCompatActivity implements
         bottomNavigationView = findViewById(R.id.homeBottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
+        // Check if we should show a specific fragment
+        String target = getIntent().getStringExtra("targetFragment");
+        if (target != null && target.equals("Home")) {
+            loadHomeFragment();
+        } else {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeFrameLayout, new HomeFragment())
+                    .commit();
+            bottomNavigationView.setSelectedItemId(R.id.homebottomnavHome);
+        }
+    }
+
+    private void loadHomeFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.homeFrameLayout, new HomeFragment())
+                .replace(R.id.homeFrameLayout, homeFragment)
                 .commit();
-
         bottomNavigationView.setSelectedItemId(R.id.homebottomnavHome);
     }
 
@@ -77,21 +90,13 @@ public class HomeActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         if (menuItem.getItemId() == R.id.homebottomnavHome) {
-
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, homeFragment).commit();
-
         } else if (menuItem.getItemId() == R.id.homebottomnavRequests) {
-
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, requestsFragment).commit();
-
         } else if (menuItem.getItemId() == R.id.homebottomnavDonate) {
-
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, donateFragment).commit();
-
         } else if (menuItem.getItemId() == R.id.homebottomnavProfile) {
-
-            getSupportFragmentManager().beginTransaction().replace(R.id.
-                    homeFrameLayout, profileFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, profileFragment).commit();
         }
 
         return true;
