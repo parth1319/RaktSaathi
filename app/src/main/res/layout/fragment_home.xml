@@ -43,13 +43,12 @@
                 android:text="..."
                 android:textColor="@color/black"
                 android:textSize="14sp" />
-                   </LinearLayout>
+        </LinearLayout>
 
         <!-- Main Buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
             android:layout_marginTop="15dp"
             android:orientation="horizontal">
 
@@ -59,25 +58,22 @@
                 android:textColor="#FFFFFF"
                 android:backgroundTint="@color/rs_buttons_colour"
                 android:layout_marginTop="20dp"
-                android:layout_width="0sp"
-                android:layout_height="50sp"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColorHint="@color/rs_heading_color"
                 android:layout_marginEnd="8dp"/>
 
             <Button
                 android:id="@+id/btnrequestbloodbtn"
                 android:layout_width="0dp"
-                android:layout_height="50sp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="8dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/rs_buttons_colour"
                 android:text="Request Blood"
                 android:textColor="#FFFFFF"
-                android:textColorHint="@color/rs_heading_color"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -86,55 +82,45 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:layout_margin="1sp"
-            android:padding="1sp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
             android:gravity="center_horizontal">
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/light_grey"
                 android:text="All Requests"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/light_grey"
-                android:layout_marginTop="20dp"
-                android:layout_width="0sp"
-                android:layout_height="50sp"
-                android:layout_weight="1"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColorHighlight="@color/black"
-                android:textColorHint="@color/black"
-                android:layout_marginEnd="8dp"/>
+                android:textStyle="bold" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@color/light_grey"
                 android:text="Donors"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/light_grey"
-                android:layout_marginTop="20dp"
-                android:layout_width="0sp"
-                android:layout_height="50sp"
-                android:layout_weight="1"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColorHighlight="@color/black"
-                android:textColorHint="@color/black"
-                android:layout_marginEnd="8dp"/>
+                android:textStyle="bold" />
 
             <Button
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/light_grey"
                 android:text="Camps"
                 android:textColor="@color/black"
-                android:backgroundTint="@color/light_grey"
-                android:layout_marginTop="20dp"
-                android:layout_width="0sp"
-                android:layout_height="50sp"
-                android:layout_weight="1"
                 android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColorHighlight="@color/black"
-                android:textColorHint="@color/black"
-                android:layout_marginEnd="8dp"/>
+                android:textStyle="bold" />
         </LinearLayout>
 
 
@@ -157,6 +143,13 @@
             android:textColor="#B71C1C"
             android:textSize="16sp"
             android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHomeDonorList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:nestedScrollingEnabled="false" />
 
     </LinearLayout>
 </ScrollView>
