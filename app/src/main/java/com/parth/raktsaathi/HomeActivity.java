@@ -31,6 +31,7 @@ public class HomeActivity extends AppCompatActivity implements
     RequestsFragment requestsFragment = new RequestsFragment();
     DonateFragment donateFragment = new DonateFragment();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +87,12 @@ public class HomeActivity extends AppCompatActivity implements
         if (menuItem.getItemId() == R.id.homebottomnavHome) {
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, homeFragment).commit();
         } else if (menuItem.getItemId() == R.id.homebottomnavRequests) {
+            Intent intent = new Intent(HomeActivity.this, AllRequestActivity.class);
+            startActivity(intent);
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, requestsFragment).commit();
         } else if (menuItem.getItemId() == R.id.homebottomnavDonate) {
+            Intent intent = new Intent(HomeActivity.this, DonorActivity.class);
+            startActivity(intent);
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, donateFragment).commit();
         } else if (menuItem.getItemId() == R.id.homebottomnavProfile) {
             Intent intent = new Intent(HomeActivity.this, MyProfileActivity.class);
