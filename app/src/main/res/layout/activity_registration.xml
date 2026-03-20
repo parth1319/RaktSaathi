@@ -139,14 +139,14 @@
                     android:backgroundTint="@color/rs_buttons_colour"
                     android:fontFamily="@font/poppins_bold"
                     android:text="Register"
-                    android:textColor="@color/black"
+                    android:textColor="@color/rs_bg_color"
                     android:textSize="16sp" />
 
                 <TextView
                     android:id="@+id/tvRegisterAlreadyHaveAccount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Soniyaaa"
+                    android:text="Already have an account? Login"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:fontFamily="@font/poppins"
