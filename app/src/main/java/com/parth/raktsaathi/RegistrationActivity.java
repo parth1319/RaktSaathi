@@ -105,6 +105,14 @@ public class RegistrationActivity extends AppCompatActivity {
                             String status = response.getString("success");
                             if (status.equals("1")) {
                                 Toast.makeText(RegistrationActivity.this, "Registration Successfully Done", Toast.LENGTH_SHORT).show();
+                                editor.putString("userName", etUsername.getText().toString());
+                                editor.putString("userMobileNo", etMobileNo.getText().toString());
+                                editor.putString("userEmail", etEmailid.getText().toString());
+                                editor.putString("userPassword", etPassword.getText().toString());
+                                editor.putString("userBloodGroup", etBloodGroup.getText().toString());
+                                editor.putString("userAddress", etAddress.getText().toString());
+                                editor.putString("userCity", etCity.getText().toString());
+
                                 Intent i = new Intent(RegistrationActivity.this, LoginActivity.class);
                                 startActivity(i);
                                 finish();
