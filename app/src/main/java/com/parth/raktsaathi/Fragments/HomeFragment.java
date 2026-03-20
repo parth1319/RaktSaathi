@@ -65,13 +65,14 @@ public class HomeFragment extends Fragment {
         btnrequestbloodbtn = view.findViewById(R.id.btnrequestbloodbtn);
 
         // RecyclerView connect
-        recyclerView = view.findViewById(R.id.donorRecycler);
-
+        recyclerView = view.findViewById(R.id.rvHomeDonorList); // Ensure this ID exists in fragment_home.xml
         list = new ArrayList<>();
         adapter = new DonorAdapter(getContext(), list);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        if (recyclerView != null) {
+            recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+            recyclerView.setAdapter(adapter);
+        }
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
 
@@ -129,7 +130,7 @@ public class HomeFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         // Donor List API
-        String donorUrl = "http://10.171.187.98:80/RaktsaathiAPI/get_donors.php";
+        String donorUrl = Urls.GetDonorsWebService; // Using central Urls class
 
         StringRequest donorRequest = new StringRequest(Request.Method.GET, donorUrl,
                 this::onResponse,

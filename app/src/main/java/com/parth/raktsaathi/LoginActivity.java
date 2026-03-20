@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         cbShowPassword = findViewById(R.id.cbLoginshowhidepassword);
         tvForgotPassword = findViewById(R.id.tvLoginForgotPassword);
 
-        // Show / Hide Password
         cbShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 etLoginPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
