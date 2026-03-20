@@ -200,7 +200,7 @@ public class DonateBloodFragment extends Fragment {
         if (rbdonatebloodmale.isChecked()) gender = "Male";
         else if (rbdonatebloodfemale.isChecked()) gender = "Female";
 
-        params.put("gender", gender);
+        params.put("gender", "gender");
         params.put("ready", "Yes");
         params.put("status", "Pending");
 

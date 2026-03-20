@@ -15,122 +15,123 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/ivMyProfileEditProfile"
-            android:src="@drawable/rs_myprofile_edit"
-            android:layout_gravity="right"
-            app:tint="@color/black" />
+            <ImageView
+                android:id="@+id/ivMyProfileEditProfile"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:src="@drawable/rs_myprofile_edit"
+                app:tint="@color/black" />
 
-        <ImageView
-            android:id="@+id/ivMyProfileSelectedProfile"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/rs_profilelogo" />
+            <ImageView
+                android:id="@+id/ivMyProfileSelectedProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/rs_profilelogo" />
 
-        <Button
-            android:id="@+id/btnMyProfilSelectProfilePhoto"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
-            android:shadowColor="@color/light_grey"
-            android:text="Select Profile Photo"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:drawableLeft="@drawable/rs_myprofile_gallary"
-            android:drawableTint="@color/white"
-            android:layout_marginTop="8sp"
-            android:backgroundTint="@color/leaf_green" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvMyProfileUserName"
-            android:fontFamily="@font/poppins_bold"
-            android:text="User Name"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="8sp"
-            android:layout_marginTop="8sp"
-            android:layout_marginLeft="16sp"
-            android:layout_marginRight="16sp"
-            android:layout_gravity="center_horizontal"/>
+            <Button
+                android:id="@+id/btnMyProfilSelectProfilePhoto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8sp"
+                android:backgroundTint="@color/leaf_green"
+                android:drawableLeft="@drawable/rs_myprofile_gallary"
+                android:drawableTint="@color/white"
+                android:fontFamily="@font/poppins_bold"
+                android:shadowColor="@color/light_grey"
+                android:text="Select Profile Photo"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvMyProfileUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginRight="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="User Name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvMyProfileMobileNo"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Mobile Number"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="8sp"
-            android:layout_marginTop="8sp"
-            android:layout_marginLeft="16sp"
-            android:layout_marginRight="16sp"
-            android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/tvMyProfileMobileNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginRight="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Mobile Number"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvMyProfileEmailid"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Email Id"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="8sp"
-            android:layout_marginTop="8sp"
-            android:layout_marginLeft="16sp"
-            android:layout_marginRight="16sp"
-            android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/tvMyProfileEmailid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginRight="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Email Id"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvMyProfilebBloodGroup"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Blood Group"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="8sp"
-            android:layout_marginTop="8sp"
-            android:layout_marginLeft="16sp"
-            android:layout_marginRight="16sp"
-            android:layout_gravity="center_horizontal"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvMyProfileUserCity"
-            android:fontFamily="@font/poppins_bold"
-            android:text="City"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_margin="8sp"
-            android:layout_marginTop="8sp"
-            android:layout_marginLeft="16sp"
-            android:layout_marginRight="16sp"
-            android:layout_gravity="center_horizontal"/>
+            <TextView
+                android:id="@+id/tvMyProfilebBloodGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginRight="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Blood Group"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/btnMyProfileDeleteAccount"
-            android:fontFamily="@font/poppins_bold"
-            android:shadowColor="@color/light_grey"
-            android:textColor="@color/black"
-            android:text="Delete Account"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/rs_heading_color"
-            android:layout_marginTop="16sp"
-            />
+            <TextView
+                android:id="@+id/tvMyProfileUserCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="8sp"
+                android:layout_marginLeft="16sp"
+                android:layout_marginTop="8sp"
+                android:layout_marginRight="16sp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="City"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnMyProfileDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16sp"
+                android:backgroundTint="@color/rs_heading_color"
+                android:fontFamily="@font/poppins_bold"
+                android:shadowColor="@color/light_grey"
+                android:text="Delete Account"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
     </LinearLayout>
 </ScrollView>

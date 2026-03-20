@@ -18,30 +18,8 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".campsActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".DonorActivity"
-            android:exported="false" />
-        <activity
-            android:name=".AllRequestActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".ForgetPasswordActivity"
-            android:exported="false" />
-        <activity
+            android:exported="false" /><activity
             android:name=".MyProfileActivity"
             android:exported="false" />
         <activity
