@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,10 +33,10 @@ import com.android.volley.toolbox.Volley;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.parth.raktsaathi.DRB_Fragments.DonateBloodFragment;
-import com.parth.raktsaathi.DRB_Fragments.RequestBloodFragment;
 import com.parth.raktsaathi.Donars.DonorAdapter;
 import com.parth.raktsaathi.Donars.DonorModel;
+import com.parth.raktsaathi.MyLocationActivity;
+import com.parth.raktsaathi.MyProfileActivity;
 import com.parth.raktsaathi.R;
 import com.parth.raktsaathi.Urls;
 
@@ -53,6 +54,8 @@ public class HomeFragment extends Fragment {
     private static final String TAG = "HomeFragment";
     TextView tvUserName, txtCity;
     Button btndonatebloodbtn, btnrequestbloodbtn;
+    LinearLayout layoutLocation;
+    ImageView ivHomeProfile;
     SharedPreferences preferences;
     EditText etSearchDonors;
     ImageView ivSearchMic;
@@ -72,15 +75,32 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Toast.makeText(getActivity(), "Home Activity Open", Toast.LENGTH_SHORT).show();
 
         etSearchDonors = view.findViewById(R.id.etSearchDonors);
         ivSearchMic = view.findViewById(R.id.ivSearchMic);
         tvUserName = view.findViewById(R.id.tvHomeUserName);
         txtCity = view.findViewById(R.id.txtCity);
+        layoutLocation = view.findViewById(R.id.layoutLocation);
+        ivHomeProfile = view.findViewById(R.id.ivHomeProfile);
 
         btndonatebloodbtn = view.findViewById(R.id.btndonatebloodbtn);
         btnrequestbloodbtn = view.findViewById(R.id.btnrequestbloodbtn);
+
+        layoutLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyLocationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        ivHomeProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ivSearchMic.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +108,6 @@ public class HomeFragment extends Fragment {
                 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                         RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-                // Allow multiple languages (Hindi and Marathi)
                 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
                 intent.putExtra(RecognizerIntent.EXTRA_SUPPORTED_LANGUAGES, "hi-IN, mr-IN, en-US");
                 intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Now");
@@ -104,7 +123,7 @@ public class HomeFragment extends Fragment {
         });
 
         // RecyclerView connect
-        recyclerView = view.findViewById(R.id.rvHomeDonorList); // Ensure this ID exists in fragment_home.xml
+        recyclerView = view.findViewById(R.id.rvHomeDonorList); 
         list = new ArrayList<>();
         adapter = new DonorAdapter(getContext(), list);
 
@@ -150,15 +169,6 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                     Log.e(TAG, "City API Failure. Status: " + statusCode, throwable);
-                    if (errorResponse != null) {
-                        Log.e(TAG, "Error Response: " + errorResponse.toString());
-                    }
-                    txtCity.setText("Server Error");
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                    Log.e(TAG, "City API Failure (String). Status: " + statusCode + " Response: " + responseString, throwable);
                     txtCity.setText("Server Error");
                 }
             });
@@ -169,19 +179,18 @@ public class HomeFragment extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getContext());
 
         // Donor List API
-        String donorUrl = Urls.GetDonorsWebService; // Using central Urls class
+        String donorUrl = Urls.GetDonorsWebService; 
 
         StringRequest donorRequest = new StringRequest(Request.Method.GET, donorUrl,
                 this::onResponse,
                 error -> {
                     Log.e(TAG, "Donor List API Error", error);
-                    error.printStackTrace();
                 });
 
         queue.add(donorRequest);
 
         btndonatebloodbtn.setOnClickListener(v -> {
-            Fragment fragment = new DonateBloodFragment();
+            Fragment fragment = new DonateFragment();
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.homeFrameLayout, fragment)
                     .addToBackStack(null)
@@ -189,7 +198,7 @@ public class HomeFragment extends Fragment {
         });
 
         btnrequestbloodbtn.setOnClickListener(v -> {
-            Fragment fragment = new RequestBloodFragment();
+            Fragment fragment = new RequestsFragment();
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.homeFrameLayout, fragment)
                     .addToBackStack(null)
@@ -200,33 +209,23 @@ public class HomeFragment extends Fragment {
     }
 
     private void onResponse(String response) {
-        Log.d(TAG, "Donor List Response: " + response);
         try {
-
             JSONArray array = new JSONArray(response);
-
             list.clear();
             for (int i = 0; i < array.length(); i++) {
-
                 JSONObject obj = array.getJSONObject(i);
-
                 String name = obj.getString("username");
                 String mobile = obj.getString("mobileno");
                 String email = obj.getString("emailid");
                 String blood = obj.getString("blood_group");
                 String address = obj.getString("address");
                 String city = obj.getString("city");
-
                 list.add(new DonorModel(name, mobile, email, blood, address, city));
             }
-
             adapter.notifyDataSetChanged();
-
         } catch (Exception e) {
             Log.e(TAG, "Error parsing donor list", e);
-            e.printStackTrace();
         }
-
     }
 
     @Override
@@ -242,25 +241,8 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onInit(int status) {
                         if (status == TextToSpeech.SUCCESS) {
-                            // Try to detect and set language based on input (Basic detection)
-                            Locale speechLocale = Locale.getDefault(); // Fallback
-                            
-                            // Check for Hindi or Marathi characters if possible or just use a multi-language voice
-                            textToSpeech.setLanguage(new Locale("hi", "IN")); // Setting to Hindi for better support
-                            
-                            // Attempt to find a male voice
-                            Set<Voice> voices = textToSpeech.getVoices();
-                            if (voices != null) {
-                                for (Voice voice : voices) {
-                                    if (voice.getName().toLowerCase().contains("male")) {
-                                        textToSpeech.setVoice(voice);
-                                        break;
-                                    }
-                                }
-                            }
-                            
-                            // To make voice sound more "male" if specific male voice not found
-                            textToSpeech.setPitch(0.8f); // Lower pitch for deeper voice
+                            textToSpeech.setLanguage(new Locale("hi", "IN"));
+                            textToSpeech.setPitch(0.8f);
                             textToSpeech.setSpeechRate(0.8f);
                             textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, null);
                         }
