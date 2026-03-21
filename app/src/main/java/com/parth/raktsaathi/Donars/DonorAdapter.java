@@ -29,7 +29,7 @@ public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.MyViewHolder
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.donar_item, parent, false);
+                .inflate(R.layout.activity_donor, parent, false);
 
         return new MyViewHolder(view);
     }
@@ -55,8 +55,8 @@ public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.MyViewHolder
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = itemView.findViewById(R.id.tvDiname);
-            blood = itemView.findViewById(R.id.tvDibloodgroup);
+            name = itemView.findViewById(R.id.etRegisterUserName);
+            blood = itemView.findViewById(R.id.etRegisterBloodGroup);
         }
     }
 }

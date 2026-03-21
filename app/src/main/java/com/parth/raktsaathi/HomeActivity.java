@@ -96,4 +96,14 @@ public class HomeActivity extends AppCompatActivity implements
 
         return true;
     }
+@Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        if (item.getItemId() == R.id.menuMyLocation)
+        {
+            Intent intent = new Intent(HomeActivity.this,MyLocationActivity.class);
+            startActivity(intent);
+        }
+    return true;
 }
+}
+
