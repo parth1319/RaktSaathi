@@ -34,15 +34,10 @@
             android:exported="false"
             android:theme="@style/ShowActionBar"
             />
-        <activity
-            android:name=".MyProfileActivity"
-            android:exported="false"
-            android:theme="@style/ShowActionBar"
-            />
+
         <activity
             android:name=".HomeActivity"
             android:exported="false"
-            android:theme="@style/ShowActionBar"
             />
 
         <meta-data
