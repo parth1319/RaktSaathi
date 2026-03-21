@@ -4,48 +4,53 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tool:context="com.parth.raktsaathi.MyProfileActivity"
+    tool:context="com.parth.raktsaathi.Fragments.ProfileFragment"
     android:orientation="vertical"
+    android:background="@drawable/profile_baground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="400dp"
-            android:layout_height="450dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            app:cardBackgroundColor="#ffffff"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="8dp"
-            app:cardUseCompatPadding="true">
+    <androidx.cardview.widget.CardView
+        android:layout_width="380dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="38dp"
+        app:cardBackgroundColor="#D0C9C9"
+        app:cardCornerRadius="18dp"
+        app:cardElevation="8dp"
+        app:cardUseCompatPadding="true"
+        android:layout_gravity="center_horizontal"
+       >
 
         <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8sp"
-        android:gravity="center"
-        android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8sp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/ivMyProfileEditProfile"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="right"
                 android:src="@drawable/rs_myprofile_edit"
-                app:tint="@color/black" />
+                app:tint="#000000"
+              />
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivMyProfileSelectedProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/rs_profilelogo" />
+                android:src="@drawable/rs_profilelogo"
+                app:civ_border_width="2dp"
+                app:civ_border_color="@color/rs_buttons_colour"/>
 
             <Button
                 android:id="@+id/btnMyProfilSelectProfilePhoto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8sp"
-                android:backgroundTint="@color/leaf_green"
+                android:backgroundTint="@color/rs_heading_color"
                 android:drawableLeft="@drawable/rs_myprofile_gallary"
                 android:drawableTint="@color/white"
                 android:fontFamily="@font/poppins_bold"
@@ -151,7 +156,7 @@
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
-    </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </ScrollView>
