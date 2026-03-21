@@ -1,18 +1,27 @@
 package com.parth.raktsaathi.Fragments;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.preference.PreferenceManager;
+import android.speech.RecognizerIntent;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +43,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Set;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -43,6 +54,10 @@ public class HomeFragment extends Fragment {
     TextView tvUserName, txtCity;
     Button btndonatebloodbtn, btnrequestbloodbtn;
     SharedPreferences preferences;
+    EditText etSearchDonors;
+    ImageView ivSearchMic;
+    private static final int REQUEST_CODE_SPEECH_INPUT = 1;
+    TextToSpeech textToSpeech;
 
     // RecyclerView variables
     RecyclerView recyclerView;
@@ -57,12 +72,36 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Toast.makeText(getActivity(), "Home Activity Open", Toast.LENGTH_SHORT).show();
 
+        etSearchDonors = view.findViewById(R.id.etSearchDonors);
+        ivSearchMic = view.findViewById(R.id.ivSearchMic);
         tvUserName = view.findViewById(R.id.tvHomeUserName);
         txtCity = view.findViewById(R.id.txtCity);
 
         btndonatebloodbtn = view.findViewById(R.id.btndonatebloodbtn);
         btnrequestbloodbtn = view.findViewById(R.id.btnrequestbloodbtn);
+
+        ivSearchMic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                        RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+                // Allow multiple languages (Hindi and Marathi)
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, "en-US");
+                intent.putExtra(RecognizerIntent.EXTRA_SUPPORTED_LANGUAGES, "hi-IN, mr-IN, en-US");
+                intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Speak Now");
+
+                try {
+                    startActivityForResult(intent, REQUEST_CODE_SPEECH_INPUT);
+
+                } catch (Exception e) {
+                    Toast.makeText(getActivity(), "" + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         // RecyclerView connect
         recyclerView = view.findViewById(R.id.rvHomeDonorList); // Ensure this ID exists in fragment_home.xml
@@ -188,5 +227,55 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_SPEECH_INPUT) {
+            if (resultCode == RESULT_OK && data != null) {
+                ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                String textToSpeak = result.get(0);
+                etSearchDonors.setText(textToSpeak);
+
+                textToSpeech = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+                    @Override
+                    public void onInit(int status) {
+                        if (status == TextToSpeech.SUCCESS) {
+                            // Try to detect and set language based on input (Basic detection)
+                            Locale speechLocale = Locale.getDefault(); // Fallback
+                            
+                            // Check for Hindi or Marathi characters if possible or just use a multi-language voice
+                            textToSpeech.setLanguage(new Locale("hi", "IN")); // Setting to Hindi for better support
+                            
+                            // Attempt to find a male voice
+                            Set<Voice> voices = textToSpeech.getVoices();
+                            if (voices != null) {
+                                for (Voice voice : voices) {
+                                    if (voice.getName().toLowerCase().contains("male")) {
+                                        textToSpeech.setVoice(voice);
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            // To make voice sound more "male" if specific male voice not found
+                            textToSpeech.setPitch(0.8f); // Lower pitch for deeper voice
+                            textToSpeech.setSpeechRate(0.8f);
+                            textToSpeech.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, null, null);
+                        }
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 }
