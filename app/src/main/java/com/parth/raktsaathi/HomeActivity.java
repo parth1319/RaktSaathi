@@ -106,4 +106,3 @@ public class HomeActivity extends AppCompatActivity implements
     return true;
 }
 }
-
