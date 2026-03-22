@@ -1,6 +1,5 @@
 package com.parth.raktsaathi;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,7 +10,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parth.raktsaathi.Fragments.DonateFragment;
+import com.parth.raktsaathi.Fragments.Find_DonorFragment;
 import com.parth.raktsaathi.Fragments.HomeFragment;
 import com.parth.raktsaathi.Fragments.RequestsFragment;
 
@@ -29,7 +28,7 @@ public class HomeActivity extends AppCompatActivity implements
     // Fragments
     HomeFragment homeFragment = new HomeFragment();
     RequestsFragment requestsFragment = new RequestsFragment();
-    DonateFragment donateFragment = new DonateFragment();
+    Find_DonorFragment findDonorFragment = new Find_DonorFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +87,7 @@ public class HomeActivity extends AppCompatActivity implements
         } else if (menuItem.getItemId() == R.id.homebottomnavRequests) {
             getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, requestsFragment).commit();
         } else if (menuItem.getItemId() == R.id.homebottomnavDonate) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, donateFragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, findDonorFragment).commit();
         } else if (menuItem.getItemId() == R.id.homebottomnavProfile) {
             Intent intent = new Intent(HomeActivity.this, MyProfileActivity.class);
             startActivity(intent);

@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
         loadDonorList();
 
         // Action buttons
-        btndonatebloodbtn.setOnClickListener(v -> replaceFragment(new DonateFragment()));
+        btndonatebloodbtn.setOnClickListener(v -> replaceFragment(new Find_DonorFragment()));
         btnrequestbloodbtn.setOnClickListener(v -> replaceFragment(new RequestsFragment()));
 
         return view;

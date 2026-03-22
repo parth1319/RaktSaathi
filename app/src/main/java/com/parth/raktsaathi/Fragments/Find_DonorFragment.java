@@ -12,10 +12,10 @@ import com.parth.raktsaathi.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link DonateFragment#newInstance} factory method to
+ * Use the {@link Find_DonorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DonateFragment extends Fragment {
+public class Find_DonorFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class DonateFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public DonateFragment() {
+    public Find_DonorFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class DonateFragment extends Fragment {
      * @return A new instance of fragment DonateFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DonateFragment newInstance(String param1, String param2) {
-        DonateFragment fragment = new DonateFragment();
+    public static Find_DonorFragment newInstance(String param1, String param2) {
+        Find_DonorFragment fragment = new Find_DonorFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
