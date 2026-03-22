@@ -17,6 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
+            android:layout_marginTop="5dp"
             android:fontFamily="@font/poppins_bold"
             android:text="Request Blood"
             android:textColor="@color/rs_heading_color"
@@ -74,7 +75,8 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:background="@android:drawable/editbox_background"
                     android:textColor="@color/black"
-                    tools:ignore="InvalidId" />
+                    tools:ignore="InvalidId"
+                    />
 
                 <Spinner
                     android:id="@+id/spinnerrequestbloodunit"
