@@ -1,17 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base theme (NO ActionBar - optional use) -->
-    <style name="Base.Theme.RaktSaathi" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
     </style>
 
     <!-- Main App Theme WITH Action Bar -->
-    <style name="Theme.RaktSaathi" parent="Theme.Material3.DayNight">
-        <!-- Customize colors if needed -->
-        <!-- <item name="colorPrimary">@color/your_color</item> -->
+    <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi">
     </style>
 
     <!-- Optional: Custom ActionBar Theme -->
-    <style name="ShowActionBar" parent="Theme.Material3.DayNight">
+    <style name="ShowActionBar" parent="Theme.MaterialComponents.DayNight">
     </style>
 
     <!-- Optional DarkActionBar Theme -->

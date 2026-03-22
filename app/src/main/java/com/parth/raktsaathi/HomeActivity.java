@@ -44,6 +44,15 @@ public class HomeActivity extends AppCompatActivity implements
             welcome();
         }
 
+        // ✅ 🔥 NEW CODE (ADD THIS HERE)
+        boolean isEligible = getIntent().getBooleanExtra("isEligible", false);
+
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isEligible", isEligible);
+
+        homeFragment.setArguments(bundle);
+        // ✅ END
+
         bottomNavigationView = findViewById(R.id.homeBottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
@@ -54,7 +63,7 @@ public class HomeActivity extends AppCompatActivity implements
         } else {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.homeFrameLayout, new HomeFragment())
+                    .replace(R.id.homeFrameLayout, homeFragment) // ✅ use same instance
                     .commit();
             bottomNavigationView.setSelectedItemId(R.id.homebottomnavHome);
         }
@@ -83,11 +92,23 @@ public class HomeActivity extends AppCompatActivity implements
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
         if (menuItem.getItemId() == R.id.homebottomnavHome) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, homeFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeFrameLayout, homeFragment) // ✅ keep same instance
+                    .commit();
+
         } else if (menuItem.getItemId() == R.id.homebottomnavRequests) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, requestsFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeFrameLayout, requestsFragment)
+                    .commit();
+
         } else if (menuItem.getItemId() == R.id.homebottomnavDonate) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.homeFrameLayout, findDonorFragment).commit();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeFrameLayout, findDonorFragment)
+                    .commit();
+
         } else if (menuItem.getItemId() == R.id.homebottomnavProfile) {
             Intent intent = new Intent(HomeActivity.this, MyProfileActivity.class);
             startActivity(intent);
@@ -95,13 +116,14 @@ public class HomeActivity extends AppCompatActivity implements
 
         return true;
     }
-@Override
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
         if (item.getItemId() == R.id.menuMyLocation)
         {
-            Intent intent = new Intent(HomeActivity.this,MyLocationActivity.class);
+            Intent intent = new Intent(HomeActivity.this, MyLocationActivity.class);
             startActivity(intent);
         }
-    return true;
-}
+        return true;
+    }
 }

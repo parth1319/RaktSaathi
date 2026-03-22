@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.RaktSaathi" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">#FF0000</item>
     </style>
 
     <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi" />
@@ -11,9 +11,7 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="ShowActionBar" parent="Theme.Material3.DayNight">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+    <style name="ShowActionBar" parent="Theme.MaterialComponents.DayNight">
     </style>
 
 </resources>

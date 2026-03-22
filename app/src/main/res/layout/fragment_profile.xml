@@ -135,7 +135,7 @@
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/rs_location_icon"
+                    android:src="@drawable/rs_locationlogo"
                     android:tint="@color/black"
                     android:contentDescription="Location Icon"
                     android:layout_marginEnd="12dp"/>

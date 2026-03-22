@@ -64,6 +64,7 @@
 
             <!-- Login Button -->
             <Button
+                android:id="@+id/loginbtnlogin"
                 android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
