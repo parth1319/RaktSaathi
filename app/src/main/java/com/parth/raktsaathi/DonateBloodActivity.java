@@ -1,86 +1,69 @@
-package com.parth.raktsaathi.DRB_Fragments;
+package com.parth.raktsaathi;
+
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
-import android.widget.Toast;
+import android.widget.*;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.parth.raktsaathi.HomeActivity;
-import com.parth.raktsaathi.R;
-import com.parth.raktsaathi.Urls;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class DonateBloodFragment extends Fragment {
+public class DonateBloodActivity extends AppCompatActivity {
 
-    EditText etdonatebloodName, etdonatebloodMobileNo, etdonatebloodage, etdonatebloodaddress, etdonatebloodcity, etdonatebloodweight, etdonateblooddisease;
+    EditText etdonatebloodName, etdonatebloodMobileNo, etdonatebloodage,
+            etdonatebloodaddress, etdonatebloodcity, etdonatebloodweight, etdonateblooddisease;
+
     Spinner spinnerbloodGroupSpinner;
     RadioGroup rgdonatebloodselectgender;
     RadioButton rbdonatebloodmale, rbdonatebloodfemale, rbdonatebloodother;
     CheckBox cbdonatebloodready;
     Button donatebloodBtn;
 
-    public DonateBloodFragment() {
-    }
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_donate_blood, container, false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_donate_blood);
 
         // connect IDs
-        etdonatebloodName = view.findViewById(R.id.etdonatebloodName);
-        etdonatebloodMobileNo = view.findViewById(R.id.etdonatebloodMobileNo);
-        etdonatebloodage = view.findViewById(R.id.etdonatebloodage);
-        etdonatebloodaddress = view.findViewById(R.id.etdonatebloodaddress);
-        etdonatebloodcity = view.findViewById(R.id.etdonatebloodcity);
-        etdonatebloodweight = view.findViewById(R.id.etdonatebloodweight);
-        etdonateblooddisease = view.findViewById(R.id.etdonateblooddisease);
-        rgdonatebloodselectgender = view.findViewById(R.id.rgdonatebloodselectgender);
-        rbdonatebloodmale = view.findViewById(R.id.rbdonatebloodmale);
-        rbdonatebloodfemale = view.findViewById(R.id.rbdonatebloodfemale);
-        rbdonatebloodother = view.findViewById(R.id.rbdonatebloodother);
-        cbdonatebloodready = view.findViewById(R.id.cbdonatebloodready);
-        donatebloodBtn = view.findViewById(R.id.donatebloodBtn);
-        spinnerbloodGroupSpinner = view.findViewById(R.id.spinnerbloodGroupSpinner);
+        etdonatebloodName = findViewById(R.id.etdonatebloodName);
+        etdonatebloodMobileNo = findViewById(R.id.etdonatebloodMobileNo);
+        etdonatebloodage = findViewById(R.id.etdonatebloodage);
+        etdonatebloodaddress = findViewById(R.id.etdonatebloodaddress);
+        etdonatebloodcity = findViewById(R.id.etdonatebloodcity);
+        etdonatebloodweight = findViewById(R.id.etdonatebloodweight);
+        etdonateblooddisease = findViewById(R.id.etdonateblooddisease);
+        rgdonatebloodselectgender = findViewById(R.id.rgdonatebloodselectgender);
+        rbdonatebloodmale = findViewById(R.id.rbdonatebloodmale);
+        rbdonatebloodfemale = findViewById(R.id.rbdonatebloodfemale);
+        rbdonatebloodother = findViewById(R.id.rbdonatebloodother);
+        cbdonatebloodready = findViewById(R.id.cbdonatebloodready);
+        donatebloodBtn = findViewById(R.id.donatebloodBtn);
+        spinnerbloodGroupSpinner = findViewById(R.id.spinnerbloodGroupSpinner);
 
         String[] bloodGroups = {"Select Blood Group",
                 "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"};
 
-        if (getContext() != null) {
-            ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(
-                    getContext(),
-                    android.R.layout.simple_spinner_dropdown_item,
-                    bloodGroups);
-            spinnerbloodGroupSpinner.setAdapter(bloodAdapter);
-        }
+        ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_spinner_dropdown_item,
+                bloodGroups);
 
-        // button click
+        spinnerbloodGroupSpinner.setAdapter(bloodAdapter);
+
         donatebloodBtn.setOnClickListener(v -> donateBlood());
-        return view;
     }
 
     private void donateBlood() {
+
         String sName = etdonatebloodName.getText().toString().trim();
         String sPhone = etdonatebloodMobileNo.getText().toString().trim();
         String sAge = etdonatebloodage.getText().toString().trim();
@@ -89,14 +72,14 @@ public class DonateBloodFragment extends Fragment {
         String sWeight = etdonatebloodweight.getText().toString().trim();
         String sBlood_Group = spinnerbloodGroupSpinner.getSelectedItem().toString();
 
-        // 🔴 NAME
+        // NAME
         if (TextUtils.isEmpty(sName)) {
             etdonatebloodName.setError("Enter full name");
             etdonatebloodName.requestFocus();
             return;
         }
 
-        // 🔴 PHONE
+        // PHONE
         if (TextUtils.isEmpty(sPhone)) {
             etdonatebloodMobileNo.setError("Enter mobile number");
             etdonatebloodMobileNo.requestFocus();
@@ -107,7 +90,7 @@ public class DonateBloodFragment extends Fragment {
             return;
         }
 
-        // 🔴 AGE
+        // AGE
         if (TextUtils.isEmpty(sAge)) {
             etdonatebloodage.setError("Enter age");
             etdonatebloodage.requestFocus();
@@ -127,7 +110,7 @@ public class DonateBloodFragment extends Fragment {
             }
         }
 
-        // 🔴 WEIGHT
+        // WEIGHT
         if (TextUtils.isEmpty(sWeight)) {
             etdonatebloodweight.setError("Enter weight");
             etdonatebloodweight.requestFocus();
@@ -147,36 +130,36 @@ public class DonateBloodFragment extends Fragment {
             }
         }
 
-        // 🔴 BLOOD GROUP
+        // BLOOD GROUP
         if (sBlood_Group.equals("Select Blood Group")) {
-            Toast.makeText(getContext(), "Select blood group", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select blood group", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // 🔴 GENDER
+        // GENDER
         int selectedId = rgdonatebloodselectgender.getCheckedRadioButtonId();
         if (selectedId == -1) {
-            Toast.makeText(getContext(), "Select gender", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Select gender", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // 🔴 ADDRESS
+        // ADDRESS
         if (TextUtils.isEmpty(sAddress)) {
             etdonatebloodaddress.setError("Enter address");
             etdonatebloodaddress.requestFocus();
             return;
         }
 
-        // 🔴 CITY
+        // CITY
         if (TextUtils.isEmpty(sCity)) {
             etdonatebloodcity.setError("Enter city");
             etdonatebloodcity.requestFocus();
             return;
         }
 
-        // 🔴 CHECKBOX
+        // CHECKBOX
         if (!cbdonatebloodready.isChecked()) {
-            Toast.makeText(getContext(), "Please confirm you are ready to donate blood", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please confirm you are ready to donate blood", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -184,6 +167,7 @@ public class DonateBloodFragment extends Fragment {
     }
 
     private void donateBloodUser() {
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
@@ -200,7 +184,7 @@ public class DonateBloodFragment extends Fragment {
         if (rbdonatebloodmale.isChecked()) gender = "Male";
         else if (rbdonatebloodfemale.isChecked()) gender = "Female";
 
-        params.put("gender", gender);
+        params.put("gender", gender); // ✅ FIX
         params.put("ready", "Yes");
         params.put("status", "Pending");
 
@@ -208,36 +192,34 @@ public class DonateBloodFragment extends Fragment {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                super.onSuccess(statusCode, headers, response);
+
                 try {
                     String status = response.getString("success");
+
                     if (status.equals("1")) {
-                        if (getContext() != null) {
-                            Toast.makeText(getContext(), "Blood Donation Successfully Done", Toast.LENGTH_SHORT).show();
-                        }
-                        if (isAdded() && getActivity() != null) {
-                            Intent i = new Intent(getActivity(), HomeActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.putExtra("targetFragment", "Home");
-                            startActivity(i);
-                            getActivity().finish();
-                        }
+                        Toast.makeText(DonateBloodActivity.this,
+                                "Blood Donation Successfully Done", Toast.LENGTH_SHORT).show();
+
+                        Intent i = new Intent(DonateBloodActivity.this, HomeActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+                        finish();
+
                     } else {
-                        if (getContext() != null) {
-                            Toast.makeText(getContext(), "Something Went Wrong", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(DonateBloodActivity.this,
+                                "Something Went Wrong", Toast.LENGTH_SHORT).show();
                     }
+
                 } catch (JSONException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
-                super.onFailure(statusCode, headers, responseString, throwable);
-                if (getContext() != null) {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-                }
+
+                Toast.makeText(DonateBloodActivity.this,
+                        "Server Error", Toast.LENGTH_SHORT).show();
             }
         });
     }

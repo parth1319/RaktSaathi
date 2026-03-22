@@ -1,155 +1,263 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rs_bg_color">
+    android:background="@color/white"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tvHomeUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="Hi, User"
-            android:textColor="@color/rs_heading_color"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"/>
+        <!-- HEADER CARD -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="@color/rs_buttons_colour">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="4dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@drawable/ic_location" />
-
-            <TextView
-                android:id="@+id/txtCity"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
-                android:text="..."
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
 
-        <!-- Main Buttons -->
+                <!-- User Name -->
+                <TextView
+                    android:id="@+id/tvHomeUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hi, User!"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"/>
+
+                <!-- LOCATION LAYOUT CLICKABLE -->
+                <LinearLayout
+                    android:id="@+id/layoutLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="16dp"
+                    android:padding="4dp"
+                    android:gravity="center_vertical"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="?attr/selectableItemBackground">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/rs_locationlogo"
+                        android:contentDescription="Location Icon"
+                        android:layout_marginEnd="4dp"/>
+
+                    <TextView
+                        android:id="@+id/tvUserLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detecting location..."
+                        android:textColor="#E0E0E0"
+                        android:textSize="16sp"
+                        android:maxLines="1"
+                        android:ellipsize="end"/>
+                </LinearLayout>
+
+                <!-- Profile Image -->
+                <ImageView
+                    android:id="@+id/ivHomeProfile"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:background="@drawable/rs_circle"
+                    android:contentDescription="Profile"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/rs_logo"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- ACTION BUTTONS -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
 
             <Button
                 android:id="@+id/btndonatebloodbtn"
-                android:text="Donate Blood"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="@color/rs_buttons_colour"
-                android:layout_marginTop="20dp"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:textSize="16sp"
+                android:layout_height="60dp"
+                android:text="Donate"
+                android:textColor="@android:color/white"
                 android:textStyle="bold"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="#FF3B30"/>
 
             <Button
                 android:id="@+id/btnrequestbloodbtn"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/rs_buttons_colour"
-                android:text="Request Blood"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-
+                android:layout_height="60dp"
+                android:text="Request"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#FF9500"/>
         </LinearLayout>
 
+        <!-- SEARCH BAR -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/etSearchDonors"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:hint="Search blood group, donor..."
+                    android:background="@android:color/transparent"
+                    android:drawableStart="@android:drawable/ic_menu_search"
+                    android:drawablePadding="10dp"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/light_grey"
+                    android:fontFamily="@font/poppins"/>
+
+                <ImageView
+                    android:id="@+id/ivSearchMic"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/rs_mic"
+                    android:padding="4dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Mic"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- SECONDARY ACTIONS -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
+                android:layout_height="50dp"
                 android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/light_grey"
                 android:text="All Requests"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white"
+                android:backgroundTint="#5856D6"
+                android:textStyle="bold"/>
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@color/light_grey"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
                 android:text="Donors"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_weight="1"
-                android:layout_marginTop="20dp"
-                android:backgroundTint="@color/light_grey"
-                android:text="Camps"
-                android:textColor="@color/black"
-                android:textSize="13sp"
-                android:textStyle="bold" />
+                android:textColor="@android:color/white"
+                android:backgroundTint="#34C759"
+                android:textStyle="bold"/>
         </LinearLayout>
 
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_search_bar"
-            android:drawableStart="@android:drawable/ic_menu_search"
-            android:drawablePadding="10dp"
-            android:hint="Search blood group, donor..."
-            android:paddingHorizontal="15dp"
-            android:textSize="14sp" />
-
+        <!-- NEARBY DONORS SECTION -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
             android:text="Nearby Donors"
-            android:textColor="#B71C1C"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/rs_heading_color"
+            android:layout_marginBottom="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvHomeDonorList"
+        <!-- Donor Card Example 1 -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:nestedScrollingEnabled="false" />
+            android:layout_marginBottom="12dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp"
+            android:backgroundTint="@android:color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/rs_logo"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/rs_circle"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="John Doe"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Blood Group: A+"
+                        android:textSize="14sp"
+                        android:textColor="@color/rs_heading_color"
+                        android:layout_marginTop="2dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="New York"
+                        android:textSize="14sp"
+                        android:textColor="@color/light_grey"
+                        android:layout_marginTop="2dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/rs_phone"
+                    android:padding="8dp"
+                    android:background="@drawable/rs_circle"
+                    android:contentDescription="Call Donor"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- You can duplicate above CardView for more donors or inflate dynamically in code -->
 
     </LinearLayout>
 </ScrollView>

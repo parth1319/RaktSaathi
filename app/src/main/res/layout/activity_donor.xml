@@ -13,13 +13,13 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tvDonorsAvailable"
+            android:id="@+id/tvDonors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/poppins_bold"
-            android:text="Donors Available"
+            android:text="Total Donar"
             android:textColor="@color/rs_heading_color"
             android:textSize="20sp"
             android:textStyle="bold" />

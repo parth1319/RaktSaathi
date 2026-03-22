@@ -58,8 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         etLoginPassword = findViewById(R.id.etLoginPassword);
         btnLogin = findViewById(R.id.btnLogin);
         btnLoginnewuser = findViewById(R.id.btnLoginnewuser);
-        cbShowPassword = findViewById(R.id.cbLoginshowhidepassword);
-        tvForgotPassword = findViewById(R.id.tvLoginForgotPassword);
+        tvForgotPassword = findViewById(R.id.tvForgot);
 
         cbShowPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {

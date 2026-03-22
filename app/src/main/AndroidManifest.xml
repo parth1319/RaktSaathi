@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,21 +16,53 @@
         android:label="RaktSaathi"
         android:roundIcon="@drawable/rs_logo"
         android:supportsRtl="true"
-        android:theme="@style/Theme.RaktSaathi."
+        android:theme="@style/Theme.RaktSaathi"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".MyProfileActivity"
+            android:exported="false"
+            android:theme="@style/ShowActionBar" />
+        <activity
+            android:name=".RequestBloodActivity"
+            android:exported="false"
+            android:theme="@style/ShowActionBar"
+            />
+        <activity
+            android:name=".DonateBloodActivity"
+            android:exported="false"
+            android:theme="@style/ShowActionBar"
+            />
+        <activity
             android:name=".ForgetPasswordActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ShowActionBar"
+            />
+
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
+            android:exported="false"
+            />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDXKrtmMVOvzYh09YDMYIdILpIThd8WW3w" />
+
+        <activity
+            android:name=".MyLocationActivity"
+            android:exported="false"
+            android:theme="@style/ShowActionBar"
+            />
         <activity
             android:name=".RegistrationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/ShowActionBar"
+            />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/ShowActionBar"
+            />
         <activity
             android:name=".SplashActivity"
             android:exported="true">
