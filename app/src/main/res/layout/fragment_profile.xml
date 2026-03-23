@@ -1,170 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBFBFB"
-    tools:context="com.parth.raktsaathi.Fragments.ProfileFragment">
+    android:background="#121212">
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="18dp"
-        app:cardElevation="8dp"
-        app:cardBackgroundColor="#E9E4E4">
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/rs_bg_color">
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
+            android:layout_marginTop="40dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:cardUseCompatPadding="true"
+            app:cardPreventCornerOverlap="true"
+            app:cardBackgroundColor="#F8F9FB">
 
-            <!-- Edit Icon -->
-            <ImageView
-                android:id="@+id/ivMyProfileEditProfile"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="end"
-                android:src="@drawable/rs_myprofile_edit"
-                app:tint="#2C2525" />
-
-            <!-- Profile Image -->
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivMyProfileSelectedProfile"
-                android:layout_width="110dp"
-                android:layout_height="110dp"
-                android:layout_marginTop="8dp"
-                android:src="@drawable/rs_myprofile_gallary"
-                app:civ_border_color="@color/rs_buttons_colour"
-                app:civ_border_width="2dp" />
-
-            <!-- Select Photo Button -->
-            <Button
-                android:id="@+id/btnMyProfilSelectProfilePhoto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:backgroundTint="@color/rs_heading_color"
-                android:drawableStart="@drawable/rs_myprofile_gallary"
-                android:drawableTint="@color/white"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Select Profile Photo"
-                android:textColor="@color/rs_bg_color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <!-- User Info Fields -->
-            <TextView
-                android:id="@+id/tvMyProfileUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_text_bg"
-                android:fontFamily="@font/poppins_bold"
-                android:text="User Name"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvMyProfileMobileNo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_text_bg"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Mobile Number"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvMyProfileEmailid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_text_bg"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Email Id"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvMyProfilebBloodGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_text_bg"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Blood Group"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tvMyProfileUserCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:padding="10dp"
-                android:background="@drawable/edit_text_bg"
-                android:fontFamily="@font/poppins_bold"
-                android:text="City"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
-
-            <!-- LIVE LOCATION ROW -->
             <LinearLayout
-                android:id="@+id/layoutProfileLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:padding="12dp"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:clickable="true"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackground"
-                android:layout_marginBottom="8dp">
+                android:orientation="vertical"
+                android:padding="20dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/rs_locationlogo"
-                    android:tint="@color/black"
-                    android:contentDescription="Location Icon"
-                    android:layout_marginEnd="12dp"/>
-
-                <TextView
-                    android:id="@+id/tvMyProfileLocation"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                <FrameLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Detecting location..."
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:ellipsize="end"
-                    android:maxLines="1"/>
+                    android:layout_gravity="center">
+
+                    <ImageView
+                        android:id="@+id/profileImage"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rs_profilelogo"
+                        android:background="@drawable/bg_circleborder_profile"
+                        android:padding="10dp" />
+
+                </FrameLayout>
+
+                <Button
+                    android:id="@+id/btnSelectPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SELECT PROFILE PHOTO"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:background="@drawable/btn_gradient"
+                    android:layout_marginTop="16dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="User Name"
+                    android:background="@drawable/bg_input_profile"
+                    android:padding="12dp"
+                    android:layout_marginTop="16dp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Mobile Number"
+                    android:background="@drawable/bg_input_profile"
+                    android:padding="12dp"
+                    android:layout_marginTop="10dp"
+                    android:inputType="phone" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Email ID"
+                    android:background="@drawable/bg_input_profile"
+                    android:padding="12dp"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:hint="Email ID"
+                    android:background="@drawable/bg_input_profile"
+                    android:padding="12dp"
+                    android:layout_marginTop="10dp"
+                    android:inputType="textEmailAddress"/>
+
+
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="DELETE ACCOUNT"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_redbtn_profile"
+                    android:layout_marginTop="16dp" />
+
             </LinearLayout>
 
-            <!-- Delete Button -->
-            <Button
-                android:id="@+id/btnMyProfileDeleteAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
-                android:backgroundTint="@color/rs_heading_color"
-                android:fontFamily="@font/poppins_bold"
-                android:text="Delete Account"
-                android:textColor="@color/rs_bg_color"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+        </androidx.cardview.widget.CardView>
 
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
 </ScrollView>

@@ -3,24 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
+    android:background="@color/rs_bg_color"
     android:padding="20dp">
 
-    <!-- Card Container -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
         app:cardCornerRadius="20dp"
-        app:cardElevation="8dp"
-        android:padding="20dp">
+        app:cardElevation="18dp"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@android:color/white">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Title -->
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -28,10 +28,10 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="#333"
+                android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center"/>
 
-            <!-- Email -->
             <EditText
                 android:id="@+id/email"
                 android:hint="E-mail / Phone Number"
@@ -39,9 +39,13 @@
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_bg"
                 android:padding="12dp"
+                android:inputType="textEmailAddress"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="15sp"
+                android:textSize="16sp"
                 android:layout_marginBottom="15dp"/>
 
-            <!-- Password -->
             <EditText
                 android:id="@+id/password"
                 android:hint="Password"
@@ -49,10 +53,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_bg"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:padding="12dp"
+                android:textSize="16sp"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- Forgot Password -->
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -60,26 +66,29 @@
                 android:textColor="@color/rs_buttons_colour"
                 android:textSize="12sp"
                 android:layout_gravity="end"
+                android:layout_marginEnd="15dp"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- Login Button -->
             <Button
                 android:id="@+id/loginbtnlogin"
                 android:text="Login"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 app:backgroundTint="@color/rs_buttons_colour"
                 android:layout_marginBottom="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:textAlignment="center"
+                android:background="@drawable/round_btn_login"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_gravity="center"
                 />
 
-            <!-- Divider -->
             <TextView
                 android:text="OR"
                 android:textAlignment="center"
@@ -88,19 +97,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- Google Sign In -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/google_btn_bg"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:padding="10dp">
 
                 <ImageView
                     android:src="@drawable/rs_google_icon"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"/>
+                    android:layout_height="24dp"
+                   />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -111,7 +122,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- Signup -->
             <TextView
                 android:id="@+id/signupText"
                 android:layout_width="wrap_content"
@@ -124,11 +134,11 @@
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:clickable="true"
+                android:layout_marginBottom="8sp"
                 android:focusable="true"
                 android:background="?attr/selectableItemBackgroundBorderless"/>
 
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

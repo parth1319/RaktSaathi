@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient"
+    android:background="@color/rs_bg_color"
     android:padding="20dp">
 
-    <!-- Card -->
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,7 +19,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Title -->
             <TextView
                 android:text="Create An Account"
                 android:textSize="22sp"
@@ -29,30 +27,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
+                android:layout_marginTop="20sp"
                 android:layout_gravity="center"/>
 
-            <!-- Email -->
             <EditText
                 android:id="@+id/regEmail"
                 android:hint="E-mail / Phone Number"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/edittext_bg"
                 android:padding="12dp"
+                android:textSize="16sp"
+                android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"/>
 
-            <!-- Password -->
             <EditText
                 android:id="@+id/regPassword"
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:background="@drawable/edittext_bg"
+                android:textSize="16sp"
                 android:padding="12dp"
                 android:layout_marginBottom="15dp"/>
 
-            <!-- Confirm Password -->
             <EditText
                 android:id="@+id/regConfirmPassword"
                 android:hint="Confirm Password"
@@ -60,10 +63,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/edittext_bg"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textSize="16sp"
                 android:padding="12dp"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- Create Account Button -->
             <Button
                 android:id="@+id/registerBtn"
                 android:text="Create Account"
@@ -72,10 +77,13 @@
                 app:backgroundTint="@color/rs_buttons_colour"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
+                android:textSize="15sp"
                 android:background="@drawable/btn_gradient"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:textAlignment="center" />
 
-            <!-- Divider -->
             <TextView
                 android:text="OR"
                 android:textAlignment="center"
@@ -84,7 +92,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- Google Sign In -->
             <LinearLayout
                 android:id="@+id/googleSignInBtn"
                 android:layout_width="match_parent"
@@ -92,7 +99,10 @@
                 android:background="@drawable/google_btn_bg"
                 android:gravity="center"
                 android:orientation="horizontal"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:padding="10dp"
+                android:layout_marginBottom="20dp"
                 android:clickable="true"
                 android:focusable="true">
 
