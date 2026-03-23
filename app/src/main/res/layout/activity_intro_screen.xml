@@ -6,84 +6,84 @@
     android:layout_height="match_parent"
     android:background="#F4F4F4">
 
-    <!-- Skip Now -->
+
+
     <TextView
         android:id="@+id/tvSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="40dp"
         android:text="Skip now →"
         android:textColor="#7A1E1E"
         android:textSize="14sp"
-        android:layout_margin="16dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Logo -->
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="168dp"
         android:scaleType="centerInside"
         android:src="@drawable/rs_logo"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvSkip" />
 
-    <!-- App Name -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="RaktSaathi+"
-        android:textStyle="bold"
-        android:textSize="28sp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
+        android:text="RaktSaathi+"
         android:textColor="@color/rs_buttons_colour"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/imgLogo"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
-    <!-- Login Button -->
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/light_grey"
+        android:shadowColor="@color/light_grey"
         android:text="Login"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:backgroundTint="@color/white"
-        android:shadowColor="@color/light_grey"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 
-    <!-- Create Account Button -->
     <Button
         android:id="@+id/btncreteaccIntroScrn"
         android:layout_width="0dp"
         android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="@color/rs_buttons_colour"
         android:text="Create Account"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/rs_buttons_colour"
-        android:backgroundTint="@color/rs_buttons_colour"
-        app:layout_constraintTop_toBottomOf="@id/btnLogin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/btnLogin" />
 
-    <!-- Bottom Wave (Optional Image) -->
     <ImageView
         android:id="@+id/ivbottomwavesIntroScrn"
         android:layout_width="450dp"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_marginTop="356dp"
         android:backgroundTint="@color/white"
         android:scaleType="fitXY"
@@ -93,7 +93,6 @@
         app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imgLogo"
-        app:layout_constraintVertical_bias="1.0"
-        />
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
