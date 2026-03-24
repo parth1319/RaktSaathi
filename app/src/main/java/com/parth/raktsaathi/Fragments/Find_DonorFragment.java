@@ -1,66 +1,108 @@
 package com.parth.raktsaathi.Fragments;
 
 import android.os.Bundle;
-
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.widget.*;
 
+import com.loopj.android.http.*;
+import com.parth.raktsaathi.DonorAdapter;
+import com.parth.raktsaathi.DonorModel;
 import com.parth.raktsaathi.R;
+import com.parth.raktsaathi.Urls;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Find_DonorFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
+import cz.msebera.android.httpclient.Header;
+
 public class Find_DonorFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    Spinner spBlood;
+    EditText etLocation;
+    Button btnSearch;
+    RecyclerView recyclerView;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ArrayList<DonorModel> list;
+    DonorAdapter adapter;
 
-    public Find_DonorFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DonateFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Find_DonorFragment newInstance(String param1, String param2) {
-        Find_DonorFragment fragment = new Find_DonorFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public Find_DonorFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_donate, container, false);
+
+        View view = inflater.inflate(R.layout.fragment_find_donor, container, false);
+
+        spBlood = view.findViewById(R.id.sp_blood);
+        etLocation = view.findViewById(R.id.et_location);
+        btnSearch = view.findViewById(R.id.btn_search);
+        recyclerView = view.findViewById(R.id.recycler_donors);
+
+        // Spinner setup
+        String[] bloodGroups = {"A+","A-","B+","B-","O+","O-","AB+","AB-"};
+        ArrayAdapter<String> adapterSp = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, bloodGroups);
+        spBlood.setAdapter(adapterSp);
+
+        // RecyclerView setup
+        list = new ArrayList<>();
+        adapter = new DonorAdapter(list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+        
+        btnSearch.setOnClickListener(v -> fetchDonors());
+
+        return view;
+    }
+
+    private void fetchDonors() {
+
+        String blood = spBlood.getSelectedItem().toString();
+        String location = etLocation.getText().toString();
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        String url = Urls.Find_DonorFragmentWebServiceAddress + "?blood_group="
+                + blood + "&location=" + location;
+
+        client.get(url, new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+
+                list.clear();
+
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+
+                        String name = obj.getString("name");
+                        String blood = obj.getString("blood_group");
+                        String location = obj.getString("location");
+
+                        list.add(new DonorModel(name, blood, location));
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Error fetching data", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }

@@ -16,6 +16,20 @@ public class Urls {
     public static final String VerifyOTPWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/verify_otp.php";
 
+    public static final String SendOTPWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/send_otp.php";
+
+    public static final String DonateBloodWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/donate_blood.php";
+
+    public static final String RequestBloodWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/request_blood.php";
+
+    public static final String GetDonorsWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/get_donors.php";
+    public static final String Find_DonorFragmentWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/find_donor.php";
+
 
 
 }

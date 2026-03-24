@@ -1,136 +1,84 @@
 package com.parth.raktsaathi;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Patterns;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.Toast;
-
+import android.view.View;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.loopj.android.http.*;
-
 import org.json.JSONObject;
-
 import cz.msebera.android.httpclient.Header;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    private EditText regEmail, regPassword, regConfirmPassword;
-    private Button registerBtn;
-    private LinearLayout googleSignInBtn;
+    EditText name, phone, email, location, password, confirmPassword;
+    Spinner blood;
+    Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
 
-        regEmail = findViewById(R.id.regEmail);
-        regPassword = findViewById(R.id.regPassword);
-        regConfirmPassword = findViewById(R.id.regConfirmPassword);
-        registerBtn = findViewById(R.id.registerBtn);
-        googleSignInBtn = findViewById(R.id.googleSignInBtn);
+        // 🔗 Bind views
+        name = findViewById(R.id.et_name);
+        phone = findViewById(R.id.et_phone);
+        email = findViewById(R.id.et_email);
+        location = findViewById(R.id.et_location);
+        password = findViewById(R.id.et_password);
+        confirmPassword = findViewById(R.id.et_confirm_password);
+        blood = findViewById(R.id.sp_blood);
+        register = findViewById(R.id.btn_register);
 
-        registerBtn.setOnClickListener(v -> {
+        // 🩸 Spinner setup
+        String[] bloodGroups = {"Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"};
 
-            String input = regEmail.getText().toString().trim();
-            String password = regPassword.getText().toString().trim();
-            String confirmPassword = regConfirmPassword.getText().toString().trim();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, bloodGroups);
 
-            String email = "";
-            String phone = "";
+        blood.setAdapter(adapter);
 
-            // ✅ Validation
-            if (TextUtils.isEmpty(input)) {
-                regEmail.setError("Enter email or phone");
-                return;
-            }
+        // 🔥 Button click
+        register.setOnClickListener(v -> registerUser());
+    }
 
-            // Detect email or phone
-            if (Patterns.EMAIL_ADDRESS.matcher(input).matches()) {
-                email = input;
-            } else if (input.length() == 10) {
-                phone = input;
-            } else {
-                regEmail.setError("Invalid email or phone");
-                return;
-            }
+    private void registerUser() {
 
-            if (TextUtils.isEmpty(password)) {
-                regPassword.setError("Enter password");
-                return;
-            }
+        String sName = name.getText().toString();
+        String sPhone = phone.getText().toString();
+        String sEmail = email.getText().toString();
+        String sLocation = location.getText().toString();
+        String sPassword = password.getText().toString();
+        String sConfirm = confirmPassword.getText().toString();
+        String sBlood = blood.getSelectedItem().toString();
 
-            if (password.length() < 6) {
-                regPassword.setError("Password must be at least 6 characters");
-                return;
-            }
+        if (!sPassword.equals(sConfirm)) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-            if (!password.equals(confirmPassword)) {
-                regConfirmPassword.setError("Passwords do not match");
-                return;
-            }
+        AsyncHttpClient client = new AsyncHttpClient();
 
-            // 🚀 API CALL
-            AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("name", sName);
+        params.put("phone", sPhone);
+        params.put("email", sEmail);
+        params.put("password", sPassword);
+        params.put("blood_group", sBlood);
+        params.put("location", sLocation);
 
-            RequestParams params = new RequestParams();
-            params.put("email", email);
-            params.put("phone", phone);
-            params.put("password", password);
+        client.post(Urls.UserRegistrationWebServiceAddress, params,
+                new AsyncHttpResponseHandler() {
 
-            client.post(Urls.UserRegistrationWebServiceAddress, params, new AsyncHttpResponseHandler() {
-
-                @Override
-                public void onStart() {
-                    Toast.makeText(RegistrationActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-                }
-
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                    String response = new String(responseBody);
-
-                    try {
-                        JSONObject obj = new JSONObject(response);
-                        String status = obj.optString("status");
-                        String message = obj.optString("message");
-
-                        Toast.makeText(RegistrationActivity.this, message, Toast.LENGTH_SHORT).show();
-
-                        if (status.equalsIgnoreCase("success")) {
-                            Intent intent = new Intent(RegistrationActivity.this, HomeActivity.class);
-                            intent.putExtra("isEligible", true);
-                            startActivity(intent);
-                            finish();
-                        }
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(RegistrationActivity.this, "Response Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                    String errorMsg = "Server Error";
-
-                    if (responseBody != null) {
-                        errorMsg = new String(responseBody);
+                    @Override
+                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                        Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
                     }
 
-                    Toast.makeText(RegistrationActivity.this, errorMsg, Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        });
-
-        googleSignInBtn.setOnClickListener(v -> {
-            Toast.makeText(RegistrationActivity.this, "Google Sign-In Coming Soon", Toast.LENGTH_SHORT).show();
-        });
+                    @Override
+                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                        Toast.makeText(RegistrationActivity.this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 }

@@ -1,17 +1,21 @@
 package com.parth.raktsaathi.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.parth.raktsaathi.NotificationActivity;
 import com.parth.raktsaathi.R;
 
 public class HomeFragment extends Fragment {
@@ -22,8 +26,9 @@ public class HomeFragment extends Fragment {
     private TextView statusText;
     private ImageView statusIcon;
 
+    private TextView badgeText;
+
     public HomeFragment() {
-        // Required empty constructor
     }
 
     @Override
@@ -32,36 +37,88 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // 🔥 Get eligibility data safely
+        setHasOptionsMenu(true);
+
+        if (getActivity() != null) {
+            requireActivity().setTitle("Raktsaathi+");
+        }
+
         if (getArguments() != null) {
             isEligible = getArguments().getBoolean("isEligible", false);
         }
 
-        // 🔗 Bind UI
         statusLayout = view.findViewById(R.id.statusLayout);
         statusText = view.findViewById(R.id.tv_statusText);
         statusIcon = view.findViewById(R.id.iv_statusIcon);
 
-        // 🎯 Apply UI
         updateStatusUI();
 
         return view;
     }
 
-    // 🔥 Separate method (clean code practice)
+    // 🔔 MENU CREATE
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.toolbar_menu, menu);
+
+        MenuItem item = menu.findItem(R.id.action_notification);
+        View actionView = item.getActionView();
+
+        if (actionView != null) {
+
+            badgeText = actionView.findViewById(R.id.tv_badge);
+
+            actionView.setOnClickListener(v -> {
+                onOptionsItemSelected(item); // ✅ FIXED
+            });
+
+            updateBadge();
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    // 🔔 CLICK HANDLE (ONLY ONE METHOD)
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if (item.getItemId() == R.id.action_notification) {
+
+            Intent intent = new Intent(getActivity(), NotificationActivity.class);
+            startActivity(intent);
+
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    // 🔴 Badge Logic
+    private void updateBadge() {
+
+        int notificationCount = 1;
+
+        if (badgeText == null) return;
+
+        if (notificationCount > 0) {
+            badgeText.setVisibility(View.VISIBLE);
+        } else {
+            badgeText.setVisibility(View.GONE);
+        }
+    }
+
+    // 🎯 Status UI
     private void updateStatusUI() {
 
         if (isEligible) {
-            // ✅ Eligible (Green)
             statusLayout.setBackgroundResource(R.drawable.bg_green_status);
             statusText.setText("You're eligible to Donate");
             statusIcon.setImageResource(R.drawable.rs_right);
 
         } else {
-            // ❌ Not Eligible (Red)
             statusLayout.setBackgroundResource(R.drawable.bg_red_status);
             statusText.setText("You're not eligible to Donate");
-            statusIcon.setImageResource(R.drawable.rs_crossss); // ⚠️ better icon name
+            statusIcon.setImageResource(R.drawable.rs_crossss);
         }
     }
 }

@@ -1,271 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F8F9FA"
-    android:padding="16dp"
-    tools:context=".Fragments.HomeFragment">
+    android:fitsSystemWindows="true"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="16dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
 
-        <!-- 🏷️ HEADER -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_welcome"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Welcome Back,"
-                    android:textColor="#6C757D"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:id="@+id/tv_userName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="User Name"
-                    android:textColor="#212529"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/iv_profile"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/rs_homeprofile_icon"
-                android:scaleType="centerCrop" />
-        </RelativeLayout>
+        <!-- 📍 LOCATION -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📍 Ariyankuppam"
+            android:textSize="14sp"
+            android:textColor="#444"
+            android:layout_marginTop="10dp"/>
 
         <!-- 🖼️ BANNER -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="160dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             app:cardCornerRadius="12dp"
-            app:cardElevation="4dp">
+            app:cardElevation="3dp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/rs_homefragmentslider1" />
+                android:src="@drawable/rs_homefragment_slider1" />
         </androidx.cardview.widget.CardView>
 
-        <!-- ✅ STATUS BAR -->
+        <!-- ✅ STATUS (FIXED IDs) -->
         <LinearLayout
             android:id="@+id/statusLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="12dp"
-            android:orientation="horizontal"
+            android:background="@drawable/bg_green_status"
             android:gravity="center_vertical"
-            android:padding="15dp"
-            android:background="@drawable/bg_green_status">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/iv_statusIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:src="@drawable/rs_circle" />
+                android:src="@drawable/rs_right"/>
 
             <TextView
                 android:id="@+id/tv_statusText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="You are currently available to donate"
+                android:text="You're eligible to Donate"
                 android:textColor="#FFFFFF"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
         </LinearLayout>
 
-        <!-- 🔍 SEARCH BAR -->
+        <!-- 🔴 NEARBY DONORS -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_location" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nearby donors"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 🩸 SERVICES -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_search_bar"
-            android:elevation="2dp"
-            android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="12dp">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/ic_location" />
-
-            <EditText
-                android:id="@+id/et_search_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="Search City/Hospital"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/rs_mic" />
-        </LinearLayout>
-
-        <!-- 🔳 SERVICES GRID -->
-        <GridLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:columnCount="2"
-            android:rowCount="2">
-
-            <!-- Find Donors -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_find_donors"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="3dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/rs_blooddrop1" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Find Donors"
-                        android:textColor="#212529"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            android:weightSum="2">
 
             <!-- Blood Banks -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_blood_banks"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/rs_bloodbank" />
+                        android:src="@drawable/rs_bloodbank"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Blood Banks"
-                        android:textColor="#212529"
-                        android:textStyle="bold" />
+                        android:text="Blood banks"
+                        android:textStyle="bold"
+                        android:layout_marginTop="6dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Hospitals -->
+            <!-- Hospital -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_hospitals"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:layout_margin="6dp"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:src="@drawable/rs_1hospital" />
+                        android:src="@drawable/rs_1hospital"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Hospitals"
-                        android:textColor="#212529"
-                        android:textStyle="bold" />
+                        android:text="Hospital"
+                        android:textStyle="bold"
+                        android:layout_marginTop="6dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-            <!-- Health Tips -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cv_health_tips"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="3dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:src="@drawable/rs_heartlogo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="Health Tips"
-                        android:textColor="#212529"
-                        android:textStyle="bold" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </GridLayout>
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

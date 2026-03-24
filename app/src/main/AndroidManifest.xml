@@ -16,6 +16,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RaktSaathi">
         <activity
+            android:name=".RequestBloodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DonateBloodActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationActivity"
+            android:exported="false" />
+        <activity
             android:name=".Reset_PasswordActivity"
             android:exported="false" />
         <activity
@@ -26,9 +35,6 @@
             android:exported="false" />
         <activity
             android:name=".IntroScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MyProfileActivity"
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
