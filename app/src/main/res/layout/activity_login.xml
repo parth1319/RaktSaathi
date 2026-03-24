@@ -15,12 +15,12 @@
         android:layout_centerInParent="true"
         app:cardBackgroundColor="@android:color/white">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- Title -->
             <TextView
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -32,6 +32,7 @@
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center"/>
 
+            <!-- Email -->
             <EditText
                 android:id="@+id/email"
                 android:hint="E-mail / Phone Number"
@@ -42,24 +43,32 @@
                 android:inputType="textEmailAddress"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="15sp"
                 android:textSize="16sp"
                 android:layout_marginBottom="15dp"/>
 
-            <EditText
-                android:id="@+id/password"
-                android:hint="Password"
-                android:inputType="textPassword"
+            <!-- Password with eye toggle -->
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@drawable/edittext_bg"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:padding="12dp"
-                android:textSize="16sp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="5dp"
+                app:endIconMode="password_toggle">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/edittext_bg"
+                    android:padding="12dp"
+                    android:textSize="16sp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Forgot Password -->
             <TextView
+                android:id="@+id/forgotPassword"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="Forgot password ?"
@@ -67,8 +76,11 @@
                 android:textSize="12sp"
                 android:layout_gravity="end"
                 android:layout_marginEnd="15dp"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:clickable="true"
+                android:focusable="true"/>
 
+            <!-- Login Button -->
             <Button
                 android:id="@+id/loginbtnlogin"
                 android:text="Login"
@@ -85,10 +97,9 @@
                 android:textAlignment="center"
                 android:background="@drawable/round_btn_login"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                />
+                android:textStyle="bold"/>
 
+            <!-- OR -->
             <TextView
                 android:text="OR"
                 android:textAlignment="center"
@@ -97,6 +108,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"/>
 
+            <!-- Google Button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -110,8 +122,7 @@
                 <ImageView
                     android:src="@drawable/rs_google_icon"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"
-                   />
+                    android:layout_height="24dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -119,9 +130,10 @@
                     android:layout_marginStart="10dp"
                     android:text="Sign in with Google"
                     android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"/>
             </LinearLayout>
 
+            <!-- Signup -->
             <TextView
                 android:id="@+id/signupText"
                 android:layout_width="wrap_content"
@@ -134,9 +146,7 @@
                 android:layout_gravity="center"
                 android:padding="8dp"
                 android:clickable="true"
-                android:layout_marginBottom="8sp"
-                android:focusable="true"
-                android:background="?attr/selectableItemBackgroundBorderless"/>
+                android:focusable="true"/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

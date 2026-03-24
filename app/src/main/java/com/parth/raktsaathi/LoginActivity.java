@@ -1,9 +1,10 @@
 package com.parth.raktsaathi;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -11,22 +12,34 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import cz.msebera.android.httpclient.Header;
+
 public class LoginActivity extends AppCompatActivity {
 
     EditText email, password;
     Button loginbtnlogin;
     TextView signupText, forgotPassword;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login); // your XML file name
+        setContentView(R.layout.activity_login);
 
-        // 🔗 Bind Views
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        loginbtnlogin = findViewById(R.id.loginbtnlogin); // ⚠️ make sure ID exists
+        loginbtnlogin = findViewById(R.id.loginbtnlogin);
         signupText = findViewById(R.id.signupText);
+        forgotPassword = findViewById(R.id.forgotPassword);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging in...");
+        progressDialog.setCancelable(false);
 
         // 🔥 LOGIN BUTTON
         loginbtnlogin.setOnClickListener(v -> {
@@ -34,9 +47,8 @@ public class LoginActivity extends AppCompatActivity {
             String userEmail = email.getText().toString().trim();
             String userPassword = password.getText().toString().trim();
 
-            // ✅ Validation
             if (TextUtils.isEmpty(userEmail)) {
-                email.setError("Enter email or phone");
+                email.setError("Enter email");
                 return;
             }
 
@@ -45,34 +57,64 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
 
-            if (userPassword.length() < 6) {
-                password.setError("Password must be at least 6 characters");
-                return;
-            }
+            progressDialog.show();
 
-            // 🔥 SUCCESS LOGIN (for now dummy)
-            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+            AsyncHttpClient client = new AsyncHttpClient();
+            RequestParams params = new RequestParams();
+            params.put("email", userEmail);
+            params.put("password", userPassword);
 
-            // 👉 Go to HomeActivity (Eligible = true)
-            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-            intent.putExtra("isEligible", true);
-            startActivity(intent);
-            finish();
+            client.post(Urls.UserLoginWebServiceAddress, params, new AsyncHttpResponseHandler() {
+
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                    progressDialog.dismiss();
+
+                    String res = new String(responseBody).trim();
+
+                    if (res.equalsIgnoreCase("success")) {
+
+                        // 🔥 Save session
+                        SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("email", userEmail);
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.apply();
+
+                        Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        finish();
+
+                    } else if (res.equalsIgnoreCase("invalid_password")) {
+
+                        Toast.makeText(LoginActivity.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+
+                    } else {
+
+                        Toast.makeText(LoginActivity.this, "User Not Found", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                    progressDialog.dismiss();
+
+                    Toast.makeText(LoginActivity.this,
+                            "Server Error: " + error.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
         });
 
-        // 🔹 SIGN UP CLICK
-        signupText.setOnClickListener(v -> {
-            Intent intent = new Intent(LoginActivity.this, RegistrationActivity.class);
-            startActivity(intent);
-        });
+        signupText.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class))
+        );
 
-        // 🔹 FORGOT PASSWORD (optional)
-        // If you add id in XML, then uncomment
-        /*
-        forgotPassword = findViewById(R.id.forgotPassword);
-        forgotPassword.setOnClickListener(v -> {
-            Toast.makeText(this, "Forgot Password Clicked", Toast.LENGTH_SHORT).show();
-        });
-        */
+        forgotPassword.setOnClickListener(v ->
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class))
+        );
     }
 }

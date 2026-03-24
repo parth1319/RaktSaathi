@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parth.raktsaathi.Fragments.Find_DonorFragment;
 import com.parth.raktsaathi.Fragments.HomeFragment;
+import com.parth.raktsaathi.Fragments.ProfileFragment;
 import com.parth.raktsaathi.Fragments.RequestsFragment;
 
 import android.view.MenuItem;
@@ -110,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements
                     .commit();
 
         } else if (menuItem.getItemId() == R.id.homebottomnavProfile) {
-            Intent intent = new Intent(HomeActivity.this, MyProfileActivity.class);
+            Intent intent = new Intent(HomeActivity.this, ProfileFragment.class);
             startActivity(intent);
         }
 
