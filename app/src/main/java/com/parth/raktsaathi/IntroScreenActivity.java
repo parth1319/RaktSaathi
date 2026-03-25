@@ -22,7 +22,6 @@ public class IntroScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro_screen);
 
-        tvSkip = findViewById(R.id.tvSkip);
         btnLogin = findViewById(R.id.btnLogin);
         btnCreate = findViewById(R.id.btncreteaccIntroScrn);
 
@@ -32,13 +31,6 @@ public class IntroScreenActivity extends AppCompatActivity {
 
         btnCreate.setOnClickListener(v -> {
             startActivity(new Intent(IntroScreenActivity.this, RegistrationActivity.class));
-        });
-
-        tvSkip.setOnClickListener(v -> {
-            Intent intent = new Intent(IntroScreenActivity.this, HomeActivity.class);
-            intent.putExtra("isEligible", false);
-            startActivity(intent);
-            finish();
         });
     }
 }
