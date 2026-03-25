@@ -11,7 +11,6 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- 🔥 IMAGE SLIDER -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -25,7 +24,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- 🔥 STATUS UI (IMPORTANT IDs MATCHED) -->
         <LinearLayout
             android:id="@+id/statusLayout"
             android:layout_width="match_parent"
@@ -52,14 +50,12 @@
                 android:textColor="#000"/>
         </LinearLayout>
 
-        <!-- 🔥 DONATE + REQUEST -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="12dp">
 
-            <!-- DONATE -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnDonate"
                 android:layout_width="0dp"
@@ -93,7 +89,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- REQUEST -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnRequest"
                 android:layout_width="0dp"
@@ -128,7 +123,6 @@
 
         </LinearLayout>
 
-        <!-- 🔥 HEALTH TIPS -->
         <androidx.cardview.widget.CardView
             android:id="@+id/btnHealthTips"
             android:layout_width="match_parent"

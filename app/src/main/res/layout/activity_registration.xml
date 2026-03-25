@@ -106,7 +106,6 @@
                 android:layout_height="50dp"
                 android:hint="Confirm Password"
                 android:background="@drawable/edittext_bg"
-
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -14,12 +14,12 @@
         android:id="@+id/homeFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="90"/>
+        android:layout_weight="92"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="11"
+        android:layout_weight="8"
         android:id="@+id/homeBottomNavigationView"
         app:itemIconTint="@color/rs_buttons_colour"
         app:itemTextColor="#BA1717"

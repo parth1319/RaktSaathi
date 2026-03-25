@@ -24,7 +24,6 @@ public class DonateBloodActivity extends AppCompatActivity {
         location = findViewById(R.id.et_location);
         donate = findViewById(R.id.btn_donate);
 
-        // Spinner
         String[] bloodGroups = {"A+","A-","B+","B-","O+","O-","AB+","AB-"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, bloodGroups);

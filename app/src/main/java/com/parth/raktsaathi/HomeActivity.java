@@ -14,6 +14,7 @@ import com.parth.raktsaathi.Fragments.DonateFragment;
 import com.parth.raktsaathi.Fragments.HomeFragment;
 import com.parth.raktsaathi.Fragments.ProfileFragment;
 import com.parth.raktsaathi.Fragments.RequestFragment;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.view.MenuItem;
 
@@ -26,7 +27,6 @@ public class HomeActivity extends AppCompatActivity implements
     SharedPreferences.Editor editor;
     BottomNavigationView bottomNavigationView;
 
-    // Fragments
     HomeFragment homeFragment = new HomeFragment();
     RequestFragment requestsFragment = new RequestFragment();
     DonateFragment findDonorFragment = new DonateFragment();
@@ -34,6 +34,9 @@ public class HomeActivity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         setContentView(R.layout.activity_home);
 
         preferences = PreferenceManager.getDefaultSharedPreferences(HomeActivity.this);
@@ -51,7 +54,6 @@ public class HomeActivity extends AppCompatActivity implements
         bundle.putBoolean("isEligible", isEligible);
 
         homeFragment.setArguments(bundle);
-        // ✅ END
 
         bottomNavigationView = findViewById(R.id.homeBottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -62,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements
         } else {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.homeFrameLayout, homeFragment) // ✅ use same instance
+                    .replace(R.id.homeFrameLayout, homeFragment)
                     .commit();
             bottomNavigationView.setSelectedItemId(R.id.homebottomnavHome);
         }
@@ -93,7 +95,7 @@ public class HomeActivity extends AppCompatActivity implements
         if (menuItem.getItemId() == R.id.homebottomnavHome) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.homeFrameLayout, homeFragment) // ✅ keep same instance
+                    .replace(R.id.homeFrameLayout, homeFragment)
                     .commit();
 
         } else if (menuItem.getItemId() == R.id.homebottomnavRequests) {
