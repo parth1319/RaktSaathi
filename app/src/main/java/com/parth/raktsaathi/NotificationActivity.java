@@ -14,7 +14,6 @@ public class NotificationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification);
 
-        // 🔙 Back button
         backBtn = findViewById(R.id.btn_back);
 
         backBtn.setOnClickListener(v -> finish());

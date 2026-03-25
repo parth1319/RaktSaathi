@@ -3,7 +3,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!-- 🔔 Notification Icon -->
     <ImageView
         android:id="@+id/icon_notification"
         android:layout_width="24dp"
@@ -11,8 +10,8 @@
         android:src="@drawable/rs_notification"
         android:layout_gravity="center"/>
 
-    <!-- 🔴 Red Dot -->
     <TextView
+
         android:id="@+id/tv_badge"
         android:layout_width="10dp"
         android:layout_height="10dp"

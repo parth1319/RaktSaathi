@@ -20,25 +20,20 @@ public class IntroScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro_screen); // your XML file name
+        setContentView(R.layout.activity_intro_screen);
 
-        // Initialize views
         tvSkip = findViewById(R.id.tvSkip);
         btnLogin = findViewById(R.id.btnLogin);
         btnCreate = findViewById(R.id.btncreteaccIntroScrn);
 
-        // 🔹 Login Button
-        // Login
         btnLogin.setOnClickListener(v -> {
             startActivity(new Intent(IntroScreenActivity.this, LoginActivity.class));
         });
 
-// Create Account
         btnCreate.setOnClickListener(v -> {
             startActivity(new Intent(IntroScreenActivity.this, RegistrationActivity.class));
         });
 
-        // 🔹 Skip Now → Go to Home (MainActivity)
         tvSkip.setOnClickListener(v -> {
             Intent intent = new Intent(IntroScreenActivity.this, HomeActivity.class);
             intent.putExtra("isEligible", false);

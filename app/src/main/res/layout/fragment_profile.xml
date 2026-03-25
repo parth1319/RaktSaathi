@@ -10,7 +10,6 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <!-- 🔥 PROFILE HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -57,6 +56,8 @@
             android:layout_marginBottom="20dp">
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:text="Phone"
                 android:textStyle="bold"
                 android:textColor="#444"/>
@@ -70,6 +71,8 @@
                 android:layout_marginBottom="10dp"/>
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:text="Email"
                 android:textStyle="bold"
                 android:textColor="#444"/>
@@ -82,7 +85,6 @@
                 android:textColor="#666"/>
         </LinearLayout>
 
-        <!-- 🔥 EDIT BUTTON -->
         <Button
             android:id="@+id/editProfileBtn"
             android:text="Edit Profile"
@@ -94,7 +96,6 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/btn_red_gradient"/>
 
-        <!-- 🔥 LOGOUT BUTTON -->
         <Button
             android:id="@+id/logoutBtn"
             android:text="Logout"
@@ -105,7 +106,6 @@
             android:layout_height="55dp"
             android:background="@drawable/btn_dark_red"/>
 
-        <!-- 🔥 APP INFO -->
         <TextView
             android:id="@+id/appInfo"
             android:layout_width="match_parent"

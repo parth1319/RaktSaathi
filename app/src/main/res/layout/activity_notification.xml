@@ -5,7 +5,6 @@
     android:orientation="vertical"
     android:background="#F8F9FA">
 
-    <!-- 🔝 TOP BAR -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -16,7 +15,6 @@
             android:id="@+id/btn_back"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:tint="#FFFFFF"
             android:layout_centerVertical="true"/>
 
         <TextView
@@ -29,7 +27,6 @@
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
-    <!-- 📩 EMPTY STATE -->
     <LinearLayout
         android:id="@+id/emptyLayout"
         android:layout_width="match_parent"

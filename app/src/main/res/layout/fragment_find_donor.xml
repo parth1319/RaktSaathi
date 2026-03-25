@@ -6,7 +6,6 @@
     android:background="#F8F9FA"
     android:padding="16dp">
 
-    <!-- 🔍 SEARCH -->
     <Spinner
         android:id="@+id/sp_blood"
         android:layout_width="match_parent"
@@ -31,7 +30,6 @@
         android:textColor="#FFFFFF"
         android:backgroundTint="#D32F2F"/>
 
-    <!-- 📋 LIST -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_donors"
         android:layout_width="match_parent"

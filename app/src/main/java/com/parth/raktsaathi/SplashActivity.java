@@ -11,7 +11,7 @@ import com.parth.raktsaathi.R;
 
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int SPLASH_TIME = 2000; // 2 seconds
+    private static final int SPLASH_TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

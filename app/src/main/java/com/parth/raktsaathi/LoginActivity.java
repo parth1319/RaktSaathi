@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(false);
 
-        // 🔥 LOGIN BUTTON
         loginbtnlogin.setOnClickListener(v -> {
 
             String userEmail = email.getText().toString().trim();
@@ -75,7 +74,6 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (res.equalsIgnoreCase("success")) {
 
-                        // 🔥 Save session
                         SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("email", userEmail);

@@ -46,7 +46,6 @@
                 android:textSize="16sp"
                 android:layout_marginBottom="15dp"/>
 
-            <!-- Password with eye toggle -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +65,6 @@
                     android:textSize="16sp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Forgot Password -->
             <TextView
                 android:id="@+id/forgotPassword"
                 android:layout_height="wrap_content"
@@ -80,7 +78,6 @@
                 android:clickable="true"
                 android:focusable="true"/>
 
-            <!-- Login Button -->
             <Button
                 android:id="@+id/loginbtnlogin"
                 android:text="Login"
@@ -99,7 +96,6 @@
                 android:textSize="16sp"
                 android:textStyle="bold"/>
 
-            <!-- OR -->
             <TextView
                 android:text="OR"
                 android:textAlignment="center"
@@ -108,7 +104,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"/>
 
-            <!-- Google Button -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -133,7 +128,6 @@
                     android:textSize="14sp"/>
             </LinearLayout>
 
-            <!-- Signup -->
             <TextView
                 android:id="@+id/signupText"
                 android:layout_width="wrap_content"

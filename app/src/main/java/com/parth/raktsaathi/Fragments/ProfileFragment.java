@@ -20,7 +20,6 @@ public class ProfileFragment extends Fragment {
     Button logoutBtn, editBtn;
 
     public ProfileFragment() {
-        // Required empty constructor
     }
 
     @Override
@@ -42,12 +41,10 @@ public class ProfileFragment extends Fragment {
         String userEmail = sp.getString("email", "User");
         String userPhone = sp.getString("phone", "Not Available");
 
-        // 🔥 Set data
         name.setText(userEmail); // later name add karu
         email.setText(userEmail);
         phone.setText(userPhone);
 
-        // 🔥 Logout
         logoutBtn.setOnClickListener(v -> {
 
             SharedPreferences.Editor editor = sp.edit();
@@ -58,9 +55,7 @@ public class ProfileFragment extends Fragment {
             getActivity().finish();
         });
 
-        // 🔥 Edit Profile (future use)
         editBtn.setOnClickListener(v -> {
-            // future screen
         });
 
         return view;

@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RaktSaathi">
         <activity
+            android:name=".SliderAdapterActivity"
+            android:exported="false" />
+        <activity
             android:name=".RequestBloodActivity"
             android:exported="false" />
         <activity

@@ -25,7 +25,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
-        // 🔗 Bind Views
         email = findViewById(R.id.forgotEmail);
         sendOtpBtn = findViewById(R.id.sendOtpBtn);
 
@@ -33,19 +32,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
             String userEmail = email.getText().toString().trim();
 
-            // ✅ Validation
             if (TextUtils.isEmpty(userEmail)) {
                 email.setError("Enter Email");
                 return;
             }
 
-            // 🔥 API CALL
             AsyncHttpClient client = new AsyncHttpClient();
 
             RequestParams params = new RequestParams();
             params.put("email", userEmail);
 
-            client.post(Urls.ForgotPasswordWebServiceAddress, params,
+            client.post(Urls.ResetPasswordWebServiceAddress, params,
                     new AsyncHttpResponseHandler() {
 
                         @Override
@@ -57,7 +54,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     "OTP Sent Successfully",
                                     Toast.LENGTH_SHORT).show();
 
-                            // 👉 Next screen
                             Intent intent = new Intent(ForgotPasswordActivity.this, VerifyOTP_Activity.class);
                             intent.putExtra("email", userEmail);
                             intent.putExtra("otp", otp);

@@ -42,7 +42,7 @@ public class DonateBloodActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
 
         RequestParams params = new RequestParams();
-        params.put("user_id", "1"); // 🔥 replace with logged user id
+        params.put("user_id", "1"); // Replace with actual user ID
         params.put("blood_group", sBlood);
         params.put("units", sUnits);
         params.put("location", sLocation);

@@ -4,32 +4,26 @@ public class Urls {
 
     public static final String UserRegistrationWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/users_registration.php";
-    public static final String UserLoginWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/users_login.php";
-
-    public static final String ForgotPasswordWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/forgot_password.php";
-
-    public static final String ResetPasswordWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/forgot_password.php";
-
+    public static final String Send_OTPWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/send_otp.php";
     public static final String VerifyOTPWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/verify_otp.php";
-
-    public static final String SendOTPWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/send_otp.php";
-
+    public static final String ResetPasswordWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/reset_password.php";
+    public static final String UserLoginWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/user_login.php";
     public static final String DonateBloodWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/donate_blood.php";
-
     public static final String RequestBloodWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/request_blood.php";
-
-    public static final String GetDonorsWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/get_donors.php";
     public static final String Find_DonorFragmentWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/find_donor.php";
+    public static final String Match_RequestWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/match_request.php";
+    public static final String Get_NotificationWebServiceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI?action=get_notification";
 
-
+    public static final String Update_Donation_StatusWebServiceAddress =
+        "http://172.17.155.98:80/RaktsaathiAPI/update_donation_status.php";
 
 }

@@ -1,5 +1,6 @@
 package com.parth.raktsaathi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -11,26 +12,26 @@ import cz.msebera.android.httpclient.Header;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText name, phone, email, location, password, confirmPassword;
+    EditText name, phone, email, location, password, confirmPassword ,lastdonationdate;
     Spinner blood;
     Button register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setDecorFitsSystemWindows(true);
         setContentView(R.layout.activity_registration);
 
-        // 🔗 Bind views
         name = findViewById(R.id.et_name);
         phone = findViewById(R.id.et_phone);
         email = findViewById(R.id.et_email);
         location = findViewById(R.id.et_location);
         password = findViewById(R.id.et_password);
+        lastdonationdate = findViewById(R.id.et_lastdonationdate);
         confirmPassword = findViewById(R.id.et_confirm_password);
         blood = findViewById(R.id.sp_blood);
         register = findViewById(R.id.btn_register);
 
-        // 🩸 Spinner setup
         String[] bloodGroups = {"Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -38,7 +39,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         blood.setAdapter(adapter);
 
-        // 🔥 Button click
         register.setOnClickListener(v -> registerUser());
     }
 
@@ -47,6 +47,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String sName = name.getText().toString();
         String sPhone = phone.getText().toString();
         String sEmail = email.getText().toString();
+        String sLastDonationDate = lastdonationdate.getText().toString();
+
         String sLocation = location.getText().toString();
         String sPassword = password.getText().toString();
         String sConfirm = confirmPassword.getText().toString();
@@ -65,6 +67,7 @@ public class RegistrationActivity extends AppCompatActivity {
         params.put("email", sEmail);
         params.put("password", sPassword);
         params.put("blood_group", sBlood);
+        params.put("last_donation_date", sLastDonationDate);
         params.put("location", sLocation);
 
         client.post(Urls.UserRegistrationWebServiceAddress, params,
@@ -72,7 +75,10 @@ public class RegistrationActivity extends AppCompatActivity {
 
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        Toast.makeText(RegistrationActivity.this, "Registered Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegistrationActivity.this, "Registered Successfully Done", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
 
                     @Override

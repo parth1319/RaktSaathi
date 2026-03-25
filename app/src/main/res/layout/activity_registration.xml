@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA">
+    android:background="#F8F9FA"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="20dp"
+        android:paddingTop="50dp"
+        android:layout_marginTop="50dp">
 
-        <!-- 🔴 TITLE -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,7 +23,6 @@
             android:textColor="#B71C1C"
             android:layout_marginBottom="20dp"/>
 
-        <!-- 👤 NAME -->
         <EditText
             android:id="@+id/et_name"
             android:layout_width="match_parent"
@@ -31,7 +32,6 @@
             android:padding="12dp"
             android:layout_marginBottom="10dp"/>
 
-        <!-- 📞 PHONE -->
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
@@ -52,15 +52,23 @@
             android:layout_marginBottom="10dp"/>
 
 
-        <!-- 🩸 BLOOD GROUP -->
         <Spinner
             android:id="@+id/sp_blood"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@drawable/edittext_bg"
             android:layout_marginBottom="10dp"/>
+        <EditText
+            android:id="@+id/et_lastdonationdate"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="Last Donation Date"
+            android:inputType="date"
+            android:background="@drawable/edittext_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"/>
 
-        <!-- 📍 LOCATION -->
+
         <EditText
             android:id="@+id/et_location"
             android:layout_width="match_parent"
@@ -70,7 +78,6 @@
             android:padding="12dp"
             android:layout_marginBottom="10dp"/>
 
-        <!-- 🔒 PASSWORD (WITH DEFAULT TOGGLE) -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,7 +94,6 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- 🔒 CONFIRM PASSWORD -->
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -104,7 +110,6 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- 🔴 BUTTON -->
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"

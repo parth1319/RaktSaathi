@@ -42,7 +42,7 @@ public class RequestBloodActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
 
         RequestParams params = new RequestParams();
-        params.put("user_id", "1"); // 🔥 replace later
+        params.put("user_id", "1");
         params.put("blood_group", sBlood);
         params.put("units", sUnits);
         params.put("location", sLocation);

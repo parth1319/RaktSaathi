@@ -1,7 +1,7 @@
 package com.parth.raktsaathi.Fragments;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class Find_DonorFragment extends Fragment {
+public class DonateFragment extends Fragment {
 
     Spinner spBlood;
     EditText etLocation;
@@ -32,7 +32,7 @@ public class Find_DonorFragment extends Fragment {
     ArrayList<DonorModel> list;
     DonorAdapter adapter;
 
-    public Find_DonorFragment() {}
+    public DonateFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

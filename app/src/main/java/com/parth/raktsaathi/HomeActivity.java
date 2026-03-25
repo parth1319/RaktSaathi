@@ -10,10 +10,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parth.raktsaathi.Fragments.Find_DonorFragment;
+import com.parth.raktsaathi.Fragments.DonateFragment;
 import com.parth.raktsaathi.Fragments.HomeFragment;
 import com.parth.raktsaathi.Fragments.ProfileFragment;
-import com.parth.raktsaathi.Fragments.RequestsFragment;
+import com.parth.raktsaathi.Fragments.RequestFragment;
 
 import android.view.MenuItem;
 
@@ -28,8 +28,8 @@ public class HomeActivity extends AppCompatActivity implements
 
     // Fragments
     HomeFragment homeFragment = new HomeFragment();
-    RequestsFragment requestsFragment = new RequestsFragment();
-    Find_DonorFragment findDonorFragment = new Find_DonorFragment();
+    RequestFragment requestsFragment = new RequestFragment();
+    DonateFragment findDonorFragment = new DonateFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,6 @@ public class HomeActivity extends AppCompatActivity implements
             welcome();
         }
 
-        // ✅ 🔥 NEW CODE (ADD THIS HERE)
         boolean isEligible = getIntent().getBooleanExtra("isEligible", false);
 
         Bundle bundle = new Bundle();
@@ -57,7 +56,6 @@ public class HomeActivity extends AppCompatActivity implements
         bottomNavigationView = findViewById(R.id.homeBottomNavigationView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
-        // Check if we should show a specific fragment
         String target = getIntent().getStringExtra("targetFragment");
         if (target != null && target.equals("Home")) {
             loadHomeFragment();

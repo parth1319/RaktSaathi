@@ -29,7 +29,6 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         otp = findViewById(R.id.otp);
         verifyBtn = findViewById(R.id.verifyBtn);
 
-        // 🔥 Get email from previous screen
         email = getIntent().getStringExtra("email");
 
         verifyBtn.setOnClickListener(v -> {
