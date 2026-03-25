@@ -43,16 +43,16 @@ public class LoginActivity extends AppCompatActivity {
 
         loginbtnlogin.setOnClickListener(v -> {
 
-            String userEmail = email.getText().toString().trim();
+            String userInput = email.getText().toString().trim(); // email OR mobile
             String userPassword = password.getText().toString().trim();
 
-            if (TextUtils.isEmpty(userEmail)) {
-                email.setError("Enter email");
+            if (TextUtils.isEmpty(userInput)) {
+                email.setError("Enter Email or Mobile");
                 return;
             }
 
             if (TextUtils.isEmpty(userPassword)) {
-                password.setError("Enter password");
+                password.setError("Enter Password");
                 return;
             }
 
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
             AsyncHttpClient client = new AsyncHttpClient();
             RequestParams params = new RequestParams();
-            params.put("email", userEmail);
+            params.put("email", userInput); // backend already handles email/mobile
             params.put("password", userPassword);
 
             client.post(Urls.UserLoginWebServiceAddress, params, new AsyncHttpResponseHandler() {
@@ -74,15 +74,18 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (res.equalsIgnoreCase("success")) {
 
-                        SharedPreferences sp = getSharedPreferences("user_session", MODE_PRIVATE);
+                        // ✅ SINGLE SharedPreferences (FIXED)
+                        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("email", userEmail);
+                        editor.putString("user_input", userInput);
                         editor.putBoolean("isLoggedIn", true);
                         editor.apply();
 
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                        // ✅ Move to HomeActivity
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(intent);
                         finish();
 
                     } else if (res.equalsIgnoreCase("invalid_password")) {

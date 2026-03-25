@@ -10,6 +10,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#B71C1C"
+            android:title="Raktsaathi+"
+            android:titleTextColor="#FFFFFF"/>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -20,7 +27,7 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
         </androidx.cardview.widget.CardView>
 

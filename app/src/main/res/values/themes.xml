@@ -1,23 +1,26 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#B71C1C</item>
-    </style>
 
-    <!-- Main App Theme -->
-    <style name="Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- colors -->
+    <!-- Base Theme (NO ACTION BAR) -->
+    <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">#B71C1C</item>
         <item name="colorPrimaryVariant">#7F0000</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
         <item name="android:statusBarColor">#7F0000</item>
     </style>
 
-    <style name="Theme.Mode" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <item name="android:textColor">#FFFFFF</item>
+    <!-- Main App Theme -->
+    <style name="Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">#B71C1C</item>
+        <item name="colorPrimaryVariant">#7F0000</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+
+        <item name="android:statusBarColor">#7F0000</item>
     </style>
 
-    <style name="ShowActionBar" parent="Theme.MaterialComponents.Light">
+    <!-- Optional Dark Mode -->
+    <style name="Theme.Mode" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
 </resources>

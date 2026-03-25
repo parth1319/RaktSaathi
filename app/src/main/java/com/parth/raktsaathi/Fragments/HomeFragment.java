@@ -15,6 +15,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
@@ -41,10 +43,11 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {   // ✅ FIXED
+                             Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        Toolbar toolbar = view.findViewById(R.id.toolbarHome);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
         if (getActivity() != null) {
@@ -75,6 +78,7 @@ public class HomeFragment extends Fragment {
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
+                if (slider == null) return;
                 int current = slider.getCurrentItem();
                 int total = adapter.getItemCount();
 
@@ -90,17 +94,21 @@ public class HomeFragment extends Fragment {
 
         handler.postDelayed(runnable, 3000);
 
-        // 🔥 BUTTON NAVIGATION (CORRECT WAY)
-        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.homebottomnavHome);
-
+        // 🔥 BUTTON NAVIGATION
         CardView btnDonate = view.findViewById(R.id.btnDonate);
         CardView btnRequest = view.findViewById(R.id.btnRequest);
 
-        btnDonate.setOnClickListener(v ->
-                bottomNav.setSelectedItemId(R.id.homebottomnavDonate));
+        if (getActivity() != null) {
+            BottomNavigationView bottomNav = getActivity().findViewById(R.id.homeBottomNavigationView);
 
-        btnRequest.setOnClickListener(v ->
-                bottomNav.setSelectedItemId(R.id.homebottomnavRequests));
+            if (bottomNav != null) {
+                btnDonate.setOnClickListener(v ->
+                        bottomNav.setSelectedItemId(R.id.homebottomnavDonate));
+
+                btnRequest.setOnClickListener(v ->
+                        bottomNav.setSelectedItemId(R.id.homebottomnavRequests));
+            }
+        }
 
         return view;
     }
@@ -110,12 +118,14 @@ public class HomeFragment extends Fragment {
         inflater.inflate(R.menu.toolbar_menu, menu);
 
         MenuItem item = menu.findItem(R.id.action_notification);
-        View actionView = item.getActionView();
+        if (item != null) {
+            View actionView = item.getActionView();
 
-        if (actionView != null) {
-            badgeText = actionView.findViewById(R.id.tv_badge);
-            actionView.setOnClickListener(v -> onOptionsItemSelected(item));
-            updateBadge();
+            if (actionView != null) {
+                badgeText = actionView.findViewById(R.id.tv_badge);
+                actionView.setOnClickListener(v -> onOptionsItemSelected(item));
+                updateBadge();
+            }
         }
 
         super.onCreateOptionsMenu(menu, inflater);
@@ -141,6 +151,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void updateStatusUI() {
+        if (statusLayout == null) return;
+        
         if (isEligible) {
             statusLayout.setBackgroundResource(R.drawable.bg_green_status);
             statusText.setText("You're eligible to Donate");
@@ -150,5 +162,14 @@ public class HomeFragment extends Fragment {
             statusText.setText("You're not eligible to Donate");
             statusIcon.setImageResource(R.drawable.rs_crossss);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (handler != null) {
+            handler.removeCallbacksAndMessages(null);
+        }
+        slider = null;
     }
 }

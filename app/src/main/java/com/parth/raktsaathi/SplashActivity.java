@@ -1,27 +1,27 @@
+// C:\Users\PARTH\AndroidStudioProjects\RaktSaathi\app\src\main\java\com\parth\raktsaathi\SplashActivity.java
+
 package com.parth.raktsaathi;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.parth.raktsaathi.IntroScreenActivity;
-import com.parth.raktsaathi.R;
-
 public class SplashActivity extends AppCompatActivity {
-
-    private static final int SPLASH_TIME = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashActivity.this, IntroScreenActivity.class);
-            startActivity(intent);
-            finish();
-        }, SPLASH_TIME);
+        // Check if user is already logged in
+        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+        boolean isLoggedIn = sp.getBoolean("isLoggedIn", false);
+
+        if (isLoggedIn) {
+            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+        } else {
+            startActivity(new Intent(SplashActivity.this, IntroScreenActivity.class));
+        }
+        finish();
     }
 }
