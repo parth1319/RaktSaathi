@@ -26,4 +26,6 @@ public class Urls {
     public static final String Update_Donation_StatusWebServiceAddress =
         "http://172.17.155.98:80/RaktsaathiAPI/update_donation_status.php";
 
+    public static final String BloodDonorsWebSerivceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/blooddonors.php";
 }

@@ -10,9 +10,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,14 +25,6 @@ import com.parth.raktsaathi.SliderAdapter;
 
 public class HomeFragment extends Fragment {
 
-    private boolean isEligible = false;
-
-    private LinearLayout statusLayout;
-    private TextView statusText;
-    private ImageView statusIcon;
-
-    private TextView badgeText;
-
     private ViewPager2 slider;
     private Handler handler;
 
@@ -46,6 +35,8 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        // 🔥 Toolbar
         Toolbar toolbar = view.findViewById(R.id.toolbarHome);
         ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
@@ -54,14 +45,7 @@ public class HomeFragment extends Fragment {
             requireActivity().setTitle("Raktsaathi+");
         }
 
-        // STATUS UI
-        statusLayout = view.findViewById(R.id.statusLayout);
-        statusText = view.findViewById(R.id.tv_statusText);
-        statusIcon = view.findViewById(R.id.iv_statusIcon);
-
-        updateStatusUI();
-
-        // 🔥 SLIDER
+        // 🔥 Slider
         slider = view.findViewById(R.id.imageSlider);
 
         int[] images = {
@@ -79,6 +63,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void run() {
                 if (slider == null) return;
+
                 int current = slider.getCurrentItem();
                 int total = adapter.getItemCount();
 
@@ -94,9 +79,10 @@ public class HomeFragment extends Fragment {
 
         handler.postDelayed(runnable, 3000);
 
-        // 🔥 BUTTON NAVIGATION
+        // 🔥 Buttons
         CardView btnDonate = view.findViewById(R.id.btnDonate);
         CardView btnRequest = view.findViewById(R.id.btnRequest);
+        CardView btnHealthTips = view.findViewById(R.id.btnHealthTips);
 
         if (getActivity() != null) {
             BottomNavigationView bottomNav = getActivity().findViewById(R.id.homeBottomNavigationView);
@@ -110,24 +96,18 @@ public class HomeFragment extends Fragment {
             }
         }
 
+        // 🔥 Health Tips Click (optional)
+        btnHealthTips.setOnClickListener(v -> {
+            // Tu future madhe activity add karu shakto
+            // startActivity(new Intent(getActivity(), HealthTipsActivity.class));
+        });
+
         return view;
     }
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.toolbar_menu, menu);
-
-        MenuItem item = menu.findItem(R.id.action_notification);
-        if (item != null) {
-            View actionView = item.getActionView();
-
-            if (actionView != null) {
-                badgeText = actionView.findViewById(R.id.tv_badge);
-                actionView.setOnClickListener(v -> onOptionsItemSelected(item));
-                updateBadge();
-            }
-        }
-
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -140,28 +120,6 @@ public class HomeFragment extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void updateBadge() {
-        int notificationCount = 1;
-
-        if (badgeText == null) return;
-
-        badgeText.setVisibility(notificationCount > 0 ? View.VISIBLE : View.GONE);
-    }
-
-    private void updateStatusUI() {
-        if (statusLayout == null) return;
-        
-        if (isEligible) {
-            statusLayout.setBackgroundResource(R.drawable.bg_green_status);
-            statusText.setText("You're eligible to Donate");
-            statusIcon.setImageResource(R.drawable.rs_right);
-        } else {
-            statusLayout.setBackgroundResource(R.drawable.bg_red_status);
-            statusText.setText("You're not eligible to Donate");
-            statusIcon.setImageResource(R.drawable.rs_crossss);
-        }
     }
 
     @Override

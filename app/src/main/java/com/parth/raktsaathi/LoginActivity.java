@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
         loginbtnlogin.setOnClickListener(v -> {
 
-            String userInput = email.getText().toString().trim(); // email OR mobile
+            String userInput = email.getText().toString().trim();
             String userPassword = password.getText().toString().trim();
 
             if (TextUtils.isEmpty(userInput)) {
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
             AsyncHttpClient client = new AsyncHttpClient();
             RequestParams params = new RequestParams();
-            params.put("email", userInput); // backend already handles email/mobile
+            params.put("email", userInput);
             params.put("password", userPassword);
 
             client.post(Urls.UserLoginWebServiceAddress, params, new AsyncHttpResponseHandler() {
@@ -74,18 +74,16 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (res.equalsIgnoreCase("success")) {
 
-                        // ✅ SINGLE SharedPreferences (FIXED)
+                        // ✅ Save login
                         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();
-                        editor.putString("user_input", userInput);
                         editor.putBoolean("isLoggedIn", true);
                         editor.apply();
 
                         Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
-                        // ✅ Move to HomeActivity
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(intent);
+                        // ✅ Go to Home
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         finish();
 
                     } else if (res.equalsIgnoreCase("invalid_password")) {
