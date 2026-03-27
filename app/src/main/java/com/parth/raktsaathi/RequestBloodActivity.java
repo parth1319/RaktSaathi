@@ -47,7 +47,7 @@ public class RequestBloodActivity extends AppCompatActivity {
         params.put("units", sUnits);
         params.put("location", sLocation);
 
-        client.post(Urls.RequestBloodWebServiceAddress, params,
+        client.post(Urls.BloodRequestsWebSerivceAddress, params,
                 new AsyncHttpResponseHandler() {
 
                     @Override

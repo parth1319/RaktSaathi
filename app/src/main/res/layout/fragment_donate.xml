@@ -3,95 +3,157 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F2F2">
+    android:background="#F4F6F9">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp"
-        android:layout_marginTop="80sp">
+        android:padding="16dp"
+        android:layout_marginTop="40dp">
 
+        <!-- 🔴 TITLE -->
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:text="Donate Blood"
-            android:textSize="22sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#B71C1C"
-            android:layout_marginBottom="12dp"/>
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
+        <!-- 🧾 FORM CARD -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            app:cardCornerRadius="18dp"
+            app:cardElevation="8dp"
+            android:layout_marginBottom="16dp">
 
             <LinearLayout
+                android:id="@+id/formLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="18dp">
 
+                <!-- Name -->
                 <EditText
                     android:id="@+id/etName"
                     android:hint="Full Name"
+                    android:padding="12dp"
+                    android:background="@android:drawable/edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="12dp"/>
 
-                <EditText
-                    android:id="@+id/etAge"
-                    android:hint="Age"
-                    android:inputType="number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <Spinner
-                    android:id="@+id/spBlood"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
+                <!-- Mobile -->
                 <EditText
                     android:id="@+id/etMobile"
                     android:hint="Mobile Number"
                     android:inputType="phone"
+                    android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="12dp"/>
 
+                <!-- Age -->
+                <Spinner
+                    android:id="@+id/spAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- Blood -->
+                <Spinner
+                    android:id="@+id/spBlood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"/>
+
+                <!-- State -->
                 <Spinner
                     android:id="@+id/spState"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="12dp"/>
 
+                <!-- City -->
                 <Spinner
                     android:id="@+id/spCity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="12dp"/>
 
+                <!-- Address -->
                 <TextView
                     android:id="@+id/tvAddress"
+                    android:text="📍 Selected address will appear here"
+                    android:textColor="#444"
+                    android:background="#ECEFF1"
+                    android:padding="12dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Selected address will appear here"
-                    android:textStyle="bold"
-                    android:textColor="#333"
-                    android:background="#EDEDED"
-                    android:padding="10dp"
-                    android:layout_marginBottom="10dp"/>
+                    android:layout_marginBottom="14dp"/>
 
+                <!-- Submit -->
                 <Button
                     android:id="@+id/btnSubmit"
-                    android:text="Submit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:text="Submit Donation"
+                    android:textAllCaps="false"
+                    android:textSize="16sp"
                     android:backgroundTint="#B71C1C"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white"
+                    android:padding="14dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- ✅ SUCCESS CARD -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/successLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="6dp"
+            android:visibility="gone"
+            android:backgroundTint="#E8F5E9">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="🎉 Donation Saved Successfully"
+                    android:textColor="#2E7D32"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="If anyone needs blood, they will contact you."
+                    android:textColor="#444"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="14dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvStatusLink"
+                    android:text="🔔 See your updates in status bar"
+                    android:textColor="#1565C0"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
 

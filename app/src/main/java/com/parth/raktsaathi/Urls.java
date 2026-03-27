@@ -12,10 +12,6 @@ public class Urls {
             "http://172.17.155.98:80/RaktsaathiAPI/reset_password.php";
     public static final String UserLoginWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/user_login.php";
-    public static final String DonateBloodWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/donate_blood.php";
-    public static final String RequestBloodWebServiceAddress =
-            "http://172.17.155.98:80/RaktsaathiAPI/request_blood.php";
     public static final String Find_DonorFragmentWebServiceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/find_donor.php";
     public static final String Match_RequestWebServiceAddress =
@@ -24,8 +20,10 @@ public class Urls {
             "http://172.17.155.98:80/RaktsaathiAPI?action=get_notification";
 
     public static final String Update_Donation_StatusWebServiceAddress =
-        "http://172.17.155.98:80/RaktsaathiAPI/update_donation_status.php";
+            "http://172.17.155.98:80/RaktsaathiAPI/update_donation_status.php";
 
     public static final String BloodDonorsWebSerivceAddress =
             "http://172.17.155.98:80/RaktsaathiAPI/blooddonors.php";
+    public static final String BloodRequestsWebSerivceAddress =
+            "http://172.17.155.98:80/RaktsaathiAPI/bloodrequests.php";
 }

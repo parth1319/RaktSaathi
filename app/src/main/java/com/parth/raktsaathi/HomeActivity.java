@@ -9,6 +9,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parth.raktsaathi.Fragments.DonateFragment;
 import com.parth.raktsaathi.Fragments.HomeFragment;
 import com.parth.raktsaathi.Fragments.RequestFragment;
+import androidx.activity.OnBackPressedCallback;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -21,8 +22,16 @@ public class HomeActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.homeBottomNavigationView);
 
+        // 🔥 DEFAULT HOME FRAGMENT (LOGIN nantar direct open)
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.homeFrameLayout, new HomeFragment())
+                .commit();
 
+        // 🔥 Bottom nav highlight (Home selected)
+        bottomNav.setSelectedItemId(R.id.homebottomnavHome);
 
+        // 🔥 Bottom Navigation Click
         bottomNav.setOnItemSelectedListener(item -> {
 
             Fragment fragment = null;
@@ -41,10 +50,23 @@ public class HomeActivity extends AppCompatActivity {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.homeFrameLayout, fragment)
+                        .addToBackStack(null) // 🔥 BACK SUPPORT
                         .commit();
             }
 
             return true;
+        });
+
+        // 🔥 BACK BUTTON HANDLE
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    finish(); // app close
+                }
+            }
         });
     }
 }

@@ -1,5 +1,6 @@
 package com.parth.raktsaathi.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,22 +10,27 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.cardview.widget.CardView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.parth.raktsaathi.NotificationActivity;
 import com.parth.raktsaathi.R;
 import com.parth.raktsaathi.Urls;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import cz.msebera.android.httpclient.Header;
 
 public class DonateFragment extends Fragment {
 
-    EditText etName, etAge, etMobile;
-    Spinner spBlood, spState, spCity;
-    TextView tvAddress;
+    EditText etName, etMobile;
+    Spinner spBlood, spState, spCity, spAge;
+    LinearLayout formLayout;
+    CardView successLayout;
+    TextView tvStatusLink, tvAddress;
     Button btnSubmit;
 
     HashMap<String, String[]> cityMap;
@@ -37,157 +43,92 @@ public class DonateFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_donate, container, false);
 
-        // Bind Views
         etName = view.findViewById(R.id.etName);
-        etAge = view.findViewById(R.id.etAge);
         etMobile = view.findViewById(R.id.etMobile);
         spBlood = view.findViewById(R.id.spBlood);
         spState = view.findViewById(R.id.spState);
         spCity = view.findViewById(R.id.spCity);
+        spAge = view.findViewById(R.id.spAge);
         tvAddress = view.findViewById(R.id.tvAddress);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        formLayout = view.findViewById(R.id.formLayout);
+        successLayout = view.findViewById(R.id.successLayout);
+        tvStatusLink = view.findViewById(R.id.tvStatusLink);
 
-        // 🔴 Blood Spinner
-        String[] bloodGroups = {
-                "Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"
-        };
+        // 🔴 Blood
+        String[] bloodGroups = {"Select Blood","A+","A-","B+","B-","O+","O-","AB+","AB-"};
+        spBlood.setAdapter(new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, bloodGroups));
 
-        ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(
-                getContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                bloodGroups
-        );
-        spBlood.setAdapter(bloodAdapter);
+        // 🟢 Age Spinner (18–60)
+        ArrayList<String> ages = new ArrayList<>();
+        ages.add("Select Age");
+        for(int i=18; i<=60; i++){
+            ages.add(String.valueOf(i));
+        }
 
-        // 🔵 State Spinner
-        String[] states = {
-                "Select State",
-                "Maharashtra",
-                "Uttar Pradesh",
-                "Madhya Pradesh",
-                "Delhi",
-                "Gujarat",
-                "Karnataka"
-        };
+        spAge.setAdapter(new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, ages));
 
-        ArrayAdapter<String> stateAdapter = new ArrayAdapter<>(
-                getContext(),
-                android.R.layout.simple_spinner_dropdown_item,
-                states
-        );
-        spState.setAdapter(stateAdapter);
+        // 🔵 States
+        String[] states = {"Select State","Maharashtra","Uttar Pradesh","Gujarat"};
+        spState.setAdapter(new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_spinner_dropdown_item, states));
 
         // 🧠 City Map
         cityMap = new HashMap<>();
+        cityMap.put("Maharashtra", new String[]{"Mumbai","Pune","Latur"});
+        cityMap.put("Uttar Pradesh", new String[]{"Ayodhya","Lucknow"});
+        cityMap.put("Gujarat", new String[]{"Ahmedabad","Surat"});
 
-        cityMap.put("Maharashtra", new String[]{
-                "Mumbai","Pune","Nagpur","Nashik","Aurangabad","Solapur","Nashik",
-                "Kolhapur","Latur","Amravati","Akola","Washim","Nanded","Sangli","Buldhana"
-        });
-
-        cityMap.put("Uttar Pradesh", new String[]{
-                "Lucknow","Kanpur","Varanasi","Ayodhya","Agra","Meerut",
-                "Allahabad","Noida","Ghaziabad","Gorakhpur"
-        });
-
-        cityMap.put("Madhya Pradesh", new String[]{
-                "Bhopal","Indore","Gwalior","Jabalpur","Ujjain",
-                "Sagar","Satna","Rewa"
-        });
-
-        cityMap.put("Delhi", new String[]{
-                "New Delhi","North Delhi","South Delhi","East Delhi","West Delhi"
-        });
-
-        cityMap.put("Gujarat", new String[]{
-                "Ahmedabad","Surat","Vadodara","Rajkot","Bhavnagar",
-                "Jamnagar","Junagadh"
-        });
-
-        cityMap.put("Karnataka", new String[]{
-                "Bangalore","Mysore","Mangalore","Hubli","Belgaum",
-                "Davangere","Shimoga"
-        });
-
-        // 🔁 State → City
+        // State → City
         spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view1, int position, long id) {
-
-                String selectedState = spState.getSelectedItem().toString();
-
-                if(cityMap.containsKey(selectedState)) {
-
-                    String[] cities = cityMap.get(selectedState);
-
-                    ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(
-                            getContext(),
+            @Override public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
+                String state = spState.getSelectedItem().toString();
+                if(cityMap.containsKey(state)){
+                    spCity.setAdapter(new ArrayAdapter<>(getContext(),
                             android.R.layout.simple_spinner_dropdown_item,
-                            cities
-                    );
-
-                    spCity.setAdapter(cityAdapter);
+                            cityMap.get(state)));
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // 🔁 City → Address
+        // City → Address
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view12, int position, long id) {
-
+            @Override public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
                 String state = spState.getSelectedItem().toString();
                 String city = spCity.getSelectedItem().toString();
-
-                if(!state.equals("Select State")) {
+                if(!state.equals("Select State")){
                     tvAddress.setText(city + ", " + state);
                 }
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // 🚀 Submit
+        // Status click
+        tvStatusLink.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), NotificationActivity.class)));
+
+        // Submit
         btnSubmit.setOnClickListener(v -> {
 
-            String name = etName.getText().toString().trim();
-            String age = etAge.getText().toString().trim();
-            String mobile = etMobile.getText().toString().trim();
+            String name = etName.getText().toString();
+            String mobile = etMobile.getText().toString();
             String blood = spBlood.getSelectedItem().toString();
+            String age = spAge.getSelectedItem().toString();
             String state = spState.getSelectedItem().toString();
             String city = spCity.getSelectedItem().toString();
 
-            // Validation
             if(TextUtils.isEmpty(name)){
-                etName.setError("Enter Name");
+                etName.setError("Enter Name"); return;
+            }
+
+            if(age.equals("Select Age")){
+                Toast.makeText(getContext(),"Select Age",Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if(TextUtils.isEmpty(age)){
-                etAge.setError("Enter Age");
-                return;
-            }
-
-            if(blood.equals("Select Blood Group")){
-                Toast.makeText(getContext(), "Select Blood Group", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if(TextUtils.isEmpty(mobile)){
-                etMobile.setError("Enter Mobile");
-                return;
-            }
-
-            if(state.equals("Select State")){
-                Toast.makeText(getContext(), "Select State", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            // API Call
             AsyncHttpClient client = new AsyncHttpClient();
             RequestParams params = new RequestParams();
 
@@ -198,7 +139,7 @@ public class DonateFragment extends Fragment {
             params.put("city", city);
             params.put("state", state);
 
-            client.post(Urls.DonateBloodWebServiceAddress, params, new AsyncHttpResponseHandler() {
+            client.post(Urls.BloodDonorsWebSerivceAddress, params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -206,27 +147,16 @@ public class DonateFragment extends Fragment {
                     String res = new String(responseBody).trim();
 
                     if(res.equalsIgnoreCase("success")){
-                        Toast.makeText(getContext(), "Donor Registered", Toast.LENGTH_SHORT).show();
-
-                        // Reset
-                        etName.setText("");
-                        etAge.setText("");
-                        etMobile.setText("");
-                        spBlood.setSelection(0);
-                        spState.setSelection(0);
-                        tvAddress.setText("Selected address will appear here");
-
-                    } else {
-                        Toast.makeText(getContext(), "Failed", Toast.LENGTH_SHORT).show();
+                        formLayout.setVisibility(View.GONE);
+                        successLayout.setVisibility(View.VISIBLE);
                     }
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
                 }
             });
-
         });
 
         return view;
