@@ -1,110 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F2F2">
+    android:gravity="center"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp"
-        android:layout_marginTop="80sp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-
-        <!-- TITLE -->
         <TextView
-            android:text="Request Blood"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="#B71C1C"
-            android:layout_marginBottom="12dp"
+            android:id="@+id/tvDonorsAvailable"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:padding="16dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <!-- Patient Name -->
-                <EditText
-                    android:id="@+id/etPatientName"
-                    android:hint="Patient Name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- Blood -->
-                <Spinner
-                    android:id="@+id/spBlood"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- Units -->
-                <EditText
-                    android:id="@+id/etUnits"
-                    android:hint="Units Required"
-                    android:inputType="number"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- Mobile -->
-                <EditText
-                    android:id="@+id/etMobile"
-                    android:hint="Contact Number"
-                    android:inputType="phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- State -->
-                <Spinner
-                    android:id="@+id/spState"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- City -->
-                <Spinner
-                    android:id="@+id/spCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- Address -->
-                <TextView
-                    android:id="@+id/tvAddress"
-                    android:text="Selected address will appear here"
-                    android:padding="10dp"
-                    android:background="#EDEDED"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"/>
-
-                <!-- Submit -->
-                <Button
-                    android:id="@+id/btnSubmit"
-                    android:text="Request Blood"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#B71C1C"
-                    android:textColor="@android:color/white"/>
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/poppins_bold"
+            android:text="Blood Requests"
+            android:textColor="@color/rs_heading_color"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
-</ScrollView>
+</LinearLayout>
