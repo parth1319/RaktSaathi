@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parth.raktsaathi.Fragments.DonateFragment;
 import com.parth.raktsaathi.Fragments.HomeFragment;
+import com.parth.raktsaathi.Fragments.ProfileFragment;
 import com.parth.raktsaathi.Fragments.RequestFragment;
 import androidx.activity.OnBackPressedCallback;
 
@@ -22,7 +23,6 @@ public class HomeActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.homeBottomNavigationView);
 
-        // 🔥 DEFAULT HOME FRAGMENT (LOGIN nantar direct open)
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.homeFrameLayout, new HomeFragment())
@@ -44,6 +44,9 @@ public class HomeActivity extends AppCompatActivity {
             }
             else if (item.getItemId() == R.id.homebottomnavRequests) {
                 fragment = new RequestFragment();
+            }
+            else if (item.getItemId() == R.id.homebottomnavProfile) {
+                fragment = new ProfileFragment();
             }
 
             if (fragment != null) {

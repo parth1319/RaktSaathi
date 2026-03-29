@@ -1,120 +1,113 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/rs_bg_color">
+    android:background="#F5F5F5">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:layout_marginTop="70sp">
+        android:padding="20dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/bg_card_white"
-            android:padding="20dp"
-            android:layout_marginBottom="15dp">
+        <!-- 🔥 PROFILE IMAGE -->
+        <ImageView
+            android:id="@+id/imgProfile"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="center"
+            android:src="@drawable/rs_profilelogo"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="15dp"/>
 
-            <ImageView
-                android:id="@+id/profileImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_launcher_foreground"
-                android:background="@drawable/rs_circle"
-                android:padding="10dp"/>
-
-            <TextView
-                android:id="@+id/profileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Parth Pande"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/profileEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="email@gmail.com"
-                android:textColor="#777"
-                android:textSize="13sp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/infoCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/bg_card_white"
-            android:padding="15dp"
-            android:layout_marginBottom="20dp">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Phone"
-                android:textStyle="bold"
-                android:textColor="#444"/>
-
-            <TextView
-                android:id="@+id/profilePhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="9623320368"
-                android:textColor="#666"
-                android:layout_marginBottom="10dp"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Email"
-                android:textStyle="bold"
-                android:textColor="#444"/>
-
-            <TextView
-                android:id="@+id/profileEmailCard"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="email@gmail.com"
-                android:textColor="#666"/>
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/editProfileBtn"
-            android:text="Edit Profile"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/btn_red_gradient"/>
-
-        <Button
-            android:id="@+id/logoutBtn"
-            android:text="Logout"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/btn_dark_red"/>
-
+        <!-- 🔥 NAME -->
         <TextView
-            android:id="@+id/appInfo"
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Parth Pande"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/rs_buttons_colour"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"/>
+
+        <!-- 🔥 CARD -->
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="RaktSaathi+ ❤️\nHelping people find blood donors easily."
-            android:textColor="#999"
-            android:textSize="12sp"
-            android:gravity="center"
-            android:layout_marginTop="25dp"/>
+            app:cardCornerRadius="18dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:id="@+id/tvMobile"
+                    android:text="📞 9876543210"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:id="@+id/tvEmail"
+                    android:text="📧 user@email.com"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="#000000"/>
+
+                <TextView
+                    android:id="@+id/tvBlood"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:text="🩸 B+"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/rs_buttons_colour"
+                    android:layout_marginBottom="8dp"/>
+
+                <TextView
+                    android:id="@+id/tvCity"
+                    android:layout_height="match_parent"
+                    android:layout_width="match_parent"
+                    android:text="📍 Pune"
+                    android:textSize="15sp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <!-- 🔥 EDIT BUTTON (MAIN) -->
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="Edit Profile"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginTop="25dp"
+            android:backgroundTint="@color/rs_buttons_colour"/>
+
+        <!-- 🔥 LOGOUT (SUBTLE / CORNER STYLE) -->
+        <TextView
+            android:id="@+id/btnLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"/>
 
     </LinearLayout>
 

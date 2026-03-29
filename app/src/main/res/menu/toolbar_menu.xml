@@ -6,5 +6,6 @@
         android:id="@+id/action_notification"
         android:icon="@drawable/rs_notification"
         android:title="Notifications"
-        app:showAsAction="always"/>
+        app:showAsAction="always"
+        android:fitsSystemWindows="true"/>
 </menu>
