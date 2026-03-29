@@ -1,131 +1,115 @@
 package com.parth.raktsaathi.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.cardview.widget.CardView;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-import com.parth.raktsaathi.NotificationActivity;
+import com.loopj.android.http.*;
 import com.parth.raktsaathi.R;
 import com.parth.raktsaathi.Urls;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 import cz.msebera.android.httpclient.Header;
 
 public class DonateFragment extends Fragment {
 
     EditText etName, etMobile;
-    Spinner spBlood, spState, spCity, spAge;
-    LinearLayout formLayout;
-    CardView successLayout;
-    TextView tvStatusLink, tvAddress;
+    Spinner spAge, spBlood, spState, spCity;
+    TextView tvAddress;
     Button btnSubmit;
 
     HashMap<String, String[]> cityMap;
 
-    public DonateFragment() {}
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_donate, container, false);
 
+        // 🔥 Bind
         etName = view.findViewById(R.id.etName);
         etMobile = view.findViewById(R.id.etMobile);
+        spAge = view.findViewById(R.id.spAge);
         spBlood = view.findViewById(R.id.spBlood);
         spState = view.findViewById(R.id.spState);
         spCity = view.findViewById(R.id.spCity);
-        spAge = view.findViewById(R.id.spAge);
         tvAddress = view.findViewById(R.id.tvAddress);
         btnSubmit = view.findViewById(R.id.btnSubmit);
-        formLayout = view.findViewById(R.id.formLayout);
-        successLayout = view.findViewById(R.id.successLayout);
-        tvStatusLink = view.findViewById(R.id.tvStatusLink);
 
-        // 🔴 Blood
-        String[] bloodGroups = {"Select Blood","A+","A-","B+","B-","O+","O-","AB+","AB-"};
-        spBlood.setAdapter(new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, bloodGroups));
+        // 🔥 BLOOD GROUP
+        String[] blood = {"Select Blood","A+","B+","O+","AB+","A-","B-","O-","AB-"};
+        spBlood.setAdapter(new ArrayAdapter<>(requireContext(),
+                android.R.layout.simple_spinner_dropdown_item, blood));
 
-        // 🟢 Age Spinner (18–60)
+        // 🔥 AGE
         ArrayList<String> ages = new ArrayList<>();
         ages.add("Select Age");
-        for(int i=18; i<=60; i++){
-            ages.add(String.valueOf(i));
-        }
+        for(int i=18;i<=60;i++) ages.add(String.valueOf(i));
 
-        spAge.setAdapter(new ArrayAdapter<>(getContext(),
+        spAge.setAdapter(new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_dropdown_item, ages));
 
-        // 🔵 States
-        String[] states = {"Select State","Maharashtra","Uttar Pradesh","Gujarat"};
-        spState.setAdapter(new ArrayAdapter<>(getContext(),
+        // 🔥 STATE
+        String[] states = {"Select State","Maharashtra","UP","MP","Delhi","Gujarat","Karnataka"};
+        spState.setAdapter(new ArrayAdapter<>(requireContext(),
                 android.R.layout.simple_spinner_dropdown_item, states));
 
-        // 🧠 City Map
+        // 🔥 CITY MAP
         cityMap = new HashMap<>();
-        cityMap.put("Maharashtra", new String[]{"Mumbai","Pune","Latur"});
-        cityMap.put("Uttar Pradesh", new String[]{"Ayodhya","Lucknow"});
+        cityMap.put("Maharashtra", new String[]{"Pune","Mumbai","Nagpur","Akola"});
+        cityMap.put("UP", new String[]{"Lucknow","Ayodhya","Kanpur"});
+        cityMap.put("MP", new String[]{"Bhopal","Indore"});
+        cityMap.put("Delhi", new String[]{"New Delhi"});
         cityMap.put("Gujarat", new String[]{"Ahmedabad","Surat"});
+        cityMap.put("Karnataka", new String[]{"Bangalore","Mysore"});
 
-        // State → City
+        // 🔥 STATE → CITY
         spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view1, int position, long id) {
+
                 String state = spState.getSelectedItem().toString();
+
                 if(cityMap.containsKey(state)){
-                    spCity.setAdapter(new ArrayAdapter<>(getContext(),
+                    spCity.setAdapter(new ArrayAdapter<>(requireContext(),
                             android.R.layout.simple_spinner_dropdown_item,
                             cityMap.get(state)));
                 }
             }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // City → Address
+        // 🔥 ADDRESS AUTO
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-                String state = spState.getSelectedItem().toString();
-                String city = spCity.getSelectedItem().toString();
-                if(!state.equals("Select State")){
-                    tvAddress.setText(city + ", " + state);
-                }
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view12, int position, long id) {
+                String address = spCity.getSelectedItem()+" , "+spState.getSelectedItem();
+                tvAddress.setText(address);
             }
-            @Override public void onNothingSelected(AdapterView<?> parent) {}
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // Status click
-        tvStatusLink.setOnClickListener(v ->
-                startActivity(new Intent(getContext(), NotificationActivity.class)));
-
-        // Submit
+        // 🔥 SUBMIT
         btnSubmit.setOnClickListener(v -> {
 
             String name = etName.getText().toString();
             String mobile = etMobile.getText().toString();
-            String blood = spBlood.getSelectedItem().toString();
-            String age = spAge.getSelectedItem().toString();
-            String state = spState.getSelectedItem().toString();
-            String city = spCity.getSelectedItem().toString();
 
             if(TextUtils.isEmpty(name)){
-                etName.setError("Enter Name"); return;
+                etName.setError("Enter Name");
+                return;
             }
 
-            if(age.equals("Select Age")){
-                Toast.makeText(getContext(),"Select Age",Toast.LENGTH_SHORT).show();
+            if(TextUtils.isEmpty(mobile)){
+                etMobile.setError("Enter Mobile");
                 return;
             }
 
@@ -133,30 +117,32 @@ public class DonateFragment extends Fragment {
             RequestParams params = new RequestParams();
 
             params.put("name", name);
-            params.put("age", age);
-            params.put("blood", blood);
+            params.put("age", spAge.getSelectedItem().toString());
+            params.put("blood", spBlood.getSelectedItem().toString());
             params.put("mobile", mobile);
-            params.put("city", city);
-            params.put("state", state);
+            params.put("city", spCity.getSelectedItem().toString());
+            params.put("state", spState.getSelectedItem().toString());
 
             client.post(Urls.BloodDonorsWebSerivceAddress, params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    Toast.makeText(getContext(),"Donation Saved Successfully",Toast.LENGTH_LONG).show();
 
-                    String res = new String(responseBody).trim();
-
-                    if(res.equalsIgnoreCase("success")){
-                        formLayout.setVisibility(View.GONE);
-                        successLayout.setVisibility(View.VISIBLE);
-                    }
+                    // 🔥 CLEAR FORM
+                    etName.setText("");
+                    etMobile.setText("");
+                    spAge.setSelection(0);
+                    spBlood.setSelection(0);
+                    spState.setSelection(0);
                 }
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Error saving data",Toast.LENGTH_SHORT).show();
                 }
             });
+
         });
 
         return view;

@@ -26,14 +26,12 @@ public class RequestFragment extends Fragment {
     Spinner spBlood, spState, spCity;
     TextView tvAddress;
     Button btnSubmit;
-
     HashMap<String, String[]> cityMap;
 
     public RequestFragment() {}
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_requests, container, false);
 
@@ -46,87 +44,75 @@ public class RequestFragment extends Fragment {
         tvAddress = view.findViewById(R.id.tvAddress);
         btnSubmit = view.findViewById(R.id.btnSubmit);
 
-        // Blood
-        String[] bloodGroups = {"Select Blood","A+","A-","B+","B-","O+","O-","AB+","AB-"};
-        spBlood.setAdapter(new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, bloodGroups));
+        // Blood Group
+        String[] bloodGroups = {"Select Blood Group", "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"};
+        spBlood.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, bloodGroups));
 
-        // States
-        String[] states = {"Select State","Maharashtra","Uttar Pradesh","Gujarat"};
-        spState.setAdapter(new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, states));
+        // States & Cities
+        String[] states = {"Select State", "Maharashtra", "Uttar Pradesh", "Gujarat"};
+        spState.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, states));
 
-        // City Map
         cityMap = new HashMap<>();
-        cityMap.put("Maharashtra", new String[]{"Latur","Pune","Mumbai"});
-        cityMap.put("Uttar Pradesh", new String[]{"Ayodhya","Lucknow"});
-        cityMap.put("Gujarat", new String[]{"Ahmedabad","Surat"});
+        cityMap.put("Maharashtra", new String[]{"Latur", "Pune", "Mumbai", "Nagpur"});
+        cityMap.put("Uttar Pradesh", new String[]{"Ayodhya", "Lucknow", "Kanpur"});
+        cityMap.put("Gujarat", new String[]{"Ahmedabad", "Surat", "Rajkot"});
 
-        // State → City
         spState.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
                 String state = spState.getSelectedItem().toString();
-                if(cityMap.containsKey(state)){
-                    spCity.setAdapter(new ArrayAdapter<>(getContext(),
-                            android.R.layout.simple_spinner_dropdown_item,
-                            cityMap.get(state)));
+                if (cityMap.containsKey(state)) {
+                    spCity.setAdapter(new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, cityMap.get(state)));
                 }
+                updateAddress();
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // City → Address
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View v, int pos, long id) {
-                String state = spState.getSelectedItem().toString();
-                String city = spCity.getSelectedItem().toString();
-                if(!state.equals("Select State")){
-                    tvAddress.setText(city + ", " + state);
-                }
+                updateAddress();
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
         // Submit
         btnSubmit.setOnClickListener(v -> {
-
             String name = etPatientName.getText().toString();
-            String units = etUnits.getText().toString();
-            String mobile = etMobile.getText().toString();
-            String blood = spBlood.getSelectedItem().toString();
-            String state = spState.getSelectedItem().toString();
-            String city = spCity.getSelectedItem().toString();
-
-            if(TextUtils.isEmpty(name)){
-                etPatientName.setError("Enter Name"); return;
-            }
+            if (TextUtils.isEmpty(name)) { etPatientName.setError("Enter Name"); return; }
 
             AsyncHttpClient client = new AsyncHttpClient();
             RequestParams params = new RequestParams();
-
-            params.put("patient", name);
-            params.put("blood", blood);
-            params.put("units", units);
-            params.put("mobile", mobile);
-            params.put("city", city);
-            params.put("state", state);
+            params.put("patient_name", name);
+            params.put("blood", spBlood.getSelectedItem().toString());
+            params.put("units", etUnits.getText().toString());
+            params.put("mobile", etMobile.getText().toString());
+            params.put("city", spCity.getSelectedItem().toString());
+            params.put("state", spState.getSelectedItem().toString());
 
             client.post(Urls.BloodRequestsWebSerivceAddress, params, new AsyncHttpResponseHandler() {
-
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    Toast.makeText(getContext(),"Request Sent",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Request Sent Successfully", Toast.LENGTH_SHORT).show();
                 }
-
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
                 }
             });
         });
 
         return view;
+    }
+
+    private void updateAddress() {
+        String state = spState.getSelectedItem().toString();
+        String city = (spCity.getSelectedItem() != null) ? spCity.getSelectedItem().toString() : "";
+        if (!state.equals("Select State")) {
+            tvAddress.setText(city + ", " + state);
+        } else {
+            tvAddress.setText("");
+        }
     }
 }
