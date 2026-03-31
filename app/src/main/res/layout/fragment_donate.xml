@@ -12,7 +12,6 @@
         android:padding="16dp"
         android:layout_marginTop="30dp">
 
-        <!-- TITLE -->
         <TextView
             android:text="Donate Blood"
             android:textSize="24sp"
@@ -23,7 +22,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-        <!-- CARD -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,7 +34,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <!-- NAME -->
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
@@ -47,7 +44,6 @@
                     android:padding="12dp"
                     android:textColorHint="@color/black"/>
 
-                <!-- MOBILE -->
                 <EditText
                     android:id="@+id/etMobile"
                     android:layout_width="match_parent"
@@ -59,7 +55,6 @@
                     android:padding="12dp"
                     android:textColorHint="@color/black"/>
 
-                <!-- AGE -->
                 <Spinner
                     android:id="@+id/spAge"
                     android:layout_width="match_parent"
@@ -67,7 +62,6 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_white"/>
 
-                <!-- BLOOD -->
                 <Spinner
                     android:id="@+id/spBlood"
                     android:layout_width="match_parent"
@@ -75,7 +69,6 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_white"/>
 
-                <!-- STATE -->
                 <Spinner
                     android:id="@+id/spState"
                     android:layout_width="match_parent"
@@ -83,7 +76,6 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_white"/>
 
-                <!-- CITY -->
                 <Spinner
                     android:id="@+id/spCity"
                     android:layout_width="match_parent"
@@ -91,7 +83,6 @@
                     android:layout_marginBottom="12dp"
                     android:background="@drawable/bg_card_white"/>
 
-                <!-- ADDRESS -->
                 <TextView
                     android:id="@+id/tvAddress"
                     android:layout_width="match_parent"
@@ -103,7 +94,6 @@
                     android:textColor="@color/black"
                     android:textStyle="bold"/>
 
-                <!-- BUTTON -->
                 <Button
                     android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"

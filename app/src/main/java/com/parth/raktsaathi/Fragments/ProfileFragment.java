@@ -122,7 +122,7 @@ public class ProfileFragment extends Fragment {
         Button btnSave = dialog.findViewById(R.id.btnSave);
 
         // 🔥 BLOOD LIST
-        String[] blood = {"A+","B+","O+","AB+","A-","B-","O-","AB-"};
+        String[] blood = {"A+","A-","B+","B-","AB+","AB-","O+","O-"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item, blood);
         spBlood.setAdapter(adapter);
