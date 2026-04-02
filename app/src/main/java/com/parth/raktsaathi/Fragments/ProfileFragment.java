@@ -116,7 +116,7 @@ public class ProfileFragment extends Fragment {
 
                     if(!img.equals("")){
                         Glide.with(getContext())
-                                .load(Urls.BASE_URL + img)
+                                .load(Urls.Get_ProfileWebServiceAddress + img)
                                 .placeholder(R.drawable.rs_profilelogo)
                                 .into(imgProfile);
                     }
@@ -172,7 +172,7 @@ public class ProfileFragment extends Fragment {
 
         params.put("image", encoded);
 
-        client.post(Urls.Upload_Image_API, params, new AsyncHttpResponseHandler() {
+        client.post(Urls.UploadImageWebServiceAddress, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
