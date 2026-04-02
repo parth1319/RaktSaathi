@@ -10,6 +10,16 @@
     tools:context=".HomeActivity"
     android:weightSum="100"
     android:fitsSystemWindows="true">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarHome"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/rs_buttons_colour"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:title="Welcome to Raktsaathi+"
+        app:titleTextColor="@android:color/black"/>
+
+
 
     <FrameLayout
         android:id="@+id/homeFrameLayout"

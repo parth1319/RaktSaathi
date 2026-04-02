@@ -2,10 +2,9 @@ package com.parth.raktsaathi;
 
 public class Urls {
 
-    public static final String BASE_URL = "http://10.11.22.98:80/RaktsaathiAPI/";
+    public static final String BASE_URL = "http://10.202.8.98:80/RaktsaathiAPI/";
 
 
-    // 🔐 AUTH
     public static final String LoginUserWebServiceAddress =
             BASE_URL + "user_login.php";
 
@@ -22,7 +21,6 @@ public class Urls {
             BASE_URL + "reset_password.php";
 
 
-    // 🩸 BLOOD
     public static final String DonateBloodWebServiceAddress =
             BASE_URL + "blooddonors.php";
 
@@ -40,7 +38,6 @@ public class Urls {
             BASE_URL + "get_requests.php";
 
 
-    // 🔍 FIND
     public static final String Find_DonorFragmentWebServiceAddress =
             BASE_URL + "find_donor.php";
 
@@ -48,7 +45,6 @@ public class Urls {
             BASE_URL + "match_request.php";
 
 
-    // 👤 PROFILE
     public static final String Get_ProfileWebServiceAddress =
             BASE_URL + "get_profile.php";
 

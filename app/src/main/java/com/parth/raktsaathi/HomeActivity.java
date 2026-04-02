@@ -1,15 +1,15 @@
 package com.parth.raktsaathi;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parth.raktsaathi.Fragments.DonateFragment;
-import com.parth.raktsaathi.Fragments.HomeFragment;
-import com.parth.raktsaathi.Fragments.ProfileFragment;
-import com.parth.raktsaathi.Fragments.RequestFragment;
+import com.parth.raktsaathi.Fragments.*;
+
 import androidx.activity.OnBackPressedCallback;
 
 public class HomeActivity extends AppCompatActivity {
@@ -19,6 +19,15 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+
+        if (!sp.getBoolean("isLoggedIn", false)) {
+            startActivity(new Intent(this, IntroScreenActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_home);
 
         bottomNav = findViewById(R.id.homeBottomNavigationView);
@@ -28,10 +37,8 @@ public class HomeActivity extends AppCompatActivity {
                 .replace(R.id.homeFrameLayout, new HomeFragment())
                 .commit();
 
-        // 🔥 Bottom nav highlight (Home selected)
         bottomNav.setSelectedItemId(R.id.homebottomnavHome);
 
-        // 🔥 Bottom Navigation Click
         bottomNav.setOnItemSelectedListener(item -> {
 
             Fragment fragment = null;
@@ -53,22 +60,17 @@ public class HomeActivity extends AppCompatActivity {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.homeFrameLayout, fragment)
-                        .addToBackStack(null) // 🔥 BACK SUPPORT
                         .commit();
             }
 
             return true;
         });
 
-        // 🔥 BACK BUTTON HANDLE
+        // 🔥 BACK HANDLING
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
-                    getSupportFragmentManager().popBackStack();
-                } else {
-                    finish(); // app close
-                }
+                finish();
             }
         });
     }

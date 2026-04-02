@@ -4,12 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,16 +32,17 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // 🔥 Toolbar
+        // 🔥 TOOLBAR SETUP
         Toolbar toolbar = view.findViewById(R.id.toolbarHome);
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
 
-        if (getActivity() != null) {
-            requireActivity().setTitle("Raktsaathi+");
+        setHasOptionsMenu(true); // 🔥 VERY IMPORTANT
+
+        if (((AppCompatActivity) requireActivity()).getSupportActionBar() != null) {
+            ((AppCompatActivity) requireActivity()).getSupportActionBar()
+                    .setDisplayShowTitleEnabled(true);
         }
 
-        // 🔥 Slider
+        // 🔥 SLIDER SETUP
         slider = view.findViewById(R.id.imageSlider);
 
         int[] images = {
@@ -59,62 +56,61 @@ public class HomeFragment extends Fragment {
 
         handler = new Handler(Looper.getMainLooper());
 
-        Runnable runnable = new Runnable() {
+        startSlider(adapter);
+
+        // 🔥 BUTTONS
+        CardView btnDonate = view.findViewById(R.id.btnDonate);
+        CardView btnRequest = view.findViewById(R.id.btnRequest);
+        CardView btnHealthTips = view.findViewById(R.id.btnHealthTips);
+
+        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.homeBottomNavigationView);
+
+        btnDonate.setOnClickListener(v ->
+                bottomNav.setSelectedItemId(R.id.homebottomnavDonate));
+
+        btnRequest.setOnClickListener(v ->
+                bottomNav.setSelectedItemId(R.id.homebottomnavRequests));
+
+        btnHealthTips.setOnClickListener(v ->
+                Toast.makeText(getContext(), "Health Tips Coming Soon 🔥", Toast.LENGTH_SHORT).show()
+        );
+
+        return view;
+    }
+
+    // 🔥 AUTO SLIDER
+    private void startSlider(SliderAdapter adapter) {
+
+        handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+
                 if (slider == null) return;
 
                 int current = slider.getCurrentItem();
                 int total = adapter.getItemCount();
 
-                if (current < total - 1) {
-                    slider.setCurrentItem(current + 1);
-                } else {
-                    slider.setCurrentItem(0);
-                }
+                slider.setCurrentItem((current + 1) % total);
 
                 handler.postDelayed(this, 3000);
             }
-        };
-
-        handler.postDelayed(runnable, 3000);
-
-        // 🔥 Buttons
-        CardView btnDonate = view.findViewById(R.id.btnDonate);
-        CardView btnRequest = view.findViewById(R.id.btnRequest);
-        CardView btnHealthTips = view.findViewById(R.id.btnHealthTips);
-
-        if (getActivity() != null) {
-            BottomNavigationView bottomNav = getActivity().findViewById(R.id.homeBottomNavigationView);
-
-            if (bottomNav != null) {
-                btnDonate.setOnClickListener(v ->
-                        bottomNav.setSelectedItemId(R.id.homebottomnavDonate));
-
-                btnRequest.setOnClickListener(v ->
-                        bottomNav.setSelectedItemId(R.id.homebottomnavRequests));
-            }
-        }
-
-        // 🔥 Health Tips Click (optional)
-        btnHealthTips.setOnClickListener(v -> {
-            // Tu future madhe activity add karu shakto
-            // startActivity(new Intent(getActivity(), HealthTipsActivity.class));
-        });
-
-        return view;
+        }, 3000);
     }
 
+    // 🔥 MENU ICON LOAD
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
         inflater.inflate(R.menu.toolbar_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    // 🔥 ICON CLICK
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         if (item.getItemId() == R.id.action_notification) {
+
             startActivity(new Intent(getActivity(), NotificationActivity.class));
             return true;
         }
@@ -122,12 +118,15 @@ public class HomeFragment extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    // 🔥 MEMORY FIX
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+
         if (handler != null) {
             handler.removeCallbacksAndMessages(null);
         }
+
         slider = null;
     }
 }
