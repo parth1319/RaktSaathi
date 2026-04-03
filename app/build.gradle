@@ -68,4 +68,5 @@ dependencies {
     // uCrop
     implementation 'com.github.yalantis:ucrop:2.2.8'
     implementation 'com.google.android.gms:play-services-auth:20.7.0'
+    implementation 'com.google.android.material:material:1.9.0'
 }
