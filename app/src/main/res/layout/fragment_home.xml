@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- 🔥 SLIDER -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="180dp"
@@ -26,14 +25,12 @@
                 android:layout_height="match_parent" />
         </androidx.cardview.widget.CardView>
 
-        <!-- 🔥 BUTTON ROW -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="15dp">
 
-            <!-- DONATE -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnDonate"
                 android:layout_width="0dp"
@@ -69,7 +66,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- REQUEST -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnRequest"
                 android:layout_width="0dp"
@@ -106,7 +102,6 @@
 
         </LinearLayout>
 
-        <!-- 🔥 HEALTH CARD -->
         <androidx.cardview.widget.CardView
             android:id="@+id/btnHealthTips"
             android:layout_width="match_parent"

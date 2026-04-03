@@ -60,4 +60,5 @@
             android:background="@drawable/edittext_bg"/>
 
     </LinearLayout>
+
 </ScrollView>

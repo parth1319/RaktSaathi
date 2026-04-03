@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:padding="18dp">
 
-        <!-- TITLE -->
         <TextView
             android:layout_height="match_parent"
             android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
             android:textColor="#B71C1C"
             android:layout_marginBottom="10dp"/>
 
-        <!-- 🩸 BLOOD DONATION -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -100,16 +98,10 @@
                     android:textSize="15sp"
                     android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/btnMore1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="See More"
-                    android:textColor="#1565C0" />
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 🚭 ADDICTION -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -119,7 +111,6 @@
 
         </androidx.cardview.widget.CardView>
 
-        <!-- ❤️ HEART -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,12 +131,7 @@
                     android:fontFamily="@font/poppins_semibold"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="#111111"/><![CDATA[
-                />
-
-                />
-
-                ]]>
+                    android:textColor="#111111"/>
 
                 <TextView
                     android:layout_height="match_parent"
@@ -176,7 +162,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 🧠 MENTAL HEALTH -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
