@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F4F6F8">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,61 +13,84 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="260dp"
+            android:layout_height="300dp"
             android:background="@drawable/red_gradient"
             android:gravity="bottom|center_horizontal"
-            android:paddingBottom="20dp"
-            android:orientation="vertical">
+             android:orientation="vertical">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
-                android:layout_width="90dp"
-                android:layout_height="90dp"
-                android:src="@drawable/rs_profilelogo"/>
-
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/rs_profilelogo"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FFFFFF"
+                />
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
                 android:id="@+id/tvName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="User Name"
                 android:textColor="#FFFFFF"
                 android:textSize="22sp"
+                android:gravity="center"
                 android:textStyle="bold"
-                android:layout_marginTop="6dp"/>
+                android:fontFamily="@font/poppins_semibold"
+                android:layout_marginBottom="45dp" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="420dp"
+            android:minHeight="300dp"
             android:background="@drawable/profile_card_bg"
             android:orientation="vertical"
             android:padding="18dp"
             android:elevation="12dp"
-            android:layout_marginTop="-40dp"
+            android:paddingBottom="30dp"
+            android:layout_marginTop="-35dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="20dp">
 
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/tvMobile" android:text="📞 Mobile"/>
+                android:id="@+id/tvMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:text="📞 Mobile"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
+
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
                 android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="📧 Email"
-                android:layout_marginTop="6dp"/>
+                android:layout_marginTop="6dp"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:fontFamily="@font/poppins"/>
+
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
                 android:id="@+id/tvBlood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="🩸 Blood Group"
-                android:layout_marginTop="6dp"/>
+                android:layout_marginTop="6dp"
+                android:textSize="16dp"
+                android:textColor="@color/rs_buttons_colour"
+                android:fontFamily="@font/poppins"/>
+
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:id="@+id/tvCity" android:text="📍 City" android:layout_marginTop="6dp"/>
+                android:id="@+id/tvCity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="📍 City"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/poppins"/>
 
             <LinearLayout
                 android:id="@+id/btnSettingsToggle"
@@ -74,26 +98,31 @@
                 android:layout_height="50dp"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="12dp">
 
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
                     android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:text="⚙️ Settings"
-                    android:textStyle="bold"/>
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:fontFamily="@font/poppins_semibold"/>
 
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:id="@+id/arrowSettings"
-                    android:text="▼"/>
+                    android:text="▼"
+                    android:textSize="14sp"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
                 android:id="@+id/settingsContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -102,14 +131,17 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/btnEditProfile"
                     android:text="✏️ Edit Profile"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:fontFamily="@font/poppins"/>
 
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
                     android:id="@+id/btnChangePass"
                     android:text="🔒 Change Password"
-                    android:padding="10dp"/>
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -117,19 +149,21 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_height="match_parent"
-                        android:layout_width="wrap_content"
                         android:layout_weight="1"
-                        android:text="🌙 Dark Mode"/>
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="🌙 Dark Mode"
+                        android:fontFamily="@font/poppins"/>
 
                     <Switch
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:id="@+id/switchDark"/>
                 </LinearLayout>
 
             </LinearLayout>
 
+            <!-- ABOUT -->
             <LinearLayout
                 android:id="@+id/btnAboutToggle"
                 android:layout_width="match_parent"
@@ -138,37 +172,48 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
                     android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:text="ℹ️ About Us"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold"
+                    android:textSize="17sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/poppins_semibold"/>
 
                 <TextView
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
+                    android:textColor="@color/black"
                     android:id="@+id/arrowAbout"
-                    android:text="▼"/>
+                    android:text="▼"
+                    android:textSize="14sp"/>
             </LinearLayout>
 
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
                 android:id="@+id/aboutContent"
-                android:visibility="gone"
-                android:text="Raktsaathi connects donors and patients instantly. This app helps save lives during emergencies by reducing delay in finding blood. Regular donation helps maintain good health and builds a strong community."
-                android:layout_marginTop="10dp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins"
+                android:lineSpacingExtra="3dp"
+                android:text="Raktsaathi is a life-saving platform that connects blood donors and patients instantly during emergencies. It ensures that no patient suffers due to lack of blood. Through this app, users can easily find nearby donors and request blood quickly. Regular donation improves health and saves lives. Our mission is to build a strong and supportive community."
+                android:textColor="#444"
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <TextView
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
                 android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="🚪 Logout"
-                android:textColor="#D32F2F"
+                android:textColor="@color/rs_buttons_colour"
                 android:textStyle="bold"
+                android:textSize="20dp"
                 android:gravity="center"
-                android:layout_marginTop="20dp"
-                android:padding="12dp"/>
+                android:layout_marginTop="25dp"
+                android:padding="12dp"
+                android:fontFamily="@font/poppins_semibold"/>
 
         </LinearLayout>
 
