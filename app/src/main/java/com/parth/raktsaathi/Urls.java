@@ -50,4 +50,7 @@ public class Urls {
 
     public static final String UploadImageWebServiceAddress =
             "http://172.28.198.98:80/RaktsaathiAPI/upload_image.php";
+
+    public static final String GoogleLoginWebServiceAddress =
+            "http://172.28.198.98:80/RaktsaathiAPI/google_login.php";
 }

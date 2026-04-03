@@ -104,6 +104,7 @@
                 android:layout_marginBottom="20dp"/>
 
             <LinearLayout
+                android:id="@+id/googleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/google_btn_bg"
