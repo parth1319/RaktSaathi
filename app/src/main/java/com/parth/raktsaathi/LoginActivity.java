@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.loopj.android.http.*;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -32,6 +31,15 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 🔥 Already logged in check
+        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+        if (sp.getBoolean("isLoggedIn", false)) {
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+            return;
+        }
+
         setContentView(R.layout.activity_login);
 
         email = findViewById(R.id.email);
@@ -45,18 +53,17 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(false);
 
-        // 🔥 NORMAL LOGIN
         loginbtnlogin.setOnClickListener(v -> loginUser());
 
         signupText.setOnClickListener(v ->
-                startActivity(new Intent(LoginActivity.this, RegistrationActivity.class))
+                startActivity(new Intent(this, RegistrationActivity.class))
         );
 
         forgotPassword.setOnClickListener(v ->
-                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class))
+                startActivity(new Intent(this, ForgotPasswordActivity.class))
         );
 
-        // 🔥 GOOGLE LOGIN SETUP
+        // 🔥 GOOGLE LOGIN
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -67,24 +74,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signInWithGoogle() {
-        Intent signInIntent = googleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        startActivityForResult(googleSignInClient.getSignInIntent(), RC_SIGN_IN);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
+                GoogleSignInAccount account = GoogleSignIn
+                        .getSignedInAccountFromIntent(data)
+                        .getResult(ApiException.class);
 
-                String name = account.getDisplayName();
-                String email = account.getEmail();
-
-                sendGoogleDataToServer(name, email);
+                sendGoogleDataToServer(account.getDisplayName(), account.getEmail());
 
             } catch (Exception e) {
                 Toast.makeText(this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
@@ -92,6 +96,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    // 🔥 GOOGLE LOGIN → SERVER
     private void sendGoogleDataToServer(String name, String emailStr) {
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -100,17 +105,15 @@ public class LoginActivity extends AppCompatActivity {
         params.put("name", name);
         params.put("email", emailStr);
 
-        client.post(Urls.GoogleLoginWebServiceAddress, params, new AsyncHttpResponseHandler() {
+        client.post(Urls.GoogleSignIn, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-                SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
+                String res = new String(responseBody);
+                Log.d("GOOGLE_RESPONSE", res);
 
-                editor.putBoolean("isLoggedIn", true);
-                editor.putString("user_input", emailStr);
-                editor.apply();
+                saveLogin(emailStr);
 
                 Toast.makeText(LoginActivity.this, "Google Login Success", Toast.LENGTH_SHORT).show();
 
@@ -125,17 +128,18 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(){
+    // 🔥 NORMAL LOGIN (DATABASE CONNECTED)
+    private void loginUser() {
 
         String userInput = email.getText().toString().trim();
         String userPassword = password.getText().toString().trim();
 
-        if(TextUtils.isEmpty(userInput)){
-            email.setError("Enter Email or Mobile");
+        if (TextUtils.isEmpty(userInput)) {
+            email.setError("Enter Email");
             return;
         }
 
-        if(TextUtils.isEmpty(userPassword)){
+        if (TextUtils.isEmpty(userPassword)) {
             password.setError("Enter Password");
             return;
         }
@@ -149,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
         params.put("email", userInput);
         params.put("password", userPassword);
 
-        client.post(Urls.LoginUserWebServiceAddress, params, new AsyncHttpResponseHandler() {
+        client.post(Urls.LOGIN, params, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -157,15 +161,13 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
 
                 String res = new String(responseBody).trim();
+                Log.d("LOGIN_RESPONSE", res);
 
-                if(res.equalsIgnoreCase("success")){
+                if (res.equalsIgnoreCase("success")) {
 
-                    SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sp.edit();
+                    saveLogin(userInput);
 
-                    editor.putBoolean("isLoggedIn", true);
-                    editor.putString("user_input", userInput);
-                    editor.apply();
+                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
                     startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                     finish();
@@ -185,5 +187,17 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    // 🔥 SAVE LOGIN (IMPORTANT FOR PROFILE)
+    private void saveLogin(String email) {
+
+        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putBoolean("isLoggedIn", true);
+        editor.putString("email", email);
+
+        editor.apply();
     }
 }

@@ -20,10 +20,11 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        // 🔥 LOGIN CHECK
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
 
         if (!sp.getBoolean("isLoggedIn", false)) {
-            startActivity(new Intent(this, IntroScreenActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
         }
@@ -32,13 +33,13 @@ public class HomeActivity extends AppCompatActivity {
 
         bottomNav = findViewById(R.id.homeBottomNavigationView);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.homeFrameLayout, new HomeFragment())
-                .commit();
+        // 🔥 DEFAULT FRAGMENT
+        if (savedInstanceState == null) {
+            loadFragment(new HomeFragment());
+            bottomNav.setSelectedItemId(R.id.homebottomnavHome);
+        }
 
-        bottomNav.setSelectedItemId(R.id.homebottomnavHome);
-
+        // 🔥 NAVIGATION
         bottomNav.setOnItemSelectedListener(item -> {
 
             Fragment fragment = null;
@@ -56,22 +57,27 @@ public class HomeActivity extends AppCompatActivity {
                 fragment = new ProfileFragment();
             }
 
-            if (fragment != null) {
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.homeFrameLayout, fragment)
-                        .commit();
-            }
-
-            return true;
+            return loadFragment(fragment);
         });
 
-        // 🔥 BACK HANDLING
+        // 🔥 BACK PRESS
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 finish();
             }
         });
+    }
+
+    // 🔥 COMMON METHOD
+    private boolean loadFragment(Fragment fragment){
+        if(fragment != null){
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.homeFrameLayout, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
     }
 }

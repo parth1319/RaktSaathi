@@ -91,7 +91,7 @@ public class RequestFragment extends Fragment {
             params.put("city", spCity.getSelectedItem().toString());
             params.put("state", spState.getSelectedItem().toString());
 
-            client.post(Urls.BloodRequestWebServiceAddress, params, new AsyncHttpResponseHandler() {@Override
+            client.post(Urls.REQUEST_BLOOD, params, new AsyncHttpResponseHandler() {@Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                     Toast.makeText(getContext(), "Request Sent Successfully", Toast.LENGTH_SHORT).show();
                 }

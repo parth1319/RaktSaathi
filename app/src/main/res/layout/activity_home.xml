@@ -8,35 +8,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity"
-    android:weightSum="100"
     android:fitsSystemWindows="true">
+
+    <!-- 🔴 TOOLBAR -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarHome"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/rs_buttons_colour"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="Welcome to Raktsaathi+"
-        app:titleTextColor="@android:color/black"/>
+        app:title="Raktsaathi+"
+        app:titleTextColor="@android:color/white"/>
 
-
-
+    <!-- 🔥 FRAGMENT CONTAINER -->
     <FrameLayout
         android:id="@+id/homeFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="92"/>
+        android:layout_weight="1"/>
 
+    <!-- 🔥 BOTTOM NAV -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/homeBottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="bottom"
-        android:layout_weight="8"
-
+        android:layout_height="wrap_content"
+        android:background="@color/white"
         app:itemIconTint="@color/rs_buttons_colour"
-        app:itemTextColor="#BA1717"
-        app:menu="@menu/home_bottom_nav_menu"
-        android:background="@color/white"/>
+        app:itemTextColor="@color/rs_buttons_colour"
+        app:menu="@menu/home_bottom_nav_menu"/>
 
 </LinearLayout>

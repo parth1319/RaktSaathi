@@ -2,55 +2,27 @@ package com.parth.raktsaathi;
 
 public class Urls {
 
-    public static final String LoginUserWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/user_login.php";
+    public static final String BASE_URL = "http://10.189.196.98:80/RaktsaathiAPI/";
 
-    public static final String UserRegistrationWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/users_registration.php";
+    public static final String REGISTER = BASE_URL + "user_registration.php";
+    public static final String LOGIN = BASE_URL + "users_login.php";
+    public static final String SEND_OTP = BASE_URL + "send_otp.php";
+    public static final String RESET_PASSWORD = BASE_URL + "reset_password.php";
+    public static final String GET_PROFILE = BASE_URL + "get_profile.php";
+    public static final String UPDATE_PROFILE = BASE_URL + "update_profile.php";
+    public static final String UPLOAD_IMAGE = BASE_URL + "upload_image.php";
 
-    public static final String Send_OTPWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/send_otp.php";
+    public static final String DONATE_BLOOD = BASE_URL + "donate_blood.php";
+    public static final String FIND_DONORS = BASE_URL + "find_donors.php";
 
-    public static final String VerifyOTPWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/verify_otp.php";
+    public static final String REQUEST_BLOOD = BASE_URL + "request_blood.php";
+    public static final String GET_REQUESTS = BASE_URL + "get_request.php";
 
-    public static final String ResetPasswordWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/reset_password.php";
+    public static final String GET_NOTIFICATIONS = BASE_URL + "get_notification.php";
+    public static final String ADD_NOTIFICATION = BASE_URL + "add_notification.php";
 
+    public static final String GoogleSignIn = BASE_URL + "google_login.php";
 
-    public static final String DonateBloodWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/blooddonors.php";
+    public static final String CHANGE_PASSWORD = BASE_URL + "change_password.php";
 
-    public static final String BloodDonorWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/blooddonors.php";
-
-
-    public static final String BloodRequestWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/bloodrequests.php";
-
-    public static final String RequestBloodWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/bloodrequests.php";
-
-    public static final String GetRequestsWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/get_requests.php";
-
-
-    public static final String Find_DonorFragmentWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/find_donor.php";
-
-    public static final String Match_RequestWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/match_request.php";
-
-
-    public static final String Get_ProfileWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/get_profile.php";
-
-    public static final String Update_ProfileWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/update_profile.php";
-
-    public static final String UploadImageWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/upload_image.php";
-
-    public static final String GoogleLoginWebServiceAddress =
-            "http://172.28.198.98:80/RaktsaathiAPI/google_login.php";
 }

@@ -46,7 +46,7 @@ public class DonateBloodActivity extends AppCompatActivity {
         params.put("units", sUnits);
         params.put("location", sLocation);
 
-        client.post(Urls.BloodDonorWebServiceAddress, params,
+        client.post(Urls.DONATE_BLOOD, params,
                 new AsyncHttpResponseHandler() {
 
                     @Override
