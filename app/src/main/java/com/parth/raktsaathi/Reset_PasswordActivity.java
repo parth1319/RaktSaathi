@@ -58,7 +58,7 @@ public class Reset_PasswordActivity extends AppCompatActivity {
             params.put("email", email);
             params.put("password", pass);
 
-            client.post(Urls.ResetPasswordWebServiceAddress, params,
+            client.post(Urls.RESET_PASSWORD, params,
                     new AsyncHttpResponseHandler() {
 
                         @Override

@@ -123,7 +123,7 @@ public class DonateFragment extends Fragment {
             params.put("city", spCity.getSelectedItem().toString());
             params.put("state", spState.getSelectedItem().toString());
 
-            client.post(Urls.BloodDonorWebServiceAddress, params, new AsyncHttpResponseHandler() {
+            client.post(Urls.DONATE_BLOOD, params, new AsyncHttpResponseHandler() {
 
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {

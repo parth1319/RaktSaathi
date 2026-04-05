@@ -42,7 +42,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             RequestParams params = new RequestParams();
             params.put("email", userEmail);
 
-            client.post(Urls.ResetPasswordWebServiceAddress, params,
+            client.post(Urls.RESET_PASSWORD, params,
                     new AsyncHttpResponseHandler() {
 
                         @Override

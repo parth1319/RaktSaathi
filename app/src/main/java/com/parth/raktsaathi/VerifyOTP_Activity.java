@@ -46,7 +46,7 @@ public class VerifyOTP_Activity extends AppCompatActivity {
             params.put("email", email);
             params.put("otp", userOtp);
 
-            client.post(Urls.VerifyOTPWebServiceAddress, params,
+            client.post(Urls.SEND_OTP, params,
                     new AsyncHttpResponseHandler() {
 
                         @Override
