@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parth.raktsaathi.HealthTipsActivity;
 import com.parth.raktsaathi.NotificationActivity;
 import com.parth.raktsaathi.R;
 import com.parth.raktsaathi.SliderAdapter;
@@ -72,8 +73,8 @@ public class HomeFragment extends Fragment {
                 bottomNav.setSelectedItemId(R.id.homebottomnavRequests));
 
         btnHealthTips.setOnClickListener(v ->
-                Toast.makeText(getContext(), "Health Tips Coming Soon 🔥", Toast.LENGTH_SHORT).show()
-        );
+            startActivity(new Intent(getActivity(), HealthTipsActivity.class))
+            );
 
         return view;
     }

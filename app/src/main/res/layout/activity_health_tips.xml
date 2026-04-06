@@ -1,239 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F2F2"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5F7FB"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="18dp">
+        android:padding="16dp">
 
-        <!-- TITLE -->
         <TextView
-            android:layout_height="match_parent"
-            android:layout_width="wrap_content"
-            android:text="🩺 Health Tips and Awareness"
-            android:textSize="26sp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="🩺 Health Tips"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="#B71C1C"
-            android:layout_marginBottom="10dp"/>
+            android:textColor="@color/rs_buttons_colour"
+            android:gravity="center"
+            android:layout_marginBottom="15dp"/>
 
-        <!-- 🩸 BLOOD DONATION -->
+        <!-- CARD 1 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="8dp">
+            android:layout_marginBottom="12dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:padding="16dp"
                 android:orientation="vertical"
-                android:padding="18dp">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
                     android:text="🩸 Blood Donation"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textColor="#111111"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:padding="18dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:fontFamily="@font/poppins_semibold"
-                        android:text="🚭 Addiction Awareness"
-                        android:textColor="#111111"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="6dp"
-                        android:fontFamily="@font/poppins"
-                        android:lineSpacingExtra="1dp"
-                        android:text="Addiction to smoking, alcohol, and drugs harms both physical and mental health. It affects organs like lungs, liver, and brain, leading to serious diseases. Avoiding addiction is essential for a healthy life..."
-                        android:textColor="#222222"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:id="@+id/tvLong2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="8dp"
-                        android:text="Addiction is one of the biggest health risks today. It leads to diseases like lung cancer, liver cirrhosis, and mental disorders. Addiction affects decision-making ability and destroys relationships. Overcoming addiction requires strong willpower, family support, and sometimes medical help. Healthy habits such as exercise, meditation, and engaging in positive activities can help avoid addiction."
-                        android:textColor="#222222"
-                        android:textSize="15sp"
-                        android:visibility="gone" />
-
-
-                    <TextView
-                        android:id="@+id/btnMore2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:text="See More"
-                        android:textColor="#1565C0" />
-                </LinearLayout>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:id="@+id/tvLong1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/poppins_black"
-                    android:text="Blood donation plays a crucial role in saving lives. It helps accident victims, patients undergoing surgery, and people suffering from serious diseases like cancer. When a person donates blood, the body generates new blood cells, improving circulation and overall health. It also reduces excess iron levels which lowers the risk of heart disease. A healthy person can donate blood every 3 months. Before donating, proper hydration and nutrition are important. After donation, rest and a healthy diet help the body recover faster."
-                    android:textColor="#222222"
-                    android:textSize="15sp"
-                    android:visibility="gone" />
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:id="@+id/tv1"
+                    android:text="Blood donation is a life-saving act that plays a crucial role during emergencies, surgeries, and serious medical conditions like cancer. A single donation can help multiple patients in need. When you donate blood, your body produces new blood cells, improving circulation and overall health. It also helps reduce excess iron levels, lowering the risk of heart diseases. A healthy person can donate blood every 3 months safely. Before donating, proper hydration and nutrition are important. Blood donation not only saves lives but also gives a sense of social responsibility and satisfaction."
+
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
 
                 <TextView
-                    android:id="@+id/btnMore1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="See More"
-                    android:textColor="#1565C0" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- 🚭 ADDICTION -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="8dp">
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- ❤️ HEART -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:padding="18dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:text="❤️ Heart Health"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#111111"/><![CDATA[
-                />
-
-                />
-
-                ]]>
-
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/tvLong3"
-                    android:visibility="gone"
-                    android:text="Heart diseases are increasing rapidly due to unhealthy lifestyles. Regular physical activity improves blood circulation. A diet rich in fruits and vegetables helps reduce cholesterol levels. Avoid smoking and alcohol. Managing stress through meditation and getting proper sleep helps maintain heart health."
-                    android:textSize="15sp"
-                    android:layout_marginTop="8dp"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="6dp"
-                    android:text="Heart health is essential for a long life. Exercise, healthy diet, and stress control are key factors. Avoid junk food and smoking to keep your heart strong..."
-                    android:textColor="#222222"
-                    android:textSize="13dp"
-                    android:fontFamily="@font/poppins"
-                    android:lineSpacingExtra="1dp"
-                    />
-
-                <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/btnMore3"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn1"
                     android:text="See More"
                     android:textColor="#1565C0"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- 🧠 MENTAL HEALTH -->
+        <!-- CARD 2 -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:cardCornerRadius="18dp"
-            app:cardElevation="8dp">
+            android:layout_marginBottom="12dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
 
             <LinearLayout
-                android:layout_height="match_parent"
-                android:layout_width="wrap_content"
-                android:padding="18dp"
-                android:orientation="vertical">
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="🚭 Addiction"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/tv2"
+                    android:textColor="@color/black"
+                    android:text="Addiction to smoking, alcohol, and drugs is one of the major health challenges today. It damages vital organs like the lungs, liver, and brain, leading to serious diseases and mental health issues. Addiction also affects relationships, career, and decision-making ability. Avoiding addictive substances is essential for a healthy and stable life. Engaging in positive activities like exercise, meditation, and hobbies can help reduce stress and prevent addiction. Strong willpower and family support play an important role in overcoming addiction. Awareness and education are key to building a healthier society."
+
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn2"
+                    android:text="See More"
+                    android:textColor="#1565C0"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD 3 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="❤️ Heart Health"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:id="@+id/tv3"
+                    android:text="Heart health is essential for maintaining a long and active life. Unhealthy lifestyles, including poor diet, lack of exercise, and stress, increase the risk of heart diseases. Regular physical activity such as walking, jogging, or yoga helps improve blood circulation and strengthens the heart. Eating a balanced diet rich in fruits, vegetables, and whole grains helps control cholesterol levels. Avoiding smoking and limiting alcohol intake are crucial steps. Managing stress through meditation and proper sleep also supports heart health. Regular check-ups help detect problems early and prevent serious complications."
+
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn3"
+                    android:text="See More"
+                    android:textColor="#1565C0"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD 4 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
                     android:text="🧠 Mental Health"
                     android:textSize="18sp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:textStyle="bold"
-                    android:textColor="#111111"/>
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/poppins"
-                    android:lineSpacingExtra="1dp"
-                    android:text="Blood donation is a life-saving act that helps people during emergencies, surgeries, and medical conditions. It improves blood circulation and promotes better health. Donating blood regularly helps maintain iron balance and reduces heart risks..."
-                    android:textColor="#222222"
-                    android:textSize="13sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:id="@+id/tv4"
+                    android:text="Heart health is essential for maintaining a long and active life. Unhealthy lifestyles, including poor diet, lack of exercise, and stress, increase the risk of heart diseases. Regular physical activity such as walking, jogging, or yoga helps improve blood circulation and strengthens the heart. Eating a balanced diet rich in fruits, vegetables, and whole grains helps control cholesterol levels. Avoiding smoking and limiting alcohol intake are crucial steps. Managing stress through meditation and proper sleep also supports heart health. Regular check-ups help detect problems early and prevent serious complications."
+
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
 
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:text="Mental health affects how we think and feel. Managing stress and staying positive is important. Talking to loved ones and practicing meditation helps..."
-                    android:textSize="15sp"
-                    android:lineSpacingExtra="1dp"
-                    android:layout_marginTop="6dp"
-                    android:textColor="#111111"/>
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn4"
+                    android:text="See More"
+                    android:textColor="#1565C0"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD 5 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/tvLong4"
-                    android:visibility="gone"
-                    android:lineSpacingExtra="1dp"
-                    android:fontFamily="@font/poppins"
-                    android:text="Mental health includes emotional and psychological well-being. Poor mental health can lead to anxiety and depression. Regular exercise, proper sleep, and social interaction help improve mental stability. Meditation and relaxation techniques are very effective."
-                    android:textSize="15sp"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#111111"/>
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:text="💧 Hydration"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/btnMore4"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/tv5"
+                    android:textColor="@color/black"
+                    android:text="Staying hydrated is essential for maintaining overall health and proper body function. Water helps regulate body temperature, supports digestion, and removes toxins from the body. Lack of hydration can lead to fatigue, headaches, and reduced concentration. Drinking at least 7–8 glasses of water daily is recommended for a healthy lifestyle. During hot weather or physical activity, the body requires even more fluids. Including fruits and vegetables with high water content also helps maintain hydration. Proper hydration improves energy levels and keeps the body active throughout the day."
+
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn5"
+                    android:text="See More"
+                    android:textColor="#1565C0"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD 6 -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp">
+
+            <LinearLayout
+                android:padding="16dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:text="🥗 Healthy Food"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:id="@+id/tv6"
+                    android:text="Eating healthy food is the foundation of a strong and disease-free life. A balanced diet provides essential nutrients like vitamins, minerals, proteins, and fiber required by the body. Consuming fresh fruits, vegetables, whole grains, and lean proteins helps boost immunity and maintain energy levels. Avoiding junk food, processed items, and excessive sugar reduces the risk of obesity and chronic diseases. Regular meals at proper intervals help maintain metabolism. Healthy eating habits improve both physical and mental well-being. A nutritious diet is key to a long and healthy life."
+                    android:maxLines="3"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:id="@+id/btn6"
                     android:text="See More"
                     android:textColor="#1565C0"/>
             </LinearLayout>

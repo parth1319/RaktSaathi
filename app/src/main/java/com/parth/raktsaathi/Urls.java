@@ -14,6 +14,7 @@ public class Urls {
     public static final String UPLOAD_IMAGE = BASE_URL + "upload_image.php";
 
     public static final String DONATE_BLOOD = BASE_URL + "donate_blood.php";
+    public static final String GET_DONORS = BASE_URL + "get_donors.php";
     public static final String FIND_DONORS = BASE_URL + "find_donors.php";
 
     public static final String REQUEST_BLOOD = BASE_URL + "request_blood.php";
