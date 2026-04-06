@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,103 +22,106 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <!-- TITLE -->
             <TextView
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Welcome Back!"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#333"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center"/>
+                android:text="Welcome Back!"
+                android:textColor="#333"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
+            <!-- EMAIL -->
             <EditText
                 android:id="@+id/email"
-                android:hint="E-mail / Phone Number"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@drawable/edittext_bg"
-                android:padding="12dp"
-                android:inputType="textEmailAddress"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:textSize="16sp"
-                android:layout_marginBottom="15dp"/>
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/edittext_bg"
+                android:hint="E-mail / Phone Number"
+                android:inputType="textEmailAddress"
+                android:padding="12dp"
+                android:textSize="16sp" />
 
+            <!-- PASSWORD -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-                app:endIconMode="password_toggle">
+
+                app:boxBackgroundMode="outline"
+
+                app:boxStrokeColor="@color/rs_buttons_colour"
+                app:endIconMode="password_toggle"
+                app:hintTextColor="@color/rs_buttons_colour">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
-                    android:hint="Password"
-                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:background="@drawable/edittext_bg"
+                    android:hint="Password"
+                    android:inputType="textPassword"
                     android:padding="12dp"
-                    android:textSize="16sp"/>
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <!-- FORGOT -->
             <TextView
                 android:id="@+id/forgotPassword"
-                android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:text="Forgot password ?"
-                android:textColor="@color/rs_buttons_colour"
-                android:textSize="12sp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="20dp"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:text="Forgot password ?"
+                android:textColor="@color/rs_buttons_colour"
+                android:textSize="12sp" />
 
+            <!-- LOGIN BUTTON -->
             <Button
                 android:id="@+id/loginbtnlogin"
-                android:text="Login"
-                android:textAllCaps="false"
-                android:textColor="@android:color/white"
+                android:layout_gravity="center"
+            android:layout_width="250dp"
+            android:layout_height="48dp"
+            android:text="LOGIN"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="@color/rs_buttons_colour"/>
+
+            <!-- OR -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:backgroundTint="@color/rs_buttons_colour"
                 android:layout_marginBottom="20dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:background="@drawable/round_btn_login"
-                android:textSize="16sp"
-                android:textStyle="bold"/>
-
-            <TextView
                 android:text="OR"
                 android:textAlignment="center"
-                android:textColor="#999"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"/>
+                android:textColor="#999" />
 
+            <!-- GOOGLE -->
             <LinearLayout
                 android:id="@+id/googleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/google_btn_bg"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:padding="10dp">
 
                 <ImageView
-                    android:src="@drawable/rs_google_icon"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"/>
+                    android:layout_height="24dp"
+                    android:src="@drawable/rs_google_icon" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -125,22 +129,23 @@
                     android:layout_marginStart="10dp"
                     android:text="Sign in with Google"
                     android:textColor="@color/black"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
+            <!-- SIGNUP -->
             <TextView
                 android:id="@+id/signupText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Don't have an account? Sign Up"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#222222"
-                android:layout_marginTop="20dp"
                 android:layout_gravity="center"
-                android:padding="8dp"
+                android:layout_marginTop="20dp"
                 android:clickable="true"
-                android:focusable="true"/>
+                android:focusable="true"
+                android:padding="8dp"
+                android:text="Don't have an account? Sign Up"
+                android:textColor="#222222"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

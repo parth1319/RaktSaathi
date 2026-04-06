@@ -7,6 +7,7 @@ public class Urls {
     public static final String REGISTER = BASE_URL + "user_registration.php";
     public static final String LOGIN = BASE_URL + "users_login.php";
     public static final String SEND_OTP = BASE_URL + "send_otp.php";
+    public static final String VERIFY_OTP = BASE_URL + "verify_otp.php";
     public static final String RESET_PASSWORD = BASE_URL + "reset_password.php";
     public static final String GET_PROFILE = BASE_URL + "get_profile.php";
     public static final String UPDATE_PROFILE = BASE_URL + "update_profile.php";
@@ -24,5 +25,6 @@ public class Urls {
     public static final String GoogleSignIn = BASE_URL + "google_login.php";
 
     public static final String CHANGE_PASSWORD = BASE_URL + "change_password.php";
+
 
 }

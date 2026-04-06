@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base Theme (No Action Bar) -->
+    <!-- Base Theme -->
     <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <!-- Primary Colors -->
@@ -8,12 +8,17 @@
         <item name="colorPrimaryVariant">#7F0000</item>
         <item name="colorOnPrimary">#FFFFFF</item>
 
-        <!-- Status Bar Color -->
+        <!-- Status Bar -->
         <item name="android:statusBarColor">#7F0000</item>
 
-        <!-- 🔥 NOTCH FIX -->
-        <item name="android:windowLayoutInDisplayCutoutMode">never
-        </item>
+        <!-- 🔥 FIX: Remove violet color -->
+        <item name="colorControlActivated">@color/rs_buttons_colour</item>
+
+        <!-- 🔥 TextInput focus color fix -->
+        <item name="colorSecondary">@color/rs_buttons_colour</item>
+
+        <!-- Notch fix -->
+        <item name="android:windowLayoutInDisplayCutoutMode">never</item>
 
     </style>
 
