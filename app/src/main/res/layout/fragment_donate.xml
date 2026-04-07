@@ -11,20 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
-
-        <!-- TITLE -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Donate Blood"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/rs_buttons_colour"
-            android:gravity="center"
-            android:layout_marginBottom="10dp"/>
-
-        <!-- 🔥 FORM CARD -->
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="18dp"
@@ -36,14 +23,22 @@
                 android:orientation="vertical"
                 android:padding="14dp">
 
-                <!-- SAME FIELDS (HEIGHT REDUCED) -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Donate Blood"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/rs_buttons_colour"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"/>
 
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Full Name"
-                    android:background="@color/white"
+                    android:background="@drawable/edittext_line"
                     android:padding="10dp"/>
 
                 <EditText
@@ -51,17 +46,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:hint="Mobile Number"
+                    android:background="@drawable/edittext_line"
                     android:layout_marginTop="6dp"
-                    android:background="@color/white"
                     android:padding="10dp"/>
 
                 <!-- AGE -->
                 <Spinner
+                    android:background="@drawable/edittext_line"
                     android:id="@+id/spAge"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/white"
                     />
 
                 <!-- BLOOD -->
@@ -70,7 +65,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginTop="8dp"
-                    android:background="@color/white"
+                    android:background="@drawable/edittext_line"
                     />
 
                 <!-- DISTRICT SPINNER -->
@@ -79,7 +74,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/white"/>
+                    android:background="@drawable/edittext_line"
+                    />
 
                 <!-- ADDRESS INPUT -->
                 <EditText
@@ -89,7 +85,8 @@
                     android:hint="Enter Full Address"
                     android:padding="12dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/white"/>
+                    android:background="@drawable/edittext_line"
+                    />
 
                 <!-- FINAL ADDRESS SHOW -->
                 <TextView
@@ -100,7 +97,7 @@
                     android:textStyle="bold"
                     android:textColor="#000"
                     android:padding="12dp"
-                    android:background="@color/white"
+                    android:background="@drawable/edittext_line"
                     android:layout_marginTop="10dp"/>
                 <Button
                     android:id="@+id/btnDonate"
@@ -112,7 +109,7 @@
                     android:layout_marginTop="10dp"
                     android:backgroundTint="@color/rs_buttons_colour"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
         <!-- ✅ SUCCESS -->
         <TextView

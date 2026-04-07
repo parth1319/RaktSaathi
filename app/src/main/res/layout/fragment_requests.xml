@@ -10,112 +10,146 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_marginTop="20sp">
+        android:padding="12dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <!-- 🔥 FORM -->
+        <LinearLayout
+            android:id="@+id/formLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:text="Request Blood"
-            android:textColor="@color/rs_buttons_colour"
-            android:textSize="24sp"
-            android:textStyle="bold" />
+            android:orientation="vertical">
 
+            <TextView
+                android:text="Blood Request"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textColor="@color/rs_buttons_colour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/etName"
+                android:hint="Name"
+                android:background="@drawable/edittext_line"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:padding="10dp"/>
+
+            <EditText
+                android:id="@+id/etMobile"
+                android:hint="Mobile"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/edittext_line"
+                android:padding="10dp"/>
+
+            <Spinner
+                android:background="@drawable/edittext_line"
+                android:padding="10dp"
+                android:id="@+id/spBlood"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+
+            <Spinner
+                android:background="@drawable/edittext_line"
+                android:padding="10dp"
+                android:id="@+id/spArea"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"/>
+
+            <!-- ADDRESS INPUT -->
+            <EditText
+                android:id="@+id/etUnits"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/edittext_line"
+                android:hint="Units"
+                android:inputType="number"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/etAddress"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/edittext_line"
+                android:padding="10dp"
+                android:hint="Enter Full Address"
+                android:layout_marginTop="8dp"/>
+
+            <!-- FINAL ADDRESS -->
+            <TextView
+                android:id="@+id/tvFinalAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Selected Address"
+                android:textColor="@color/black"
+                android:background="@drawable/edittext_line"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:layout_marginTop="6dp"/>
+            <Button
+                android:id="@+id/btnRequest"
+                android:text="REQUEST BLOOD"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:backgroundTint="@color/rs_buttons_colour"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <!-- ✅ SUCCESS CARD -->
         <androidx.cardview.widget.CardView
+            android:id="@+id/successCard"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="18dp"
-            app:cardElevation="8dp">
+            app:cardElevation="6dp"
+            android:layout_marginTop="15dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="18dp">
-
-                <EditText
-                    android:id="@+id/etPatientName"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
-                    android:hint="Patient Name"
-                    android:padding="12dp"
-                    android:textColorHint="@color/black"/>
-
-                <Spinner
-                    android:id="@+id/spBlood"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
-                    android:textColorHint="@color/black"/>
-
-                <EditText
-                    android:id="@+id/etUnits"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
-                    android:hint="Units Required"
-                    android:inputType="number"
-                    android:padding="12dp"
-                    android:textColorHint="@color/black"/>
-
-                <EditText
-                    android:id="@+id/etMobile"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
-                    android:hint="Mobile Number"
-                    android:inputType="phone"
-                    android:padding="12dp"
-                    android:textColorHint="@color/black" />
-
-                <Spinner
-                    android:id="@+id/spState"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
-                    android:textColorHint="@color/black"/>
-
-                <Spinner
-                    android:id="@+id/spCity"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
-                    android:textColorHint="@color/black"/>
+                android:gravity="center"
+                android:padding="20dp">
 
                 <TextView
-                    android:id="@+id/tvAddress"
-                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/bg_card_white"
-                    android:hint="Selected Address"
-                    android:padding="12dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textColorHint="@color/black"/>
-
-                <Button
-                    android:id="@+id/btnSubmit"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:backgroundTint="@color/rs_buttons_colour"
-                    android:text="Submit Request"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:text="🎉 Request Successful"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#2E7D32"/>
 
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="Your request has been registered successfully"
+                    android:textColor="#444"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
+        <!-- 🔥 DONORS TITLE -->
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="Available Donors"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="15dp"
+            android:textColor="#000"/>
+
+        <!-- 🔥 LIST -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerDonors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"/>
 
     </LinearLayout>
 </ScrollView>
