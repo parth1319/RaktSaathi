@@ -1,121 +1,151 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:paddingTop="50dp"
-        android:layout_marginTop="50dp">
+        android:padding="20dp">
 
+        <!-- TITLE -->
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create Account"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textColor="#B71C1C"
-            android:layout_marginBottom="20dp"/>
+            android:textColor="@color/rs_buttons_colour"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"/>
 
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Full Name"
-            android:background="@drawable/edittext_bg"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
-
-        <EditText
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Phone Number"
-            android:inputType="phone"
-            android:background="@drawable/edittext_bg"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
-        <EditText
-            android:id="@+id/et_email"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Email Id"
-            android:inputType="textEmailAddress"
-            android:background="@drawable/edittext_bg"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
-
-
-        <Spinner
-            android:id="@+id/sp_blood"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/edittext_bg"
-            android:layout_marginBottom="10dp"/>
-        <EditText
-            android:id="@+id/et_lastdonationdate"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Last Donation Date"
-            android:inputType="date"
-            android:background="@drawable/edittext_bg"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
-
-
-        <EditText
-            android:id="@+id/et_location"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="Location"
-            android:background="@drawable/edittext_bg"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
+        <!-- CARD -->
+        <LinearLayout
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/profile_card_bg"
+            android:padding="12dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            app:endIconMode="password_toggle">
+            android:elevation="8dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_password"
+            <!-- NAME -->
+            <EditText
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Password"
-                android:background="@drawable/edittext_bg"
+                android:layout_height="43dp"
+                android:hint="Full Name"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="5dp"/>
 
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_confirm_password"
+            <!-- PHONE -->
+            <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Confirm Password"
-                android:background="@drawable/edittext_bg"
-                android:inputType="textPassword"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_height="43dp"
+                android:hint="Phone Number"
+                android:inputType="phone"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="5dp"/>
 
-        <Button
-            android:id="@+id/btn_register"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="Create Account"
-            android:textColor="#FFFFFF"
-            android:backgroundTint="#D32F2F"/>
+            <!-- EMAIL -->
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="5dp"/>
+
+            <!-- BLOOD -->
+            <Spinner
+                android:id="@+id/sp_blood"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:background="@color/white"
+                android:padding="10dp"
+                android:layout_marginBottom="5dp"/>
+
+            <!-- DATE -->
+            <EditText
+                android:id="@+id/et_lastdonationdate"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:hint="Last Donation Date (dd-MM-yyyy)"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:focusable="false"
+                android:clickable="true"
+                android:layout_marginBottom="5dp"/>
+
+            <!-- LOCATION -->
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:hint="Address"
+                android:background="@color/white"
+                android:padding="12dp"
+                android:layout_marginBottom="5dp"/>
+            <Spinner
+                android:id="@+id/sp_city"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@color/white"
+                android:layout_marginBottom="5dp"/>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:background="@color/white"
+                    android:padding="12dp"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_confirm_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:hint="Confirm Password"
+                    android:textColor="@color/black"
+                    android:inputType="textPassword"
+                    android:background="@color/white"
+                    android:padding="12dp"/>
+            </com.google.android.material.textfield.TextInputLayout><Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:text="CREATE ACCOUNT"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="@color/rs_buttons_colour"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>

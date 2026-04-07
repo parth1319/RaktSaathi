@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -9,102 +10,137 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:layout_marginTop="30dp">
+        android:padding="12dp">
 
+        <!-- TITLE -->
         <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:text="Donate Blood"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:textColor="@color/rs_buttons_colour"
-            android:layout_gravity="center"
-            android:layout_marginBottom="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:gravity="center"
+            android:layout_marginBottom="10dp"/>
 
+        <!-- 🔥 FORM CARD -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="18dp"
-            app:cardElevation="8dp">
+            app:cardElevation="6dp">
 
             <LinearLayout
-                android:orientation="vertical"
-                android:padding="18dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <!-- SAME FIELDS (HEIGHT REDUCED) -->
 
                 <EditText
                     android:id="@+id/etName"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
+                    android:layout_height="40dp"
                     android:hint="Full Name"
-                    android:padding="12dp"
-                    android:textColorHint="@color/black"/>
+                    android:background="@color/white"
+                    android:padding="10dp"/>
 
                 <EditText
-                    android:id="@+id/etMobile"
+                    android:id="@+id/etPhone"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"
+                    android:layout_height="40dp"
                     android:hint="Mobile Number"
-                    android:inputType="phone"
-                    android:padding="12dp"
-                    android:textColorHint="@color/black"/>
+                    android:layout_marginTop="6dp"
+                    android:background="@color/white"
+                    android:padding="10dp"/>
 
+                <!-- AGE -->
                 <Spinner
                     android:id="@+id/spAge"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"/>
+                    android:layout_height="45dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/white"
+                    />
 
+                <!-- BLOOD -->
                 <Spinner
                     android:id="@+id/spBlood"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"/>
+                    android:layout_height="45dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/white"
+                    />
 
+                <!-- DISTRICT SPINNER -->
                 <Spinner
-                    android:id="@+id/spState"
+                    android:id="@+id/spArea"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"/>
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"/>
 
-                <Spinner
-                    android:id="@+id/spCity"
+                <!-- ADDRESS INPUT -->
+                <EditText
+                    android:id="@+id/etAddress"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="12dp"
-                    android:background="@drawable/bg_card_white"/>
+                    android:hint="Enter Full Address"
+                    android:padding="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"/>
 
+                <!-- FINAL ADDRESS SHOW -->
                 <TextView
-                    android:id="@+id/tvAddress"
+                    android:id="@+id/tvFinalAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/bg_card_white"
-                    android:padding="12dp"
                     android:text="Selected Address"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"/>
-
-                <Button
-                    android:id="@+id/btnSubmit"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Become Donor"
-                    android:textColor="#FFFFFF"
                     android:textStyle="bold"
+                    android:textColor="#000"
+                    android:padding="12dp"
+                    android:background="@color/white"
+                    android:layout_marginTop="10dp"/>
+                <Button
+                    android:id="@+id/btnDonate"
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:text="BECOME DONOR"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
                     android:backgroundTint="@color/rs_buttons_colour"/>
-
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
+        <!-- ✅ SUCCESS -->
+        <TextView
+            android:id="@+id/successMsg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="✅ Request Sent Successfully"
+            android:textColor="#2E7D32"
+            android:padding="10dp"
+            android:visibility="gone"/>
+
+        <!-- 🔥 REQUEST TITLE -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Blood Requests"
+            android:textStyle="bold"
+            android:textSize="19sp"
+            android:layout_marginTop="10dp"
+            android:textColor="#333"/>
+
+        <!-- 🔥 LIST -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerRequests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"/>
 
     </LinearLayout>
 </ScrollView>

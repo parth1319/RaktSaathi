@@ -1,73 +1,95 @@
 package com.parth.raktsaathi;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.*;
 
 import cz.msebera.android.httpclient.Header;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    EditText email;
+    EditText forgotEmail;
     Button sendOtpBtn;
+
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
 
-        email = findViewById(R.id.forgotEmail);
+        forgotEmail = findViewById(R.id.forgotEmail);
         sendOtpBtn = findViewById(R.id.sendOtpBtn);
 
-        sendOtpBtn.setOnClickListener(v -> {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Sending OTP...");
+        progressDialog.setCancelable(false);
 
-            String userEmail = email.getText().toString().trim();
+        sendOtpBtn.setOnClickListener(v -> sendOtp());
+    }
 
-            if (TextUtils.isEmpty(userEmail)) {
-                email.setError("Enter Email");
-                return;
+    private void sendOtp() {
+
+        String email = forgotEmail.getText().toString().trim();
+
+        // 🔴 VALIDATION
+        if (TextUtils.isEmpty(email)) {
+            forgotEmail.setError("Enter Email");
+            return;
+        }
+
+        progressDialog.show();
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.setTimeout(30000);
+
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+
+        // 🔥 API CALL
+        client.post(Urls.SEND_OTP, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                progressDialog.dismiss();
+
+                String response = new String(responseBody).trim();
+
+                if (response.equalsIgnoreCase("success")) {
+
+                    Toast.makeText(ForgotPasswordActivity.this,
+                            "OTP Sent Successfully",
+                            Toast.LENGTH_SHORT).show();
+
+                    String otp = new String(responseBody).trim();
+
+                    Intent i = new Intent(ForgotPasswordActivity.this, VerifyOTP_Activity.class);
+                    i.putExtra("email", email);
+                    i.putExtra("otp", otp);
+                    startActivity(i);
+                } else {
+                    Toast.makeText(ForgotPasswordActivity.this,
+                            response,
+                            Toast.LENGTH_SHORT).show();
+                }
             }
 
-            AsyncHttpClient client = new AsyncHttpClient();
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-            RequestParams params = new RequestParams();
-            params.put("email", userEmail);
+                progressDialog.dismiss();
 
-            client.post(Urls.RESET_PASSWORD, params,
-                    new AsyncHttpResponseHandler() {
-
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                            String otp = new String(responseBody);
-
-                            Toast.makeText(ForgotPasswordActivity.this,
-                                    "OTP Sent Successfully",
-                                    Toast.LENGTH_SHORT).show();
-
-                            Intent intent = new Intent(ForgotPasswordActivity.this, VerifyOTP_Activity.class);
-                            intent.putExtra("email", userEmail);
-                            intent.putExtra("otp", otp);
-                            startActivity(intent);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-                            Toast.makeText(ForgotPasswordActivity.this,
-                                    "Error: " + error.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                Toast.makeText(ForgotPasswordActivity.this,
+                        "Server Error: " + error.getMessage(),
+                        Toast.LENGTH_LONG).show();
+            }
         });
     }
 }

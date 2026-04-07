@@ -1,24 +1,25 @@
 package com.parth.raktsaathi;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.*;
 
 import cz.msebera.android.httpclient.Header;
 
 public class VerifyOTP_Activity extends AppCompatActivity {
 
-    EditText otp;
-    Button verifyBtn;
+    EditText etOtp;
+    Button btnVerifyOtp;
+    TextView tvResend;
+
+    ProgressDialog progressDialog;
+
     String email;
 
     @Override
@@ -26,58 +27,110 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verify_otp);
 
-        otp = findViewById(R.id.otp);
-        verifyBtn = findViewById(R.id.verifyBtn);
+        etOtp = findViewById(R.id.etOtp);
+        btnVerifyOtp = findViewById(R.id.btnVerifyOtp);
+        tvResend = findViewById(R.id.tvResend);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Verifying OTP...");
+        progressDialog.setCancelable(false);
+
+        // 🔥 email ghe previous screen madhun
         email = getIntent().getStringExtra("email");
 
-        verifyBtn.setOnClickListener(v -> {
+        btnVerifyOtp.setOnClickListener(v -> verifyOtp());
+        tvResend.setOnClickListener(v -> resendOtp());
+    }
 
-            String userOtp = otp.getText().toString().trim();
+    // 🔥 VERIFY OTP FROM DATABASE
+    private void verifyOtp() {
 
-            if (TextUtils.isEmpty(userOtp)) {
-                otp.setError("Enter OTP");
-                return;
+        String otp = etOtp.getText().toString().trim();
+
+        if (TextUtils.isEmpty(otp)) {
+            etOtp.setError("Enter OTP");
+            return;
+        }
+
+        progressDialog.show();
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        params.put("email", email);
+        params.put("otp", otp);
+
+        client.post(Urls.VERIFY_OTP, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                progressDialog.dismiss();
+
+                String res = new String(responseBody).trim();
+
+                if (res.equalsIgnoreCase("success")) {
+                    Toast.makeText(VerifyOTP_Activity.this,
+                            "OTP Verified Successfully",
+                            Toast.LENGTH_SHORT).show();
+
+                    // 👉 next screen (Reset Password)
+                    Intent i = new Intent(VerifyOTP_Activity.this, Reset_PasswordActivity.class);
+                    i.putExtra("email", email);
+                    startActivity(i);
+                    finish();
+
+                } else {
+                    Toast.makeText(VerifyOTP_Activity.this,
+                            "Invalid OTP",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
 
-            AsyncHttpClient client = new AsyncHttpClient();
-            RequestParams params = new RequestParams();
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
 
-            params.put("email", email);
-            params.put("otp", userOtp);
+                progressDialog.dismiss();
 
-            client.post(Urls.SEND_OTP, params,
-                    new AsyncHttpResponseHandler() {
+                Toast.makeText(VerifyOTP_Activity.this,
+                        "Server Error",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-                        @Override
-                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+    // 🔥 RESEND OTP
+    private void resendOtp() {
 
-                            String response = new String(responseBody).trim();
+        progressDialog.setMessage("Resending OTP...");
+        progressDialog.show();
 
-                            if (response.equalsIgnoreCase("success")) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
 
-                                Toast.makeText(VerifyOTP_Activity.this,
-                                        "OTP Verified",
-                                        Toast.LENGTH_SHORT).show();
+        params.put("email", email);
 
-                                Intent intent = new Intent(VerifyOTP_Activity.this, Reset_PasswordActivity.class);
-                                intent.putExtra("email", email);
-                                startActivity(intent);
+        client.post(Urls.SEND_OTP, params, new AsyncHttpResponseHandler() {
 
-                            } else {
-                                Toast.makeText(VerifyOTP_Activity.this,
-                                        "Invalid OTP",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Toast.makeText(VerifyOTP_Activity.this,
-                                    "Error: " + error.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                progressDialog.dismiss();
+
+                Toast.makeText(VerifyOTP_Activity.this,
+                        "OTP Resent Successfully",
+                        Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
+                progressDialog.dismiss();
+
+                Toast.makeText(VerifyOTP_Activity.this,
+                        "Failed to resend OTP",
+                        Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
