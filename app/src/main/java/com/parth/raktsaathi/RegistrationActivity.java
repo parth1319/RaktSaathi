@@ -33,7 +33,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_registration);
 
-        // 🔥 XML MATCHED IDS
         name = findViewById(R.id.et_name);
         phone = findViewById(R.id.et_phone);
         email = findViewById(R.id.et_email);
@@ -48,7 +47,6 @@ public class RegistrationActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.setCancelable(false);
 
-        // 🔥 SPINNER
         String[] bloodGroups = {"Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
@@ -70,7 +68,6 @@ public class RegistrationActivity extends AppCompatActivity {
         String sBlood = blood.getSelectedItem().toString();
         String sDate = lastdonationdate.getText().toString().trim();
 
-        // 🔥 VALIDATION
         if (TextUtils.isEmpty(sName)) {
             name.setError("Enter Name");
             return;
@@ -126,7 +123,6 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (res.equalsIgnoreCase("success")) {
 
-                    // 🔥 SAVE LOGIN
                     SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
 

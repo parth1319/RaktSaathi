@@ -29,7 +29,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
-        // init
         oldPass = findViewById(R.id.etOldPass);
         newPass = findViewById(R.id.etNewPass);
         confirmPass = findViewById(R.id.etConfirmPass);
@@ -48,7 +47,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
         String newP = newPass.getText().toString().trim();
         String confirmP = confirmPass.getText().toString().trim();
 
-        // ✅ Validation
         if (TextUtils.isEmpty(oldP) || TextUtils.isEmpty(newP) || TextUtils.isEmpty(confirmP)) {
             Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
             return;
@@ -70,13 +68,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
         progressDialog.show();
 
-        // ⚡ API Call
         AsyncHttpClient client = new AsyncHttpClient();
 
         RequestParams params = new RequestParams();
 
-        // ⚠️ IMPORTANT: email tu login madhun pass kar
-        params.put("email", "user@gmail.com"); // <-- change later dynamically
+        params.put("email", "user@gmail.com");
         params.put("old_password", oldP);
         params.put("new_password", newP);
 

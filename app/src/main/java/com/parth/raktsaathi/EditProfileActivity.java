@@ -32,14 +32,12 @@ public class EditProfileActivity extends AppCompatActivity {
         progressDialog.setMessage("Updating...");
         progressDialog.setCancelable(false);
 
-        // 🔥 Load old data
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
 
         etName.setText(sp.getString("name", ""));
         etMobile.setText(sp.getString("mobile", ""));
         etCity.setText(sp.getString("city", ""));
 
-        // 🔥 Save button
         btnSave.setOnClickListener(v -> updateProfile());
     }
 
@@ -70,7 +68,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
                         if(res.equals("success")){
 
-                            // 🔥 update local session
                             SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sp.edit();
 

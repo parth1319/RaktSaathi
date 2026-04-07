@@ -10,7 +10,6 @@
     tools:context=".HomeActivity"
     android:fitsSystemWindows="true">
 
-    <!-- 🔴 TOOLBAR -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarHome"
         android:layout_width="match_parent"
@@ -20,15 +19,13 @@
         app:title="Raktsaathi+"
         app:titleTextColor="@android:color/white"/>
 
-    <!-- 🔥 FRAGMENT CONTAINER -->
     <FrameLayout
         android:id="@+id/homeFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <!-- 🔥 BOTTOM NAV -->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
+     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/homeBottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
