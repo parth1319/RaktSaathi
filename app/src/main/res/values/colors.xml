@@ -13,4 +13,11 @@
     <color name="rs_heading_color">#B71C1C</color>
     <color name="rs_qoute_color">#616161</color>
     <color name="rs_buttons_colour">#8E0000</color>
+    <color name="linkColor">#2196F3</color>
+    <color name="Purple">#9C27B0</color>
+    <color name="orange1">#FF9800</color>
+    <color name="DeepPurple">#673AB7</color>
+
+
+
 </resources>

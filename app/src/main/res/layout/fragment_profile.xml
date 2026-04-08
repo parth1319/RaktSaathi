@@ -27,6 +27,15 @@
                 app:civ_border_color="#FFFFFF"
                 />
             <TextView
+                android:id="@+id/tvAddPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Profile Photo"
+                android:textColor="#2196F3"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:layout_marginTop="6dp"/>
+            <TextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +114,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="⚙️ Settings"
-                    android:textColor="@color/black"
+                    android:textColor="#333333"
                     android:textStyle="bold"
                     android:textSize="17sp"
                     android:fontFamily="@font/poppins_semibold"/>
@@ -127,11 +136,23 @@
                 android:visibility="gone">
 
                 <TextView
+                    android:id="@+id/btnChangePhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="📷 Change Profile Photo"
+                    android:padding="10dp"
+                    android:background="@drawable/click_effect"
+                    android:textColor="@color/linkColor"
+                    android:fontFamily="@font/poppins"/>
+
+                <TextView
                     android:layout_height="match_parent"
                     android:layout_width="wrap_content"
                     android:id="@+id/btnEditProfile"
                     android:text="✏️ Edit Profile"
+                    android:background="@drawable/click_effect"
                     android:padding="10dp"
+                    android:textColor="@color/Purple"
                     android:fontFamily="@font/poppins"/>
 
                 <TextView
@@ -139,8 +160,9 @@
                     android:layout_width="wrap_content"
                     android:id="@+id/btnChangePass"
                     android:text="🔒 Change Password"
+                    android:background="@drawable/click_effect"
                     android:padding="10dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/orange1"
                     android:fontFamily="@font/poppins"/>
 
                 <LinearLayout
@@ -153,6 +175,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="🌙 Dark Mode"
+                        android:textColor="@color/DeepPurple"
                         android:fontFamily="@font/poppins"/>
 
                     <Switch
@@ -178,7 +201,7 @@
                     android:text="ℹ️ About Us"
                     android:textStyle="bold"
                     android:textSize="17sp"
-                    android:textColor="@color/black"
+                    android:textColor="#009688"
                     android:fontFamily="@font/poppins_semibold"/>
 
                 <TextView
@@ -199,7 +222,7 @@
                 android:lineSpacingExtra="3dp"
                 android:text="Raktsaathi is a life-saving platform that connects blood donors and patients instantly during emergencies. It ensures that no patient suffers due to lack of blood. Through this app, users can easily find nearby donors and request blood quickly. Regular donation improves health and saves lives. Our mission is to build a strong and supportive community."
                 android:textColor="#444"
-                android:textSize="14sp"
+                android:textSize="17sp"
                 android:visibility="gone" />
 
             <TextView

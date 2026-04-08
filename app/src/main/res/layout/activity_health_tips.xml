@@ -51,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:textColor="@color/black"
                     android:id="@+id/tv1"
+                    android:textSize="14dp"
                     android:text="Blood donation is a life-saving act that plays a crucial role during emergencies, surgeries, and serious medical conditions like cancer. A single donation can help multiple patients in need. When you donate blood, your body produces new blood cells, improving circulation and overall health. It also helps reduce excess iron levels, lowering the risk of heart diseases. A healthy person can donate blood every 3 months safely. Before donating, proper hydration and nutrition are important. Blood donation not only saves lives but also gives a sense of social responsibility and satisfaction."
 
                     android:maxLines="3"
@@ -92,6 +93,8 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:id="@+id/tv2"
+                    android:textSize="14dp"
+
                     android:textColor="@color/black"
                     android:text="Addiction to smoking, alcohol, and drugs is one of the major health challenges today. It damages vital organs like the lungs, liver, and brain, leading to serious diseases and mental health issues. Addiction also affects relationships, career, and decision-making ability. Avoiding addictive substances is essential for a healthy and stable life. Engaging in positive activities like exercise, meditation, and hobbies can help reduce stress and prevent addiction. Strong willpower and family support play an important role in overcoming addiction. Awareness and education are key to building a healthier society."
 
@@ -137,6 +140,7 @@
                     android:id="@+id/tv3"
                     android:text="Heart health is essential for maintaining a long and active life. Unhealthy lifestyles, including poor diet, lack of exercise, and stress, increase the risk of heart diseases. Regular physical activity such as walking, jogging, or yoga helps improve blood circulation and strengthens the heart. Eating a balanced diet rich in fruits, vegetables, and whole grains helps control cholesterol levels. Avoiding smoking and limiting alcohol intake are crucial steps. Managing stress through meditation and proper sleep also supports heart health. Regular check-ups help detect problems early and prevent serious complications."
 
+                    android:textSize="14dp"
                     android:maxLines="3"
                     android:ellipsize="end"/>
 
@@ -178,6 +182,7 @@
                     android:textColor="@color/black"
                     android:id="@+id/tv4"
                     android:text="Heart health is essential for maintaining a long and active life. Unhealthy lifestyles, including poor diet, lack of exercise, and stress, increase the risk of heart diseases. Regular physical activity such as walking, jogging, or yoga helps improve blood circulation and strengthens the heart. Eating a balanced diet rich in fruits, vegetables, and whole grains helps control cholesterol levels. Avoiding smoking and limiting alcohol intake are crucial steps. Managing stress through meditation and proper sleep also supports heart health. Regular check-ups help detect problems early and prevent serious complications."
+                    android:textSize="14dp"
 
                     android:maxLines="3"
                     android:ellipsize="end"/>
@@ -220,6 +225,7 @@
                     android:id="@+id/tv5"
                     android:textColor="@color/black"
                     android:text="Staying hydrated is essential for maintaining overall health and proper body function. Water helps regulate body temperature, supports digestion, and removes toxins from the body. Lack of hydration can lead to fatigue, headaches, and reduced concentration. Drinking at least 7–8 glasses of water daily is recommended for a healthy lifestyle. During hot weather or physical activity, the body requires even more fluids. Including fruits and vegetables with high water content also helps maintain hydration. Proper hydration improves energy levels and keeps the body active throughout the day."
+                    android:textSize="14dp"
 
                     android:maxLines="3"
                     android:ellipsize="end"/>
@@ -262,6 +268,8 @@
                     android:id="@+id/tv6"
                     android:text="Eating healthy food is the foundation of a strong and disease-free life. A balanced diet provides essential nutrients like vitamins, minerals, proteins, and fiber required by the body. Consuming fresh fruits, vegetables, whole grains, and lean proteins helps boost immunity and maintain energy levels. Avoiding junk food, processed items, and excessive sugar reduces the risk of obesity and chronic diseases. Regular meals at proper intervals help maintain metabolism. Healthy eating habits improve both physical and mental well-being. A nutritious diet is key to a long and healthy life."
                     android:maxLines="3"
+                    android:textSize="14dp"
+
                     android:ellipsize="end"/>
 
                 <TextView

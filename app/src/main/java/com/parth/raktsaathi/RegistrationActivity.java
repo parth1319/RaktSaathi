@@ -19,7 +19,7 @@ import cz.msebera.android.httpclient.Header;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText name, phone, email, address, password, confirmPassword, lastdonationdate;
+    EditText name, phone, email, address, password, confirmPassword;
     Spinner blood, city;
     Button register;
     ProgressDialog progressDialog;
@@ -37,7 +37,6 @@ public class RegistrationActivity extends AppCompatActivity {
         address = findViewById(R.id.et_address);
         password = findViewById(R.id.et_password);
         confirmPassword = findViewById(R.id.et_confirm_password);
-        lastdonationdate = findViewById(R.id.et_lastdonationdate);
 
         blood = findViewById(R.id.sp_blood);
         city = findViewById(R.id.sp_city);
@@ -58,42 +57,17 @@ public class RegistrationActivity extends AppCompatActivity {
         // 🔥 CITY SPINNER (ALL MAHARASHTRA DISTRICTS)
         String[] cities = {
                 "Select City",
-                "Ahmednagar","Akola","Amravati","Aurangabad","Beed","Bhandara","Buldhana",
-                "Chandrapur","Dhule","Gadchiroli","Gondia","Hingoli","Jalgaon","Jalna",
-                "Kolhapur","Latur","Mumbai City","Mumbai Suburban","Nagpur","Nanded",
-                "Nandurbar","Nashik","Osmanabad","Palghar","Parbhani","Pune","Raigad",
-                "Ratnagiri","Sangli","Satara","Sindhudurg","Solapur","Thane","Wardha",
-                "Washim","Yavatmal"
+                "Akola","Amravati"
         };
 
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, cities);
         city.setAdapter(cityAdapter);
 
-        // 🔥 DATE PICKER
-        lastdonationdate.setOnClickListener(v -> openCalendar());
-
         // 🔥 BUTTON
         register.setOnClickListener(v -> registerUser());
     }
 
-    // 📅 CALENDAR
-    private void openCalendar() {
-        DatePickerDialog dp = new DatePickerDialog(
-                this,
-                (view, year, month, day) -> {
-                    calendar.set(year, month, day);
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                    lastdonationdate.setText(sdf.format(calendar.getTime()));
-                },
-                calendar.get(Calendar.YEAR),
-                calendar.get(Calendar.MONTH),
-                calendar.get(Calendar.DAY_OF_MONTH)
-        );
-        dp.show();
-    }
-
-    // 🔥 REGISTER FUNCTION
     private void registerUser() {
 
         String sName = name.getText().toString().trim();
@@ -104,7 +78,6 @@ public class RegistrationActivity extends AppCompatActivity {
         String sConfirm = confirmPassword.getText().toString().trim();
         String sBlood = blood.getSelectedItem().toString();
         String sCity = city.getSelectedItem().toString();
-        String sDate = lastdonationdate.getText().toString().trim();
 
         // VALIDATION
         if (TextUtils.isEmpty(sName)) {
@@ -132,11 +105,6 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(sDate)) {
-            lastdonationdate.setError("Select Date");
-            return;
-        }
-
         if (!sPassword.equals(sConfirm)) {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
@@ -152,7 +120,6 @@ public class RegistrationActivity extends AppCompatActivity {
         params.put("email", sEmail);
         params.put("password", sPassword);
         params.put("blood_group", sBlood);
-        params.put("last_donation_date", sDate);
         params.put("address", sAddress);
         params.put("city", sCity);
 

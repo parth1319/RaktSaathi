@@ -3,6 +3,7 @@ package com.parth.raktsaathi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,10 +12,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parth.raktsaathi.Fragments.*;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.widget.Toolbar;
 
 public class HomeActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNav;
+    Toolbar toolbar; // 🔥 ADD
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,10 +35,13 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         bottomNav = findViewById(R.id.homeBottomNavigationView);
+        toolbar = findViewById(R.id.toolbarHome); // 🔥 ADD
+        setSupportActionBar(toolbar);
 
-        // 🔥 DEFAULT FRAGMENT
+        // 🔥 DEFAULT = HOME → SHOW HEADER
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment());
+            toolbar.setVisibility(View.VISIBLE); // 🔥 SHOW
             bottomNav.setSelectedItemId(R.id.homebottomnavHome);
         }
 
@@ -46,15 +52,19 @@ public class HomeActivity extends AppCompatActivity {
 
             if (item.getItemId() == R.id.homebottomnavHome) {
                 fragment = new HomeFragment();
+                toolbar.setVisibility(View.VISIBLE); // 🔥 ONLY HOME SHOW
             }
             else if (item.getItemId() == R.id.homebottomnavDonate) {
                 fragment = new DonateFragment();
+                toolbar.setVisibility(View.GONE); // 🔥 HIDE
             }
             else if (item.getItemId() == R.id.homebottomnavRequests) {
                 fragment = new RequestFragment();
+                toolbar.setVisibility(View.GONE); // 🔥 HIDE
             }
             else if (item.getItemId() == R.id.homebottomnavProfile) {
                 fragment = new ProfileFragment();
+                toolbar.setVisibility(View.GONE); // 🔥 HIDE
             }
 
             return loadFragment(fragment);
