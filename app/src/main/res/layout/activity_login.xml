@@ -142,6 +142,8 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="8dp"
+                android:background="@drawable/edittext_line"
+
                 android:text="Don't have an account? Sign Up"
                 android:textColor="#222222"
                 android:textSize="14sp"

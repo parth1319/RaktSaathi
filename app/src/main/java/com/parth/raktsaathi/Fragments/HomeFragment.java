@@ -24,6 +24,8 @@ public class HomeFragment extends Fragment {
 
     private ViewPager2 slider;
     private Handler handler;
+    private Runnable runnable;
+
 
     public HomeFragment() {}
 
@@ -45,6 +47,10 @@ public class HomeFragment extends Fragment {
 
         // 🔥 SLIDER SETUP
         slider = view.findViewById(R.id.imageSlider);
+        slider.setClipToPadding(false);
+        slider.setClipChildren(false);
+        slider.setOffscreenPageLimit(3);
+        slider.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
 
         int[] images = {
                 R.drawable.rs_homefragment_slider1,
@@ -130,4 +136,14 @@ public class HomeFragment extends Fragment {
 
         slider = null;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.app.ActionBar actionBar = ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.show();
+        }
+    }
+
+
 }

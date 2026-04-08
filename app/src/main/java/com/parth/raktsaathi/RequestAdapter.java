@@ -54,6 +54,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         holder.tvBlood.setText("🩸 " + model.getBlood());
         holder.tvCity.setText("📍 " + model.getCity());
 
+        // 🔥 CALL BUTTON
         holder.btnCall.setOnClickListener(v -> {
 
             Intent intent = new Intent(Intent.ACTION_DIAL);

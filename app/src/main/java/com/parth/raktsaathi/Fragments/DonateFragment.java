@@ -5,7 +5,6 @@ import android.text.*;
 import android.view.*;
 import android.widget.*;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.*;
 
@@ -29,8 +28,9 @@ public class DonateFragment extends Fragment {
 
     String selectedDistrict = "";
 
-    List<DonorModel> list = new ArrayList<>();
-    DonorAdapter adapter;
+    // 🔥 IMPORTANT CHANGE
+    List<RequestModel> list = new ArrayList<>();
+    RequestAdapter adapter;
 
     public DonateFragment() {}
 
@@ -56,7 +56,8 @@ public class DonateFragment extends Fragment {
         recyclerRequests = view.findViewById(R.id.recyclerRequests);
         recyclerRequests.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter = new DonorAdapter(list);
+        // 🔥 FIXED ADAPTER
+        adapter = new RequestAdapter(getContext(), list);
         recyclerRequests.setAdapter(adapter);
 
         // 🔥 AGE
@@ -72,7 +73,7 @@ public class DonateFragment extends Fragment {
         spBlood.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item, blood));
 
-        // 🔥 AREA (Akola)
+        // 🔥 AREA
         String[] Area = {"Select Area","Akola City","Akot","Balapur","Murtizapur","Patur","Barshitakli","Telhara"};
 
         spDistrict.setAdapter(new ArrayAdapter<>(getContext(),
@@ -101,7 +102,8 @@ public class DonateFragment extends Fragment {
 
         btnDonate.setOnClickListener(v -> submitData());
 
-        loadDonors();
+        // 🔥 LOAD REQUESTS (NOT DONORS)
+        loadRequests();
 
         return view;
     }
@@ -139,7 +141,7 @@ public class DonateFragment extends Fragment {
         params.put("blood", bloodGroup);
         params.put("district", selectedDistrict);
         params.put("address", address);
-        params.put("city", "Akola"); // 🔥 FIX
+        params.put("city", "Akola");
 
         client.post(Urls.DONATE_BLOOD, params, new AsyncHttpResponseHandler() {
 
@@ -148,30 +150,38 @@ public class DonateFragment extends Fragment {
 
                 String res = new String(responseBody);
 
-                if(res.contains("success")){
+                if(res.toLowerCase().contains("success")){
                     successMsg.setVisibility(View.VISIBLE);
-                    Toast.makeText(getContext(), "Donor Added ✅", Toast.LENGTH_SHORT).show();
+
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Donor Added ✅", Toast.LENGTH_SHORT).show();
+                    }
 
                     list.clear();
-                    loadDonors();
+                    loadRequests(); // 🔥 refresh list
 
                 } else {
-                    Toast.makeText(getContext(), "Error ❌", Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Error ❌", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
 
-    private void loadDonors() {
+    // 🔥 LOAD REQUESTS
+    private void loadRequests() {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get(Urls.GET_DONORS, new AsyncHttpResponseHandler() {
+        client.get(Urls.GET_REQUESTS, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
@@ -179,34 +189,59 @@ public class DonateFragment extends Fragment {
                 try {
                     String res = new String(responseBody);
 
-                    JSONObject obj = new JSONObject(res);
-                    JSONArray arr = obj.getJSONArray("data");
+                    JSONArray arr;
+                    if(res.trim().startsWith("[")){
+                        arr = new JSONArray(res);
+                    }else{
+                        JSONObject obj = new JSONObject(res);
+                        arr = obj.getJSONArray("data");
+                    }
+
+
+                    list.clear();
 
                     for(int i=0;i<arr.length();i++){
 
                         JSONObject o = arr.getJSONObject(i);
 
-                        list.add(new DonorModel(
+                        // 🔥 ERROR FIX: correct constructor
+                        RequestModel model = new RequestModel(
                                 o.getString("name"),
                                 o.getString("mobile"),
                                 o.getString("blood_group"),
+                                o.getString("units"),
                                 o.getString("district"),
                                 o.getString("city"),
                                 o.getString("address")
-                        ));
+                        );
+
+                        list.add(model); // 🔥 NO ERROR NOW
                     }
 
                     adapter.notifyDataSetChanged();
 
                 } catch (Exception e){
-                    Toast.makeText(getContext(),"JSON Error",Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "JSON Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
+
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.app.ActionBar actionBar = ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
 }

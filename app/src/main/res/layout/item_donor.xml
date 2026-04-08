@@ -29,12 +29,12 @@
         <!-- BLOOD -->
         <TextView
             android:layout_height="wrap_content"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:id="@+id/tvBlood"
-            android:text="🩸 A+"
+            android:text="B+ "
             android:textSize="15sp"
             android:textStyle="bold"
-            android:textColor="#D32F2F"
+            android:textColor="@color/rs_buttons_colour"
             android:layout_marginTop="4dp"/>
 
         <!-- LOCATION -->
@@ -44,6 +44,7 @@
             android:id="@+id/tvLocation"
             android:text="📍 Akola"
             android:layout_marginTop="4dp"
+            android:textStyle="bold"
             android:textColor="#555"/>
 
         <!-- ADDRESS -->
@@ -52,6 +53,7 @@
             android:layout_width="match_parent"
             android:id="@+id/tvAddress"
             android:text="🏠 Address"
+            android:textStyle="bold"
             android:layout_marginTop="4dp"
             android:textColor="#333"/>
 
@@ -62,7 +64,7 @@
             android:layout_height="40dp"
             android:text="📞 Call Donor"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"
+            android:textColor="@color/white"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/rs_buttons_colour"/>
 
