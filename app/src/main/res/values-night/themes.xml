@@ -6,4 +6,18 @@
     <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi">
     </style>
 
+
+        <style name="Theme.Raktsaathi" parent="Theme.Material3.DayNight.NoActionBar">
+
+            <item name="android:colorBackground">@color/bgColor</item>
+            <item name="colorSurface">@color/cardColor</item>
+
+            <item name="android:textColorPrimary">@color/textPrimary</item>
+            <item name="android:textColorSecondary">@color/textSecondary</item>
+
+            <item name="colorPrimary">@color/accentColor</item>
+
+        </style>
+
+
 </resources>

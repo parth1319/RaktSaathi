@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 import com.loopj.android.http.*;
@@ -30,6 +31,8 @@ public class ProfileFragment extends Fragment {
 
     CircleImageView imgProfile;
 
+    Switch switchDark;
+
     String email = "";
     Uri imageUri;
 
@@ -44,7 +47,15 @@ public class ProfileFragment extends Fragment {
         SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
 
-        // 🔥 IDs
+        SharedPreferences themePref = getActivity().getSharedPreferences("theme", Context.MODE_PRIVATE);
+        boolean isDark = themePref.getBoolean("darkMode", false);
+
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         imgProfile = view.findViewById(R.id.imgProfile);
         tvAddPhoto = view.findViewById(R.id.tvAddPhoto);
 
@@ -57,7 +68,6 @@ public class ProfileFragment extends Fragment {
         btnLogout = view.findViewById(R.id.btnLogout);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnChangePass = view.findViewById(R.id.btnChangePass);
-        btnChangePhoto = view.findViewById(R.id.btnChangePhoto);
 
         btnSettingsToggle = view.findViewById(R.id.btnSettingsToggle);
         btnAboutToggle = view.findViewById(R.id.btnAboutToggle);
@@ -68,16 +78,31 @@ public class ProfileFragment extends Fragment {
         arrowSettings = view.findViewById(R.id.arrowSettings);
         arrowAbout = view.findViewById(R.id.arrowAbout);
 
+        switchDark = view.findViewById(R.id.switchDark);
+        switchDark.setChecked(isDark);
+
+        switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            SharedPreferences.Editor editor = themePref.edit();
+            editor.putBoolean("darkMode", isChecked);
+            editor.apply();
+
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+        });
+
         tvEmail.setText("📧 " + email);
 
         loadProfile();
 
-        // 🔥 PHOTO CLICK
         tvAddPhoto.setOnClickListener(v -> openGallery());
         imgProfile.setOnClickListener(v -> openGallery());
         btnChangePhoto.setOnClickListener(v -> openGallery());
 
-        // 🔥 SETTINGS TOGGLE
         btnSettingsToggle.setOnClickListener(v -> {
             if(settingsContent.getVisibility() == View.VISIBLE){
                 settingsContent.setVisibility(View.GONE);
@@ -88,7 +113,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        // 🔥 ABOUT TOGGLE
         btnAboutToggle.setOnClickListener(v -> {
             if(aboutContent.getVisibility() == View.VISIBLE){
                 aboutContent.setVisibility(View.GONE);
@@ -98,8 +122,6 @@ public class ProfileFragment extends Fragment {
                 arrowAbout.setText("▲");
             }
         });
-
-        // 🔥 LOGOUT
         btnLogout.setOnClickListener(v -> {
             new AlertDialog.Builder(getContext())
                     .setTitle("Logout")
@@ -113,25 +135,21 @@ public class ProfileFragment extends Fragment {
                     .show();
         });
 
-        // 🔥 EDIT PROFILE
         btnEditProfile.setOnClickListener(v ->
                 startActivity(new Intent(getContext(), EditProfileActivity.class)));
 
-        // 🔥 CHANGE PASSWORD
         btnChangePass.setOnClickListener(v ->
                 startActivity(new Intent(getContext(), ChangePasswordActivity.class)));
 
         return view;
     }
 
-    // 🔥 OPEN GALLERY
     private void openGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 101);
     }
 
-    // 🔥 LOAD PROFILE
     private void loadProfile(){
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -188,7 +206,6 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    // 🔥 RESULT (NO CROP)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -196,14 +213,11 @@ public class ProfileFragment extends Fragment {
         if(requestCode == 101 && resultCode == getActivity().RESULT_OK && data != null){
 
             imageUri = data.getData();
-
             imgProfile.setImageURI(imageUri);
-
             uploadImage();
         }
     }
 
-    // 🔥 UPLOAD
     private void uploadImage(){
 
         try{
@@ -213,7 +227,6 @@ public class ProfileFragment extends Fragment {
             RequestParams params = new RequestParams();
             params.put("email", email);
 
-            // 🔥 INPUT STREAM METHOD (REAL FIX)
             params.put("image", getContext().getContentResolver().openInputStream(imageUri), "profile.jpg");
 
             client.post(Urls.UPLOAD_IMAGE, params, new AsyncHttpResponseHandler() {
@@ -235,6 +248,7 @@ public class ProfileFragment extends Fragment {
             Toast.makeText(getContext(),"File Error ❌",Toast.LENGTH_SHORT).show();
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();

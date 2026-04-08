@@ -26,19 +26,16 @@ public class Reset_PasswordActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        // 🔥 INIT
         etNewPassword = findViewById(R.id.etNewPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnResetPassword = findViewById(R.id.btnResetPassword);
 
-        // 🔥 email ghe VerifyOTPActivity madhun
         email = getIntent().getStringExtra("email");
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Updating Password...");
         progressDialog.setCancelable(false);
 
-        // 🔥 BUTTON CLICK
         btnResetPassword.setOnClickListener(v -> resetPassword());
     }
 
@@ -47,7 +44,6 @@ public class Reset_PasswordActivity extends AppCompatActivity {
         String newPass = etNewPassword.getText().toString().trim();
         String confirmPass = etConfirmPassword.getText().toString().trim();
 
-        // 🔴 VALIDATION
         if (TextUtils.isEmpty(newPass)) {
             etNewPassword.setError("Enter New Password");
             return;
@@ -72,7 +68,6 @@ public class Reset_PasswordActivity extends AppCompatActivity {
         params.put("email", email);
         params.put("password", newPass);
 
-        // 🔥 API CALL
         client.post(Urls.RESET_PASSWORD, params, new AsyncHttpResponseHandler() {
 
             @Override
@@ -88,7 +83,6 @@ public class Reset_PasswordActivity extends AppCompatActivity {
                             "Password Updated Successfully",
                             Toast.LENGTH_SHORT).show();
 
-                    // 👉 login screen la ja
                     Intent intent = new Intent(Reset_PasswordActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();

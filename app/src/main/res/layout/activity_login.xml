@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- TITLE -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -34,8 +33,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <!-- EMAIL -->
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -48,16 +46,13 @@
                 android:padding="12dp"
                 android:textSize="16sp" />
 
-            <!-- PASSWORD -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
-
                 app:boxBackgroundMode="outline"
-
                 app:boxStrokeColor="@color/rs_buttons_colour"
                 app:endIconMode="password_toggle"
                 app:hintTextColor="@color/rs_buttons_colour">
@@ -72,7 +67,7 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- FORGOT -->
+
             <TextView
                 android:id="@+id/forgotPassword"
                 android:layout_width="wrap_content"
@@ -86,7 +81,6 @@
                 android:textColor="@color/rs_buttons_colour"
                 android:textSize="12sp" />
 
-            <!-- LOGIN BUTTON -->
             <Button
                 android:id="@+id/loginbtnlogin"
                 android:layout_gravity="center"
@@ -97,7 +91,6 @@
             android:textColor="#FFFFFF"
             android:backgroundTint="@color/rs_buttons_colour"/>
 
-            <!-- OR -->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,7 +99,6 @@
                 android:textAlignment="center"
                 android:textColor="#999" />
 
-            <!-- GOOGLE -->
             <LinearLayout
                 android:id="@+id/googleBtn"
                 android:layout_width="match_parent"
@@ -132,7 +124,6 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <!-- SIGNUP -->
             <TextView
                 android:id="@+id/signupText"
                 android:layout_width="wrap_content"
@@ -143,7 +134,6 @@
                 android:focusable="true"
                 android:padding="8dp"
                 android:background="@drawable/edittext_line"
-
                 android:text="Don't have an account? Sign Up"
                 android:textColor="#222222"
                 android:textSize="14sp"
