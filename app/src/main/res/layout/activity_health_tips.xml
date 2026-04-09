@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F5F7FB"
+    android:background="#EEF2F7"
     android:fitsSystemWindows="true">
 
     <LinearLayout
@@ -12,266 +13,323 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <TextView
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="🩺 Health Tips"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@color/rs_buttons_colour"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginBottom="15dp"/>
+            android:orientation="horizontal"
+            android:layout_marginBottom="20dp">
 
-        <!-- CARD 1 -->
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/doctor_healthtips"
+              />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Health Tips"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="#D32F2F"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
+            android:layout_marginBottom="18dp"
+            app:cardCornerRadius="20dp"
             app:cardElevation="6dp"
-            xmlns:app="http://schemas.android.com/apk/res-auto">
+            android:backgroundTint="#FFE5E5">
 
             <LinearLayout
-                android:padding="16dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <TextView
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/blood_donation_healthtips"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:text="🩸 Blood Donation"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:id="@+id/tv1"
-                    android:text="Blood donation is a life-saving act that plays a crucial role during emergencies, surgeries, and serious medical conditions like cancer. A single donation can help multiple patients in need. When you donate blood, your body produces new blood cells, improving circulation and overall health. It also helps reduce excess iron levels, lowering the risk of heart diseases. A healthy person can donate blood every 3 months safely. Before donating, proper hydration and nutrition are important. Blood donation not only saves lives but also gives a sense of social responsibility and satisfaction."
+                    <TextView
+                        android:text="Blood Donation"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#B71C1C"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
+                    <TextView
+                        android:id="@+id/tv1"
+                        android:text="❤️ Save Lives, Be a Hero
+Blood donation is a simple act that can make a huge difference. One donation can save up to 3 lives. It helps patients during surgeries, accidents, and serious illnesses like cancer.
+🌟 Why Donate Blood?
+🧬 Supports patients in emergencies
+❤️ Helps maintain healthy blood flow
+🔄 Stimulates new blood cell production
+🫀 May reduce risk of heart diseases
+😊 Gives a feeling of happiness and social responsibility"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btn1"
-                    android:text="See More"
-                    android:textColor="#1565C0"/>
+                        android:textColor="#444"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/btn1"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FF5252"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+
+                </LinearLayout>
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- CARD 2 -->
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="18dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#FFF3E0">
 
             <LinearLayout
-                android:padding="16dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <TextView
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/addiction_healthtips"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:text="🚭 Addiction"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/tv2"
-                    android:textColor="@color/black"
-                    android:text="Addiction to smoking, alcohol, and drugs is one of the major health challenges today. It damages vital organs like the lungs, liver, and brain, leading to serious diseases and mental health issues. Addiction also affects relationships, career, and decision-making ability. Avoiding addictive substances is essential for a healthy and stable life. Engaging in positive activities like exercise, meditation, and hobbies can help reduce stress and prevent addiction. Strong willpower and family support play an important role in overcoming addiction. Awareness and education are key to building a healthier society."
+                    <TextView
+                        android:text="Addiction"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#E65100"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
+                    <TextView
+                        android:id="@+id/tv2"
+                        android:text="⚠️ Break Free, Live Better
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btn2"
-                    android:text="See More"
-                    android:textColor="#1565C0"/>
+Addiction to smoking, alcohol, and drugs can slowly harm your body and mind. It affects your health, relationships, and future. The good news is — you can overcome it.
+
+🌟 Why Avoid Addiction?
+🫁 Damages lungs, liver, and brain
+🧠 Affects mental health and decision-making
+💔 Weakens relationships and social life
+📉 Reduces focus, productivity, and energy
+⚠️ Increases risk of serious diseases
+💡 Signs of A"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+
+                        android:textColor="#444"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/btn2"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FF7043"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+
+                </LinearLayout>
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- CARD 3 -->
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            android:layout_marginBottom="18dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#FFE0E0">
 
             <LinearLayout
-                android:padding="16dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <TextView
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/heart_healthtips"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:text="❤️ Heart Health"
-                    android:textColor="@color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:id="@+id/tv3"
-                    android:text="Heart health is essential for maintaining a long and active life. Unhealthy lifestyles, including poor diet, lack of exercise, and stress, increase the risk of heart diseases. Regular physical activity such as walking, jogging, or yoga helps improve blood circulation and strengthens the heart. Eating a balanced diet rich in fruits, vegetables, and whole grains helps control cholesterol levels. Avoiding smoking and limiting alcohol intake are crucial steps. Managing stress through meditation and proper sleep also supports heart health. Regular check-ups help detect problems early and prevent serious complications."
+                    <TextView
+                        android:text="Heart Health"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#C62828"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
+                    <TextView
+                        android:id="@+id/tv3"
+                        android:text="💓 Keep Your Heart Strong and Happy
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btn3"
-                    android:text="See More"
-                    android:textColor="#1565C0"/>
+Your heart works non-stop to keep you alive. Taking care of it means living a longer, healthier, and more energetic life.
+
+🌟 Why Heart Health Matters
+🫀 Pumps oxygen-rich blood to the whole body
+⚡ Keeps your energy levels high
+🧠 Supports brain function
+❤️ Reduces risk of heart attacks and diseases"
+                        android:textSize="14sp"
+                        android:textColor="#444"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/btn3"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#EF5350"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+
+                </LinearLayout>
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- CARD 4 -->
+
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#E3F2FD">
 
             <LinearLayout
-                android:padding="16dp"
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <TextView
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/hydration_healthtips"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:text="🧠 Mental Health"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:id="@+id/tv4"
-                    android:text="Heart health is essential for maintaining a long and active life. Unhealthy lifestyles, including poor diet, lack of exercise, and stress, increase the risk of heart diseases. Regular physical activity such as walking, jogging, or yoga helps improve blood circulation and strengthens the heart. Eating a balanced diet rich in fruits, vegetables, and whole grains helps control cholesterol levels. Avoiding smoking and limiting alcohol intake are crucial steps. Managing stress through meditation and proper sleep also supports heart health. Regular check-ups help detect problems early and prevent serious complications."
+                    <TextView
+                        android:text="Hydration"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#1565C0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
+                    <TextView
+                        android:id="@+id/tv4"
+                        android:text="🌊 Stay Hydrated, Stay Energized
 
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btn4"
-                    android:text="See More"
-                    android:textColor="#1565C0"/>
+Water is the fuel your body needs to function properly. Staying hydrated keeps you fresh, active, and healthy throughout the day.
+
+🌟 Why Hydration Matters
+💪 Maintains energy and reduces fatigue
+🌡️ Regulates body temperature
+🧠 Improves focus and concentration
+🍽️ Supports digestion and nutrient absorption
+🚿 Helps remove toxins from the body
+🥤 Daily Hydration Tips"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+
+                        android:textColor="#444"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/btn4"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#42A5F5"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+
+                </LinearLayout>
+
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
-        <!-- CARD 5 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:padding="16dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:text="💧 Hydration"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/tv5"
-                    android:textColor="@color/black"
-                    android:text="Staying hydrated is essential for maintaining overall health and proper body function. Water helps regulate body temperature, supports digestion, and removes toxins from the body. Lack of hydration can lead to fatigue, headaches, and reduced concentration. Drinking at least 7–8 glasses of water daily is recommended for a healthy lifestyle. During hot weather or physical activity, the body requires even more fluids. Including fruits and vegetables with high water content also helps maintain hydration. Proper hydration improves energy levels and keeps the body active throughout the day."
-
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btn5"
-                    android:text="See More"
-                    android:textColor="#1565C0"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- CARD 6 -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:foreground="?attr/selectableItemBackground"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="6dp">
-
-            <LinearLayout
-                android:padding="16dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:text="🥗 Healthy Food"
-                    android:textSize="18sp"
-                    android:textStyle="bold"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:textColor="@color/black"
-                    android:id="@+id/tv6"
-                    android:text="Eating healthy food is the foundation of a strong and disease-free life. A balanced diet provides essential nutrients like vitamins, minerals, proteins, and fiber required by the body. Consuming fresh fruits, vegetables, whole grains, and lean proteins helps boost immunity and maintain energy levels. Avoiding junk food, processed items, and excessive sugar reduces the risk of obesity and chronic diseases. Regular meals at proper intervals help maintain metabolism. Healthy eating habits improve both physical and mental well-being. A nutritious diet is key to a long and healthy life."
-                    android:maxLines="3"
-                    android:ellipsize="end"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btn6"
-                    android:text="See More"
-                    android:textColor="#1565C0"/>
-            </LinearLayout>
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
 </ScrollView>
