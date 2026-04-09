@@ -16,15 +16,15 @@ public class HealthTipsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_health_tips);
 
-        tvLong1 = findViewById(R.id.tvLong1);
-        tvLong2 = findViewById(R.id.tvLong2);
-        tvLong3 = findViewById(R.id.tvLong3);
-        tvLong4 = findViewById(R.id.tvLong4);
+        tvLong1 = findViewById(R.id.tv1);
+        tvLong2 = findViewById(R.id.tv2);
+        tvLong3 = findViewById(R.id.tv3);
+        tvLong4 = findViewById(R.id.tv4);
 
-        btnMore1 = findViewById(R.id.btnMore1);
-        btnMore2 = findViewById(R.id.btnMore2);
-        btnMore3 = findViewById(R.id.btnMore3);
-        btnMore4 = findViewById(R.id.btnMore4);
+        btnMore1 = findViewById(R.id.btn1);
+        btnMore2 = findViewById(R.id.btn2);
+        btnMore3 = findViewById(R.id.btn3);
+        btnMore4 = findViewById(R.id.btn4);
 
         btnMore1.setOnClickListener(v -> toggle(tvLong1, btnMore1));
         btnMore2.setOnClickListener(v -> toggle(tvLong2, btnMore2));

@@ -25,7 +25,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvName, tvBlood, tvCity;
+        TextView tvName, tvBlood, tvAddress, tvUnits;
         Button btnCall;
 
         public ViewHolder(View itemView) {
@@ -33,7 +33,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
             tvName = itemView.findViewById(R.id.tvName);
             tvBlood = itemView.findViewById(R.id.tvBlood);
-            tvCity = itemView.findViewById(R.id.tvCity);
+            tvAddress = itemView.findViewById(R.id.tvAddress);
+            tvUnits = itemView.findViewById(R.id.tvUnits);
             btnCall = itemView.findViewById(R.id.btnCall);
         }
     }
@@ -51,8 +52,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         RequestModel model = list.get(position);
 
         holder.tvName.setText("👤 " + model.getName());
-        holder.tvBlood.setText("🩸 " + model.getBlood());
-        holder.tvCity.setText("📍 " + model.getCity());
+        holder.tvBlood.setText("🩸 " + model.getBlood_group());
+        holder.tvAddress.setText("📍 " + model.getAddress());
+        holder.tvUnits.setText("📦 Units: " + model.getUnits());
 
         // 🔥 CALL BUTTON
         holder.btnCall.setOnClickListener(v -> {

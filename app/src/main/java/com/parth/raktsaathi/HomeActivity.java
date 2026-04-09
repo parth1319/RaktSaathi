@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     // 🔥 COMMON METHOD
-    private boolean loadFragment(Fragment fragment){
+    public boolean loadFragment(Fragment fragment){
         if(fragment != null){
             getSupportFragmentManager()
                     .beginTransaction()

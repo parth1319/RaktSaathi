@@ -37,10 +37,8 @@ public class RegistrationActivity extends AppCompatActivity {
         name = findViewById(R.id.et_name);
         phone = findViewById(R.id.et_phone);
         email = findViewById(R.id.et_email);
-        location = findViewById(R.id.et_location);
         password = findViewById(R.id.et_password);
         confirmPassword = findViewById(R.id.et_confirm_password);
-        lastdonationdate = findViewById(R.id.et_lastdonationdate);
         blood = findViewById(R.id.sp_blood);
         register = findViewById(R.id.btn_register);
 

@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileFragment extends Fragment {
 
     TextView tvName, tvMobile, tvEmail, tvBlood, tvCity, tvAddPhoto;
-    TextView btnLogout, btnEditProfile, btnChangePass, btnChangePhoto;
+    TextView btnLogout, btnEditProfile, btnChangePass;
 
     LinearLayout btnSettingsToggle, btnAboutToggle, settingsContent;
     TextView arrowSettings, arrowAbout, aboutContent;
@@ -101,7 +101,6 @@ public class ProfileFragment extends Fragment {
 
         tvAddPhoto.setOnClickListener(v -> openGallery());
         imgProfile.setOnClickListener(v -> openGallery());
-        btnChangePhoto.setOnClickListener(v -> openGallery());
 
         btnSettingsToggle.setOnClickListener(v -> {
             if(settingsContent.getVisibility() == View.VISIBLE){
@@ -128,7 +127,9 @@ public class ProfileFragment extends Fragment {
                     .setMessage("Are you sure?")
                     .setPositiveButton("Yes", (d, w) -> {
                         sp.edit().clear().apply();
-                        startActivity(new Intent(getContext(), LoginActivity.class));
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                         getActivity().finish();
                     })
                     .setNegativeButton("No", null)
