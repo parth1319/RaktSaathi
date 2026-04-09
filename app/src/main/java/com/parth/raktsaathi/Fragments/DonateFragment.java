@@ -8,7 +8,9 @@ import android.widget.*;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.*;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.parth.raktsaathi.*;
 import com.parth.raktsaathi.R;
 
