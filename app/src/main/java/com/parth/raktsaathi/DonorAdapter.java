@@ -20,7 +20,6 @@ public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.ViewHolder> 
         this.list = list;
     }
 
-    // 🔥 VIEW HOLDER
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, blood, location, address;
@@ -52,13 +51,11 @@ public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.ViewHolder> 
 
         DonorModel d = list.get(position);
 
-        // 🔥 SET DATA
         h.name.setText(d.getName());
         h.blood.setText("🩸 " + d.getBlood_group());
         h.location.setText("📍 " + d.getCity() + ", " + d.getDistrict());
         h.address.setText("🏠 " + d.getAddress());
 
-        // 🔥 CALL BUTTON
         h.btnCall.setOnClickListener(v -> {
 
             Intent intent = new Intent(Intent.ACTION_DIAL);

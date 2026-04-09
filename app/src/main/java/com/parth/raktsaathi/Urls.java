@@ -8,6 +8,10 @@ public class Urls {
     public static final String REGISTER = BASE_URL + "user_registration.php";
     public static final String LOGIN = BASE_URL + "users_login.php";
     public static final String GoogleSignIn = BASE_URL + "google_login.php";
+    public static final String GET_STATS = BASE_URL + "get_stats.php";
+    public static final String GET_CAMPS = BASE_URL + "get_camps.php";
+    public static final String CHECK_REGISTER = BASE_URL + "check_registered.php";
+    public static final String REGISTER_CAMP = BASE_URL + "register_camp.php";
 
 
     //Forget Password PHP

@@ -64,13 +64,21 @@ public class HomeActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
-                finish();
+                if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+                    getSupportFragmentManager().popBackStack();
+                } else {
+                    if (bottomNav.getSelectedItemId() != R.id.homebottomnavHome) {
+                        bottomNav.setSelectedItemId(R.id.homebottomnavHome);
+                    } else {
+                        finish();
+                    }
+                }
             }
         });
     }
 
     // 🔥 COMMON METHOD
-    private boolean loadFragment(Fragment fragment){
+    public boolean loadFragment(Fragment fragment){
         if(fragment != null){
             getSupportFragmentManager()
                     .beginTransaction()

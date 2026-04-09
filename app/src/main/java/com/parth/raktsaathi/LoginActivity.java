@@ -10,7 +10,10 @@ import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+import com.parth.raktsaathi.R;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
 
@@ -32,7 +35,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔥 Already logged in check
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
         if (sp.getBoolean("isLoggedIn", false)) {
             startActivity(new Intent(this, HomeActivity.class));
@@ -63,7 +65,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ForgotPasswordActivity.class))
         );
 
-        // 🔥 GOOGLE LOGIN
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -96,7 +97,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // 🔥 GOOGLE LOGIN → SERVER
     private void sendGoogleDataToServer(String name, String emailStr) {
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -128,7 +128,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // 🔥 NORMAL LOGIN (DATABASE CONNECTED)
     private void loginUser() {
 
         String userInput = email.getText().toString().trim();
@@ -189,7 +188,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // 🔥 SAVE LOGIN (IMPORTANT FOR PROFILE)
     private void saveLogin(String email) {
 
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);

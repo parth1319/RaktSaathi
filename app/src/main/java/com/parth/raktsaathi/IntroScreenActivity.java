@@ -15,11 +15,9 @@ public class IntroScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 🔥 CHECK USER ALREADY LOGGED IN
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
 
         if(sp.getBoolean("isLoggedIn", false)){
-            // 👉 Already login → direct Home
             startActivity(new Intent(IntroScreenActivity.this, HomeActivity.class));
             finish();
             return;
@@ -30,12 +28,10 @@ public class IntroScreenActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogin);
         btnCreate = findViewById(R.id.btncreteaccIntroScrn);
 
-        // 🔘 LOGIN BUTTON
         btnLogin.setOnClickListener(v -> {
             startActivity(new Intent(IntroScreenActivity.this, LoginActivity.class));
         });
 
-        // 🔘 CREATE ACCOUNT BUTTON
         btnCreate.setOnClickListener(v -> {
 
             startActivity(new Intent(IntroScreenActivity.this, RegistrationActivity.class));

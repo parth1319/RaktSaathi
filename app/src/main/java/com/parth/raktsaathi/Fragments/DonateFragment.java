@@ -8,7 +8,9 @@ import android.widget.*;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.*;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.parth.raktsaathi.*;
 import com.parth.raktsaathi.R;
 
@@ -153,19 +155,25 @@ public class DonateFragment extends Fragment {
                 if(res.toLowerCase().contains("success")){
                     successMsg.setVisibility(View.VISIBLE);
 
-                    Toast.makeText(getContext(), "Donor Added ✅", Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Donor Added ✅", Toast.LENGTH_SHORT).show();
+                    }
 
                     list.clear();
                     loadRequests(); // 🔥 refresh list
 
                 } else {
-                    Toast.makeText(getContext(), "Error ❌", Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Error ❌", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -183,8 +191,14 @@ public class DonateFragment extends Fragment {
                 try {
                     String res = new String(responseBody);
 
-                    JSONObject obj = new JSONObject(res);
-                    JSONArray arr = obj.getJSONArray("data");
+                    JSONArray arr;
+                    if(res.trim().startsWith("[")){
+                        arr = new JSONArray(res);
+                    }else{
+                        JSONObject obj = new JSONObject(res);
+                        arr = obj.getJSONArray("data");
+                    }
+
 
                     list.clear();
 
@@ -209,14 +223,27 @@ public class DonateFragment extends Fragment {
                     adapter.notifyDataSetChanged();
 
                 } catch (Exception e){
-                    Toast.makeText(getContext(),"JSON Error",Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "JSON Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
+
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.app.ActionBar actionBar = ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
 }

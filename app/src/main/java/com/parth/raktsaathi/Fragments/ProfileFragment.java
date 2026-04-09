@@ -1,9 +1,8 @@
 package com.parth.raktsaathi.Fragments;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.*;
@@ -17,19 +16,27 @@ import com.parth.raktsaathi.R;
 
 import org.json.JSONObject;
 
+import java.io.File;
+
 import cz.msebera.android.httpclient.Header;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
-    TextView tvName, tvMobile, tvEmail, tvBlood, tvCity;
-    TextView btnEditProfile, btnChangePass, btnLogout;
-    LinearLayout btnSettingsToggle, btnAboutToggle;
-    TextView arrowSettings, arrowAbout , aboutContent;
-    LinearLayout settingsContent;
+    TextView tvName, tvMobile, tvEmail, tvBlood, tvCity, tvAddPhoto;
+    TextView btnLogout, btnEditProfile, btnChangePass;
+
+    LinearLayout btnSettingsToggle, btnAboutToggle, settingsContent;
+    TextView arrowSettings, arrowAbout, aboutContent;
+
+    CircleImageView imgProfile;
+
     Switch switchDark;
 
-    boolean isSettingsOpen = false;
-    boolean isAboutOpen = false;
+    String email = "";
+    Uri imageUri;
+
+    public ProfileFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,31 +44,30 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        Context context = requireActivity();
+        SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        email = sp.getString("email", "");
 
-        // 🔥 SharedPreferences
-        SharedPreferences sp = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+        SharedPreferences themePref = getActivity().getSharedPreferences("theme", Context.MODE_PRIVATE);
+        boolean isDark = themePref.getBoolean("darkMode", false);
 
-        boolean isLoggedIn = sp.getBoolean("isLoggedIn", false);
-
-        if(!isLoggedIn){
-            startActivity(new Intent(context, LoginActivity.class));
-            requireActivity().finish();
-            return view;
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
 
-        String email = sp.getString("email", "");
+        imgProfile = view.findViewById(R.id.imgProfile);
+        tvAddPhoto = view.findViewById(R.id.tvAddPhoto);
 
-        // 🔥 IDs
         tvName = view.findViewById(R.id.tvName);
         tvMobile = view.findViewById(R.id.tvMobile);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvBlood = view.findViewById(R.id.tvBlood);
         tvCity = view.findViewById(R.id.tvCity);
 
+        btnLogout = view.findViewById(R.id.btnLogout);
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnChangePass = view.findViewById(R.id.btnChangePass);
-        btnLogout = view.findViewById(R.id.btnLogout);
 
         btnSettingsToggle = view.findViewById(R.id.btnSettingsToggle);
         btnAboutToggle = view.findViewById(R.id.btnAboutToggle);
@@ -73,10 +79,80 @@ public class ProfileFragment extends Fragment {
         arrowAbout = view.findViewById(R.id.arrowAbout);
 
         switchDark = view.findViewById(R.id.switchDark);
+        switchDark.setChecked(isDark);
+
+        switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+
+            SharedPreferences.Editor editor = themePref.edit();
+            editor.putBoolean("darkMode", isChecked);
+            editor.apply();
+
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+
+        });
 
         tvEmail.setText("📧 " + email);
 
-        // 🔥 FETCH PROFILE FROM DATABASE
+        loadProfile();
+
+        tvAddPhoto.setOnClickListener(v -> openGallery());
+        imgProfile.setOnClickListener(v -> openGallery());
+
+        btnSettingsToggle.setOnClickListener(v -> {
+            if(settingsContent.getVisibility() == View.VISIBLE){
+                settingsContent.setVisibility(View.GONE);
+                arrowSettings.setText("▼");
+            }else{
+                settingsContent.setVisibility(View.VISIBLE);
+                arrowSettings.setText("▲");
+            }
+        });
+
+        btnAboutToggle.setOnClickListener(v -> {
+            if(aboutContent.getVisibility() == View.VISIBLE){
+                aboutContent.setVisibility(View.GONE);
+                arrowAbout.setText("▼");
+            }else{
+                aboutContent.setVisibility(View.VISIBLE);
+                arrowAbout.setText("▲");
+            }
+        });
+        btnLogout.setOnClickListener(v -> {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure?")
+                    .setPositiveButton("Yes", (d, w) -> {
+                        sp.edit().clear().apply();
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        getActivity().finish();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+        });
+
+        btnEditProfile.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), EditProfileActivity.class)));
+
+        btnChangePass.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class)));
+
+        return view;
+    }
+
+    private void openGallery(){
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, 101);
+    }
+
+    private void loadProfile(){
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("email", email);
@@ -87,93 +163,96 @@ public class ProfileFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
                 try {
-                    String res = new String(responseBody);
+                    String res = new String(responseBody).trim();
                     JSONObject obj = new JSONObject(res);
 
-                    if(obj.getString("status").equals("success")){
+                    tvName.setText(obj.optString("name"));
+                    tvMobile.setText("📞 " + obj.optString("phone"));
+                    tvBlood.setText("🩸 " + obj.optString("blood_group"));
 
-                        tvName.setText(obj.getString("name"));
-                        tvMobile.setText("📞 " + obj.getString("phone"));
-                        tvBlood.setText("🩸 " + obj.getString("blood"));
-                        tvCity.setText("📍 " + obj.getString("location"));
+                    String location = obj.optString("location");
+                    if(location == null || location.isEmpty() || location.equals("null")){
+                        location = "N/A";
+                    }
+                    tvCity.setText("📍 " + location);
 
-                    } else {
-                        Toast.makeText(context, "No Data Found", Toast.LENGTH_SHORT).show();
+                    String imagePath = obj.optString("profile_image");
+
+                    if(imagePath != null && !imagePath.isEmpty() && !imagePath.equals("null")){
+
+                        String fullUrl = Urls.BASE_URL + imagePath;
+
+                        com.squareup.picasso.Picasso.get()
+                                .load(fullUrl)
+                                .placeholder(R.drawable.rs_profilelogo)
+                                .error(R.drawable.rs_profilelogo)
+                                .into(imgProfile);
+
+                        tvAddPhoto.setText("Change Profile Photo");
+
+                    }else{
+                        imgProfile.setImageResource(R.drawable.rs_profilelogo);
+                        tvAddPhoto.setText("Add Profile Photo");
                     }
 
                 } catch (Exception e){
-                    Toast.makeText(context, "JSON Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"JSON Error",Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-        // 🔽 SETTINGS TOGGLE
-        btnSettingsToggle.setOnClickListener(v -> {
-            if (isSettingsOpen) {
-                settingsContent.setVisibility(View.GONE);
-                arrowSettings.setText("▼");
-            } else {
-                settingsContent.setVisibility(View.VISIBLE);
-                arrowSettings.setText("▲");
-            }
-            isSettingsOpen = !isSettingsOpen;
-        });
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-        // 🔽 ABOUT TOGGLE
-        btnAboutToggle.setOnClickListener(v -> {
-            if (isAboutOpen) {
-                aboutContent.setVisibility(View.GONE);
-                arrowAbout.setText("▼");
-            } else {
-                aboutContent.setVisibility(View.VISIBLE);
-                arrowAbout.setText("▲");
-            }
-            isAboutOpen = !isAboutOpen;
-        });
+        if(requestCode == 101 && resultCode == getActivity().RESULT_OK && data != null){
 
-        // 🌙 DARK MODE
-        switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
-        });
+            imageUri = data.getData();
+            imgProfile.setImageURI(imageUri);
+            uploadImage();
+        }
+    }
 
-        // ✏️ EDIT PROFILE
-        btnEditProfile.setOnClickListener(v ->
-                startActivity(new Intent(context, EditProfileActivity.class))
-        );
+    private void uploadImage(){
 
-        // 🔒 CHANGE PASSWORD
-        btnChangePass.setOnClickListener(v ->
-                startActivity(new Intent(context, ChangePasswordActivity.class))
-        );
+        try{
 
-        // 🚪 LOGOUT
-        btnLogout.setOnClickListener(v -> {
+            AsyncHttpClient client = new AsyncHttpClient();
 
-            new AlertDialog.Builder(context)
-                    .setTitle("Logout")
-                    .setMessage("Are you sure you want to logout?")
-                    .setPositiveButton("Yes", (d, w) -> {
+            RequestParams params = new RequestParams();
+            params.put("email", email);
 
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.clear();
-                        editor.apply();
+            params.put("image", getContext().getContentResolver().openInputStream(imageUri), "profile.jpg");
 
-                        startActivity(new Intent(context, LoginActivity.class));
-                        requireActivity().finish();
-                    })
-                    .setNegativeButton("No", null)
-                    .show();
-        });
+            client.post(Urls.UPLOAD_IMAGE, params, new AsyncHttpResponseHandler() {
 
-        return view;
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    Toast.makeText(getContext(),"Uploaded ✅",Toast.LENGTH_SHORT).show();
+                    loadProfile();
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Toast.makeText(getContext(),"Upload Failed ❌",Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getContext(),"File Error ❌",Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProfile();
     }
 }

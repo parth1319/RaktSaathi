@@ -13,4 +13,17 @@
     <color name="rs_heading_color">#B71C1C</color>
     <color name="rs_qoute_color">#616161</color>
     <color name="rs_buttons_colour">#8E0000</color>
-</resources>
+    <color name="linkColor">#2196F3</color>
+    <color name="Purple">#9C27B0</color>
+    <color name="orange1">#FF9800</color>
+    <color name="DeepPurple">#673AB7</color>
+    <color name="bgColor">#FFFFFF</color>
+    <color name="cardColor">#F5F5F5</color>
+    <color name="textPrimary">#000000</color>
+    <color name="textSecondary">#666666</color>
+    <color name="accentColor">#E53935</color>
+    <color name="green_success">#4CAF50</color>
+    </resources>
+
+
+

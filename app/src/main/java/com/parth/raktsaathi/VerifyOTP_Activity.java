@@ -35,14 +35,12 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         progressDialog.setMessage("Verifying OTP...");
         progressDialog.setCancelable(false);
 
-        // 🔥 email ghe previous screen madhun
         email = getIntent().getStringExtra("email");
 
         btnVerifyOtp.setOnClickListener(v -> verifyOtp());
         tvResend.setOnClickListener(v -> resendOtp());
     }
 
-    // 🔥 VERIFY OTP FROM DATABASE
     private void verifyOtp() {
 
         String otp = etOtp.getText().toString().trim();
@@ -74,7 +72,6 @@ public class VerifyOTP_Activity extends AppCompatActivity {
                             "OTP Verified Successfully",
                             Toast.LENGTH_SHORT).show();
 
-                    // 👉 next screen (Reset Password)
                     Intent i = new Intent(VerifyOTP_Activity.this, Reset_PasswordActivity.class);
                     i.putExtra("email", email);
                     startActivity(i);
@@ -99,7 +96,6 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         });
     }
 
-    // 🔥 RESEND OTP
     private void resendOtp() {
 
         progressDialog.setMessage("Resending OTP...");

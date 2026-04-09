@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:hint="Full Name"
-                android:background="@color/white"
+                android:background="@drawable/edittext_line"
                 android:padding="12dp"
                 android:layout_marginBottom="5dp"/>
 
@@ -52,7 +52,7 @@
                 android:layout_height="43dp"
                 android:hint="Phone Number"
                 android:inputType="phone"
-                android:background="@color/white"
+                android:background="@drawable/edittext_line"
                 android:padding="12dp"
                 android:layout_marginBottom="5dp"/>
 
@@ -62,8 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
                 android:hint="Email"
+                android:background="@drawable/edittext_line"
                 android:inputType="textEmailAddress"
-                android:background="@color/white"
                 android:padding="12dp"
                 android:layout_marginBottom="5dp"/>
 
@@ -72,20 +72,8 @@
                 android:id="@+id/sp_blood"
                 android:layout_width="match_parent"
                 android:layout_height="43dp"
-                android:background="@color/white"
+                android:background="@drawable/edittext_line"
                 android:padding="10dp"
-                android:layout_marginBottom="5dp"/>
-
-            <!-- DATE -->
-            <EditText
-                android:id="@+id/et_lastdonationdate"
-                android:layout_width="match_parent"
-                android:layout_height="43dp"
-                android:hint="Last Donation Date (dd-MM-yyyy)"
-                android:background="@color/white"
-                android:padding="12dp"
-                android:focusable="false"
-                android:clickable="true"
                 android:layout_marginBottom="5dp"/>
 
             <!-- LOCATION -->
@@ -94,14 +82,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:hint="Address"
-                android:background="@color/white"
+                android:background="@drawable/edittext_line"
                 android:padding="12dp"
                 android:layout_marginBottom="5dp"/>
             <Spinner
                 android:id="@+id/sp_city"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
-                android:background="@color/white"
+                android:background="@drawable/edittext_line"
                 android:layout_marginBottom="5dp"/>
 
 
@@ -117,7 +105,9 @@
                     android:layout_height="45dp"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:background="@color/white"
+                    android:background="@drawable/edittext_line"
+                    app:boxStrokeColor="#B30000"
+                    app:hintTextColor="#B30000"
                     android:padding="12dp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,7 +124,7 @@
                     android:hint="Confirm Password"
                     android:textColor="@color/black"
                     android:inputType="textPassword"
-                    android:background="@color/white"
+                    android:background="@drawable/edittext_line"
                     android:padding="12dp"/>
             </com.google.android.material.textfield.TextInputLayout><Button
                 android:id="@+id/btn_register"

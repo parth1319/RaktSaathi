@@ -1,16 +1,19 @@
 package com.parth.raktsaathi;
 
-import android.content.*;
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHolder> {
+public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHolder> {
 
     Context context;
     List<RequestModel> list;
@@ -20,44 +23,45 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.MyViewHo
         this.list = list;
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, blood, units, address;
-        Button call;
+        TextView tvName, tvBlood, tvAddress, tvUnits;
+        Button btnCall;
 
-        public MyViewHolder(@NonNull View v) {
-            super(v);
+        public ViewHolder(View itemView) {
+            super(itemView);
 
-            name = v.findViewById(R.id.tvName);
-            blood = v.findViewById(R.id.tvBlood);
-            units = v.findViewById(R.id.tvUnits);
-            address = v.findViewById(R.id.tvAddress);
-            call = v.findViewById(R.id.btnCall);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvBlood = itemView.findViewById(R.id.tvBlood);
+            tvAddress = itemView.findViewById(R.id.tvAddress);
+            tvUnits = itemView.findViewById(R.id.tvUnits);
+            btnCall = itemView.findViewById(R.id.btnCall);
         }
     }
 
-    @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View v = LayoutInflater.from(context).inflate(R.layout.item_request, parent, false);
-        return new MyViewHolder(v);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_request, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
 
-        RequestModel m = list.get(position);
+        RequestModel model = list.get(position);
 
-        holder.name.setText(m.getName());
-        holder.blood.setText("Blood: " + m.getBlood_group());
-        holder.units.setText("Units: " + m.getUnits());
-        holder.address.setText(m.getAddress() + ", " + m.getDistrict());
+        holder.tvName.setText("👤 " + model.getName());
+        holder.tvBlood.setText("🩸 " + model.getBlood_group());
+        holder.tvAddress.setText("📍 " + model.getAddress());
+        holder.tvUnits.setText("📦 Units: " + model.getUnits());
 
-        holder.call.setOnClickListener(v -> {
-            Intent i = new Intent(Intent.ACTION_DIAL);
-            i.setData(Uri.parse("tel:" + m.getMobile()));
-            context.startActivity(i);
+        // 🔥 CALL BUTTON
+        holder.btnCall.setOnClickListener(v -> {
+
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            intent.setData(Uri.parse("tel:" + model.getMobile()));
+            context.startActivity(intent);
         });
     }
 

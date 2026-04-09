@@ -13,7 +13,6 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Check if user is already logged in
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
         boolean isLoggedIn = sp.getBoolean("isLoggedIn", false);
 

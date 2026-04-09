@@ -38,7 +38,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         String email = forgotEmail.getText().toString().trim();
 
-        // 🔴 VALIDATION
         if (TextUtils.isEmpty(email)) {
             forgotEmail.setError("Enter Email");
             return;
@@ -52,7 +51,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         RequestParams params = new RequestParams();
         params.put("email", email);
 
-        // 🔥 API CALL
         client.post(Urls.SEND_OTP, params, new AsyncHttpResponseHandler() {
 
             @Override

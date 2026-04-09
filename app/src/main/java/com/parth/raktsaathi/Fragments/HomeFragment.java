@@ -1,29 +1,35 @@
 package com.parth.raktsaathi.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.view.*;
-import android.widget.Toast;
+import android.widget.*;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parth.raktsaathi.HealthTipsActivity;
-import com.parth.raktsaathi.NotificationActivity;
+import com.loopj.android.http.*;
 import com.parth.raktsaathi.R;
-import com.parth.raktsaathi.SliderAdapter;
+import com.parth.raktsaathi.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
 
 public class HomeFragment extends Fragment {
 
-    private ViewPager2 slider;
-    private Handler handler;
+    TextView tvGreeting, tvUserName, tvDonors, tvRequests;
+    ViewPager2 slider;
+    LinearLayout campsContainer;
+
+    String email = "";
+    Handler handler = new Handler();
 
     public HomeFragment() {}
 
@@ -33,19 +39,24 @@ public class HomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        // 🔥 TOOLBAR SETUP
-        Toolbar toolbar = view.findViewById(R.id.toolbarHome);
+        SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        email = sp.getString("email", "");
 
-        setHasOptionsMenu(true); // 🔥 VERY IMPORTANT
-
-        if (((AppCompatActivity) requireActivity()).getSupportActionBar() != null) {
-            ((AppCompatActivity) requireActivity()).getSupportActionBar()
-                    .setDisplayShowTitleEnabled(true);
-        }
-
-        // 🔥 SLIDER SETUP
+        // IDs
+        tvGreeting = view.findViewById(R.id.tvGreeting);
+        tvUserName = view.findViewById(R.id.tvUserName);
+        tvDonors = view.findViewById(R.id.tvDonors);
+        tvRequests = view.findViewById(R.id.tvRequests);
         slider = view.findViewById(R.id.imageSlider);
+        campsContainer = view.findViewById(R.id.campsContainer);
 
+        CardView btnDonate = view.findViewById(R.id.btnDonate);
+        CardView btnRequest = view.findViewById(R.id.btnRequest);
+        CardView btnHealth = view.findViewById(R.id.btnHealthTips);
+        ImageView btnNotification = view.findViewById(R.id.btnNotification);
+        Button btnCampMain = view.findViewById(R.id.btnRegisterCamps);
+
+        // SLIDER
         int[] images = {
                 R.drawable.rs_homefragment_slider1,
                 R.drawable.rs_homefragment_slider2,
@@ -55,79 +66,210 @@ public class HomeFragment extends Fragment {
         SliderAdapter adapter = new SliderAdapter(images);
         slider.setAdapter(adapter);
 
-        handler = new Handler(Looper.getMainLooper());
+        autoSlide(images.length);
 
-        startSlider(adapter);
+        // CLICK EVENTS
+        btnDonate.setOnClickListener(v -> loadFragment(new DonateFragment()));
+        btnRequest.setOnClickListener(v -> loadFragment(new RequestFragment()));
+        btnHealth.setOnClickListener(v -> startActivity(new Intent(getActivity(), HealthTipsActivity.class)));
+        btnNotification.setOnClickListener(v -> startActivity(new Intent(getActivity(), NotificationActivity.class)));
+        btnCampMain.setOnClickListener(v -> startActivity(new Intent(getActivity(), CampActivity.class)));
 
-        // 🔥 BUTTONS
-        CardView btnDonate = view.findViewById(R.id.btnDonate);
-        CardView btnRequest = view.findViewById(R.id.btnRequest);
-        CardView btnHealthTips = view.findViewById(R.id.btnHealthTips);
-
-        BottomNavigationView bottomNav = requireActivity().findViewById(R.id.homeBottomNavigationView);
-
-        btnDonate.setOnClickListener(v ->
-                bottomNav.setSelectedItemId(R.id.homebottomnavDonate));
-
-        btnRequest.setOnClickListener(v ->
-                bottomNav.setSelectedItemId(R.id.homebottomnavRequests));
-
-        btnHealthTips.setOnClickListener(v ->
-            startActivity(new Intent(getActivity(), HealthTipsActivity.class))
-            );
+        // LOAD
+        loadUser();
+        loadStats();
+        loadCamps();
+        autoRefresh();
 
         return view;
     }
 
-    // 🔥 AUTO SLIDER
-    private void startSlider(SliderAdapter adapter) {
+    // 🔥 LOAD CAMPS
+    private void loadCamps(){
 
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(Urls.GET_CAMPS, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                try {
+
+                    JSONArray arr = new JSONArray(new String(responseBody));
+                    campsContainer.removeAllViews();
+
+                    for(int i=0; i<arr.length(); i++){
+
+                        JSONObject obj = arr.getJSONObject(i);
+
+                        String name = obj.getString("camp_name");
+                        String date = obj.getString("camp_date");
+                        String location = obj.getString("location");
+
+                        View view = LayoutInflater.from(getContext())
+                                .inflate(R.layout.item_camps, campsContainer, false);
+
+                        TextView tvName = view.findViewById(R.id.tvCampName);
+                        TextView tvDate = view.findViewById(R.id.tvCampDate);
+                        TextView tvLocation = view.findViewById(R.id.tvCampLocation);
+                        Button btn = view.findViewById(R.id.btnCampRegister);
+
+                        tvName.setText((i+1) + ". " + name);
+                        tvDate.setText("Date: " + date);
+                        tvLocation.setText("📍 " + location);
+
+                        // 🔥 CHECK ALREADY REGISTERED
+                        checkRegistered(name, btn);
+
+                        btn.setOnClickListener(v ->
+                                registerCamp(name, date, btn));
+
+                        campsContainer.addView(view);
+                    }
+
+                } catch (Exception e){
+                    Toast.makeText(getContext(),"JSON Error",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // 🔥 CHECK REGISTERED
+    private void checkRegistered(String campName, Button btn){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+        params.put("camp_name", campName);
+
+        client.post(Urls.CHECK_REGISTER, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                String res = new String(responseBody);
+
+                if(res.equalsIgnoreCase("registered")){
+                    btn.setText("Registered ✅");
+                    btn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+    }
+
+    // 🔥 REGISTER CAMP
+    private void registerCamp(String name, String date, Button btn){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+        params.put("camp_name", name);
+        params.put("camp_date", date);
+
+        client.post(Urls.REGISTER_CAMP, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                String res = new String(responseBody);
+
+                if(res.equalsIgnoreCase("success")){
+                    btn.setText("Registered ✅");
+                    btn.setEnabled(false);
+                    Toast.makeText(getContext(),"Registered Successfully",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"Already Registered",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // USER
+    private void loadUser(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+
+        client.post(Urls.GET_PROFILE, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject obj = new JSONObject(new String(responseBody));
+                    tvGreeting.setText("Hi,");
+                    tvUserName.setText(obj.getString("name"));
+                } catch (Exception e){}
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+    }
+
+    // STATS
+    private void loadStats(){
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(Urls.GET_STATS, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject obj = new JSONObject(new String(responseBody));
+                    tvDonors.setText(obj.getString("donors"));
+                    tvRequests.setText(obj.getString("requests"));
+                } catch (Exception e){}
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+    }
+
+    private void autoRefresh(){
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                if (slider == null) return;
-
-                int current = slider.getCurrentItem();
-                int total = adapter.getItemCount();
-
-                slider.setCurrentItem((current + 1) % total);
-
-                handler.postDelayed(this, 3000);
+                loadStats();
+                handler.postDelayed(this, 5000);
             }
-        }, 3000);
+        },5000);
     }
 
-    // 🔥 MENU ICON LOAD
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-
-        inflater.inflate(R.menu.toolbar_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    private void autoSlide(int size){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(slider == null) return;
+                int current = slider.getCurrentItem();
+                slider.setCurrentItem((current + 1) % size);
+                handler.postDelayed(this, 4000);
+            }
+        },4000);
     }
 
-    // 🔥 ICON CLICK
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if (item.getItemId() == R.id.action_notification) {
-
-            startActivity(new Intent(getActivity(), NotificationActivity.class));
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+    private void loadFragment(Fragment fragment){
+        requireActivity().getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.homeFrameLayout, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
-    // 🔥 MEMORY FIX
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
-        if (handler != null) {
-            handler.removeCallbacksAndMessages(null);
-        }
-
-        slider = null;
+        handler.removeCallbacksAndMessages(null);
     }
 }

@@ -1,28 +1,35 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base Theme -->
     <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.NoActionBar">
 
-        <!-- Primary Colors -->
         <item name="colorPrimary">#B71C1C</item>
         <item name="colorPrimaryVariant">#7F0000</item>
         <item name="colorOnPrimary">#FFFFFF</item>
 
-        <!-- Status Bar -->
         <item name="android:statusBarColor">#7F0000</item>
 
-        <!-- 🔥 FIX: Remove violet color -->
         <item name="colorControlActivated">@color/rs_buttons_colour</item>
 
-        <!-- 🔥 TextInput focus color fix -->
         <item name="colorSecondary">@color/rs_buttons_colour</item>
 
-        <!-- Notch fix -->
         <item name="android:windowLayoutInDisplayCutoutMode">never</item>
 
     </style>
 
-    <!-- App Theme -->
     <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi"/>
+
+
+        <style name="Theme.Raktsaathi" parent="Theme.Material3.DayNight.NoActionBar">
+
+            <item name="android:colorBackground">@color/bgColor</item>
+            <item name="colorSurface">@color/cardColor</item>
+
+            <item name="android:textColorPrimary">@color/textPrimary</item>
+            <item name="android:textColorSecondary">@color/textSecondary</item>
+
+            <item name="colorPrimary">@color/accentColor</item>
+
+        </style>
+
 
 </resources>

@@ -2,14 +2,15 @@ package com.parth.raktsaathi.Fragments;
 
 import android.os.Bundle;
 import android.text.*;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.*;
 
-import com.loopj.android.http.*;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.parth.raktsaathi.*;
 import com.parth.raktsaathi.R;
 
@@ -34,7 +35,7 @@ public class RequestFragment extends Fragment {
     DonorAdapter adapter;
 
     String selectedArea = "";
-    String selectedBlood = ""; // 🔥 FILTER
+    String selectedBlood = "";
 
     public RequestFragment() {}
 
@@ -44,7 +45,6 @@ public class RequestFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_requests, container, false);
 
-        // 🔥 IDS
         etName = view.findViewById(R.id.etName);
         etMobile = view.findViewById(R.id.etMobile);
         etAddress = view.findViewById(R.id.etAddress);
@@ -65,74 +65,44 @@ public class RequestFragment extends Fragment {
         adapter = new DonorAdapter(list);
         recycler.setAdapter(adapter);
 
-        // 🔥 BLOOD GROUP
-        String[] blood = {
-                "Select Blood Group",
-                "A+","A-","B+","B-","O+","O-","AB+","AB-"
-        };
-
+        String[] blood = {"Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"};
         spBlood.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item, blood));
 
-        // 🔥 AREA
-        String[] area = {
-                "Select Area",
-                "Akola City",
-                "Akot",
-                "Balapur",
-                "Murtizapur",
-                "Patur",
-                "Barshitakli",
-                "Telhara"
-        };
-
+        String[] area = {"Select Area","Akola City","Akot","Balapur","Murtizapur","Patur","Barshitakli","Telhara"};
         spArea.setAdapter(new ArrayAdapter<>(getContext(),
                 android.R.layout.simple_spinner_dropdown_item, area));
 
-        // 🔥 AREA SELECT
         spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view1, int position, long id) {
                 selectedArea = area[position];
                 updateAddress();
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
+            @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // 🔥 ADDRESS TYPE
         etAddress.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                updateAddress();
-            }
+            @Override public void beforeTextChanged(CharSequence s,int a,int b,int c){}
+            @Override public void onTextChanged(CharSequence s,int a,int b,int c){}
+            @Override public void afterTextChanged(Editable s){ updateAddress(); }
         });
 
-        // 🔥 BUTTON CLICK
         btnRequest.setOnClickListener(v -> submitRequest());
 
-        // 🔥 LOAD DONORS
         loadDonors();
 
         return view;
     }
 
-    // 🔥 ADDRESS COMBINE
-    private void updateAddress() {
-
+    private void updateAddress(){
         String addr = etAddress.getText().toString();
-
         if(!addr.isEmpty() && !selectedArea.equals("Select Area")){
             tvFinalAddress.setText(addr + ", " + selectedArea + ", Akola");
         }
     }
 
-    // 🔥 SUBMIT REQUEST
-    private void submitRequest() {
+    private void submitRequest(){
 
         String name = etName.getText().toString();
         String mobile = etMobile.getText().toString();
@@ -140,17 +110,15 @@ public class RequestFragment extends Fragment {
         String address = etAddress.getText().toString();
         String units = etUnits.getText().toString();
 
-
         if(name.isEmpty() || mobile.isEmpty() || units.isEmpty()
                 || blood.equals("Select Blood Group")
                 || selectedArea.equals("Select Area")
                 || address.isEmpty()){
-
             Toast.makeText(getContext(),"Fill all fields",Toast.LENGTH_SHORT).show();
             return;
         }
-        selectedBlood = blood;
 
+        selectedBlood = blood;
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -171,25 +139,23 @@ public class RequestFragment extends Fragment {
                 String res = new String(responseBody);
 
                 if(res.trim().equalsIgnoreCase("success")){
-
-                    // 🔥 hide form
                     formLayout.setVisibility(View.GONE);
-
                     successCard.setVisibility(View.VISIBLE);
 
-                    successCard.setAlpha(0f);
-                    successCard.animate().alpha(1f).setDuration(600);
-
+                    list.clear();
                     loadDonors();
-
                 } else {
-                    Toast.makeText(getContext(),"Error ❌",Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "Error ❌", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+            public void onFailure(int s, Header[] h, byte[] b, Throwable e) {
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -206,20 +172,21 @@ public class RequestFragment extends Fragment {
                 try{
                     String res = new String(responseBody);
 
-                    JSONObject obj = new JSONObject(res);
-                    JSONArray arr = obj.getJSONArray("data");
+                    JSONArray arr;
+                    if(res.trim().startsWith("[")){
+                        arr = new JSONArray(res);
+                    }else{
+                        JSONObject obj = new JSONObject(res);
+                        arr = obj.getJSONArray("data");
+                    }
 
                     list.clear();
-
-                    List<DonorModel> tempList = new ArrayList<>();
 
                     for(int i=0;i<arr.length();i++){
 
                         JSONObject o = arr.getJSONObject(i);
 
-                        String donorBlood = o.getString("blood_group");
-
-                        Log.d("JSON_DATA", o.toString());
+                        String donorBlood = o.optString("blood_group","N/A");
 
                         DonorModel model = new DonorModel(
                                 o.getString("name"),
@@ -230,29 +197,32 @@ public class RequestFragment extends Fragment {
                                 o.getString("address")
                         );
 
-                        // 🔥 matching donors
-                        if(donorBlood.equals(selectedBlood)){
-                            list.add(model);
-                        }
-
-                        // 🔥 store all donors
-                        tempList.add(model);
-                    }
-
-                    if(list.size() == 0){
-                        list.addAll(tempList);
+                        list.add(model);
                     }
 
                     adapter.notifyDataSetChanged();
+
                 }catch(Exception e){
-                    Toast.makeText(getContext(),"JSON Error",Toast.LENGTH_SHORT).show();
+                    if (isAdded()) {
+                        Toast.makeText(getContext(), "JSON Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+            public void onFailure(int s, Header[] h, byte[] b, Throwable e) {
+                if (isAdded()) {
+                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        androidx.appcompat.app.ActionBar actionBar = ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+        }
     }
 }
