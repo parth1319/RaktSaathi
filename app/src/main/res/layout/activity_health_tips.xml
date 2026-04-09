@@ -77,16 +77,15 @@
                         android:id="@+id/tv1"
                         android:text="❤️ Save Lives, Be a Hero
 Blood donation is a simple act that can make a huge difference. One donation can save up to 3 lives. It helps patients during surgeries, accidents, and serious illnesses like cancer.
-🌟 Why Donate Blood?
-🧬 Supports patients in emergencies
-❤️ Helps maintain healthy blood flow
-🔄 Stimulates new blood cell production
-🫀 May reduce risk of heart diseases
+ Why Donate Blood?
+ Supports patients in emergencies
+ Helps maintain healthy blood flow
+ Stimulates new blood cell production
+ May reduce risk of heart diseases
 😊 Gives a feeling of happiness and social responsibility"
                         android:textSize="14sp"
                         android:maxLines="2"
                         android:ellipsize="end"
-
                         android:textColor="#444"
                         android:layout_marginTop="4dp"
                         android:layout_width="wrap_content"
@@ -127,8 +126,8 @@ Blood donation is a simple act that can make a huge difference. One donation can
                 <ImageView
                     android:layout_width="70dp"
                     android:layout_height="70dp"
-                    android:src="@drawable/addiction_healthtips"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:src="@drawable/addiction_healthtips" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -151,12 +150,12 @@ Blood donation is a simple act that can make a huge difference. One donation can
 
 Addiction to smoking, alcohol, and drugs can slowly harm your body and mind. It affects your health, relationships, and future. The good news is — you can overcome it.
 
-🌟 Why Avoid Addiction?
-🫁 Damages lungs, liver, and brain
-🧠 Affects mental health and decision-making
-💔 Weakens relationships and social life
-📉 Reduces focus, productivity, and energy
-⚠️ Increases risk of serious diseases
+ Why Avoid Addiction?
+ Damages lungs, liver, and brain
+ Affects mental health and decision-making
+ Weakens relationships and social life
+ Reduces focus, productivity, and energy
+ Increases risk of serious diseases
 💡 Signs of A"
                         android:textSize="14sp"
                         android:maxLines="2"
@@ -226,16 +225,15 @@ Addiction to smoking, alcohol, and drugs can slowly harm your body and mind. It 
 
 Your heart works non-stop to keep you alive. Taking care of it means living a longer, healthier, and more energetic life.
 
-🌟 Why Heart Health Matters
-🫀 Pumps oxygen-rich blood to the whole body
-⚡ Keeps your energy levels high
-🧠 Supports brain function
-❤️ Reduces risk of heart attacks and diseases"
+ Why Heart Health Matters
+ Pumps oxygen-rich blood to the whole body
+ Keeps your energy levels high
+ Supports brain function
+ Reduces risk of heart attacks and diseases"
                         android:textSize="14sp"
                         android:textColor="#444"
                         android:maxLines="2"
                         android:ellipsize="end"
-
                         android:layout_marginTop="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -329,6 +327,271 @@ Water is the fuel your body needs to function properly. Staying hydrated keeps y
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#FFE0E0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/exercise_healthtips"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:text="Exercise and Fitness"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#F2584D"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="🏃 Stay Active, Stay Fit
+
+Regular exercise keeps your body strong and improves mental health. It boosts energy and reduces stress.
+
+ Fitness Tips
+ Daily walking or jogging
+ Practice yoga
+ Build strength with exercise
+😄 Stay consistent"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="#444"
+                        android:layout_marginTop="4dp"/>
+
+                    <Button
+                        android:id="@+id/btn5"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FF5252"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#FFFDE7">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/food_healthtips"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="12dp">
+
+                    <TextView
+                        android:text="Healthy Food"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#F9A825"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🥗 Eat Healthy, Stay Strong
+
+Healthy food gives your body energy and nutrients. A balanced diet helps improve immunity and overall health.
+
+ Healthy Eating Tips
+ Eat fruits and vegetables
+ Include protein-rich foods
+ Avoid junk food
+💧 Drink enough water"
+                        android:textSize="14sp"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="#444"
+                        android:layout_marginTop="4dp"/>
+
+                    <Button
+                        android:id="@+id/btn6"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#FFD54F"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#EDE7F6">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/sleep_healthtips"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:text="Sleep Health"
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="#5E35B1"/>
+
+                    <TextView
+                        android:id="@+id/tv7"
+                        android:layout_width="wrap_content"
+
+                        android:text="😴 Good Sleep, Better Life
+
+Proper sleep helps your body recover and keeps your mind fresh.
+
+ Tips:
+ Sleep 7–8 hours daily
+ Avoid mobile before bed
+🧘 Relax your mind"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="#444" android:layout_height="wrap_content"/>
+
+                    <Button
+                        android:id="@+id/btn7"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#673AB7"
+                        android:layout_marginTop="8dp"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:backgroundTint="#E0F7FA">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/hygiene_healthtips"
+                    android:layout_gravity="center"/>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Personal Hygiene"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:textColor="#00838F"/>
+
+                    <TextView
+                        android:id="@+id/tv8"
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:text="🧴 Stay Clean, Stay Healthy
+
+Good hygiene prevents infections and diseases.
+
+ Tips:
+Wash hands regularly
+ Brush twice daily
+Take daily bath"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textColor="#444"/>
+
+                    <Button
+                        android:id="@+id/btn8"
+                        android:text="See More"
+                        android:textAllCaps="false"
+                        android:textColor="#fff"
+                        android:backgroundTint="#26C6DA"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 

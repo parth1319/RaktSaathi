@@ -8,14 +8,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class HealthTipsActivity extends AppCompatActivity {
 
-    TextView tv1, tv2, tv3, tv4;
-    Button btn1, btn2, btn3, btn4;
+    TextView tv1, tv2, tv3, tv4 , tv5 ,tv6 ,tv7 ,tv8;
+
+    Button btn1, btn2, btn3, btn4 ,btn5 , btn6 , btn7 ,btn8 ;
 
     boolean isExpanded1 = false;
     boolean isExpanded2 = false;
     boolean isExpanded3 = false;
     boolean isExpanded4 = false;
-
+    boolean isExpanded5 = false;
+    boolean isExpanded6 = false;
+    boolean isExpanded7 = false;
+    boolean isExpanded8 = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,11 +29,19 @@ public class HealthTipsActivity extends AppCompatActivity {
         tv2 = findViewById(R.id.tv2);
         tv3 = findViewById(R.id.tv3);
         tv4 = findViewById(R.id.tv4);
+        tv5 = findViewById(R.id.tv5);
+        tv6 = findViewById(R.id.tv6);
+        tv7 = findViewById(R.id.tv7);
+        tv8 = findViewById(R.id.tv8);
 
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
         btn3 = findViewById(R.id.btn3);
         btn4 = findViewById(R.id.btn4);
+        btn5 = findViewById(R.id.btn5);
+        btn6 = findViewById(R.id.btn6);
+        btn7 = findViewById(R.id.btn7);
+        btn8 = findViewById(R.id.btn8);
 
         btn1.setOnClickListener(v -> toggleText(tv1, btn1, 1));
 
@@ -38,6 +50,14 @@ public class HealthTipsActivity extends AppCompatActivity {
         btn3.setOnClickListener(v -> toggleText(tv3, btn3, 3));
 
         btn4.setOnClickListener(v -> toggleText(tv4, btn4, 4));
+
+        btn5.setOnClickListener(v -> toggleText(tv5, btn5, 5));
+
+        btn6.setOnClickListener(v -> toggleText(tv6, btn6, 6));
+
+        btn7.setOnClickListener(v -> toggleText(tv7, btn7, 7));
+
+        btn8.setOnClickListener(v -> toggleText(tv8, btn8, 8));
     }
 
     private void toggleText(TextView tv, Button btn, int index) {
@@ -79,6 +99,50 @@ public class HealthTipsActivity extends AppCompatActivity {
             case 4:
                 isExpanded4 = !isExpanded4;
                 if (isExpanded4) {
+                    tv.setMaxLines(Integer.MAX_VALUE);
+                    btn.setText("See Less");
+                } else {
+                    tv.setMaxLines(2);
+                    btn.setText("See More");
+                }
+                break;
+
+            case 5:
+                isExpanded5 = !isExpanded4;
+                if (isExpanded5) {
+                    tv.setMaxLines(Integer.MAX_VALUE);
+                    btn.setText("See Less");
+                } else {
+                    tv.setMaxLines(2);
+                    btn.setText("See More");
+                }
+                break;
+
+            case 6:
+                isExpanded5 = !isExpanded4;
+                if (isExpanded5) {
+                    tv.setMaxLines(Integer.MAX_VALUE);
+                    btn.setText("See Less");
+                } else {
+                    tv.setMaxLines(2);
+                    btn.setText("See More");
+                }
+                break;
+
+            case 7:
+                isExpanded7 = !isExpanded4;
+                if (isExpanded7) {
+                    tv.setMaxLines(Integer.MAX_VALUE);
+                    btn.setText("See Less");
+                } else {
+                    tv.setMaxLines(2);
+                    btn.setText("See More");
+                }
+                break;
+
+            case 8:
+                isExpanded8 = !isExpanded4;
+                if (isExpanded8) {
                     tv.setMaxLines(Integer.MAX_VALUE);
                     btn.setText("See Less");
                 } else {
