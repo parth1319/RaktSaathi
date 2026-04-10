@@ -1,8 +1,6 @@
 package com.parth.raktsaathi.Fragments;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.*;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.*;
@@ -14,8 +12,8 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.loopj.android.http.*;
-import com.parth.raktsaathi.R;
 import com.parth.raktsaathi.*;
+import com.parth.raktsaathi.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -25,38 +23,36 @@ import cz.msebera.android.httpclient.Header;
 public class HomeFragment extends Fragment {
 
     TextView tvGreeting, tvUserName, tvDonors, tvRequests;
+    LinearLayout upcomingContainer;
     ViewPager2 slider;
-    LinearLayout campsContainer;
 
     String email = "";
     Handler handler = new Handler();
 
-    public HomeFragment() {}
+    public HomeFragment(){}
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
 
-        // IDs
         tvGreeting = view.findViewById(R.id.tvGreeting);
         tvUserName = view.findViewById(R.id.tvUserName);
         tvDonors = view.findViewById(R.id.tvDonors);
         tvRequests = view.findViewById(R.id.tvRequests);
+        upcomingContainer = view.findViewById(R.id.upcomingContainer);
         slider = view.findViewById(R.id.imageSlider);
-        campsContainer = view.findViewById(R.id.campsContainer);
 
         CardView btnDonate = view.findViewById(R.id.btnDonate);
         CardView btnRequest = view.findViewById(R.id.btnRequest);
         CardView btnHealth = view.findViewById(R.id.btnHealthTips);
         ImageView btnNotification = view.findViewById(R.id.btnNotification);
-        Button btnCampMain = view.findViewById(R.id.btnRegisterCamps);
+        Button btnCamp = view.findViewById(R.id.btnRegisterCamps);
 
-        // SLIDER
+        // 🔥 SLIDER
         int[] images = {
                 R.drawable.rs_homefragment_slider1,
                 R.drawable.rs_homefragment_slider2,
@@ -65,27 +61,76 @@ public class HomeFragment extends Fragment {
 
         SliderAdapter adapter = new SliderAdapter(images);
         slider.setAdapter(adapter);
-
         autoSlide(images.length);
 
-        // CLICK EVENTS
+        // 🔥 CLICK EVENTS
         btnDonate.setOnClickListener(v -> loadFragment(new DonateFragment()));
         btnRequest.setOnClickListener(v -> loadFragment(new RequestFragment()));
         btnHealth.setOnClickListener(v -> startActivity(new Intent(getActivity(), HealthTipsActivity.class)));
         btnNotification.setOnClickListener(v -> startActivity(new Intent(getActivity(), NotificationActivity.class)));
-        btnCampMain.setOnClickListener(v -> startActivity(new Intent(getActivity(), CampActivity.class)));
+        btnCamp.setOnClickListener(v -> startActivity(new Intent(getActivity(), AddCampActivity.class)));
 
-        // LOAD
+        // 🔥 LOAD DATA
         loadUser();
         loadStats();
-        loadCamps();
-        autoRefresh();
+        loadUpcomingCamps();
 
         return view;
     }
 
-    // 🔥 LOAD CAMPS
-    private void loadCamps(){
+    // 🔥 USER
+    private void loadUser(){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+
+        client.post(Urls.GET_PROFILE, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject obj = new JSONObject(new String(responseBody));
+                    String name = obj.getString("name");
+
+                    tvGreeting.setText("Hi,");
+                    tvUserName.setText(name);
+
+                } catch (Exception e){
+                    tvUserName.setText("User");
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                tvUserName.setText("User");
+            }
+        });
+    }
+
+    // 🔥 STATS
+    private void loadStats(){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+
+        client.get(Urls.GET_STATS, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONObject obj = new JSONObject(new String(responseBody));
+                    tvDonors.setText(obj.getString("donors"));
+                    tvRequests.setText(obj.getString("requests"));
+                } catch (Exception e){}
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+    }
+
+    // 🔥 PREMIUM UPCOMING CAMPS
+    private void loadUpcomingCamps(){
 
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -97,7 +142,7 @@ public class HomeFragment extends Fragment {
                 try {
 
                     JSONArray arr = new JSONArray(new String(responseBody));
-                    campsContainer.removeAllViews();
+                    upcomingContainer.removeAllViews();
 
                     for(int i=0; i<arr.length(); i++){
 
@@ -107,29 +152,45 @@ public class HomeFragment extends Fragment {
                         String date = obj.getString("camp_date");
                         String location = obj.getString("location");
 
-                        View view = LayoutInflater.from(getContext())
-                                .inflate(R.layout.item_camps, campsContainer, false);
+                        CardView card = new CardView(getContext());
+                        card.setRadius(18);
+                        card.setCardElevation(8);
 
-                        TextView tvName = view.findViewById(R.id.tvCampName);
-                        TextView tvDate = view.findViewById(R.id.tvCampDate);
-                        TextView tvLocation = view.findViewById(R.id.tvCampLocation);
-                        Button btn = view.findViewById(R.id.btnCampRegister);
+                        LinearLayout layout = new LinearLayout(getContext());
+                        layout.setOrientation(LinearLayout.VERTICAL);
+                        layout.setPadding(25,25,25,25);
+                        layout.setBackgroundColor(getResources().getColor(R.color.camp_card_bg));
 
+                        TextView tvName = new TextView(getContext());
                         tvName.setText((i+1) + ". " + name);
-                        tvDate.setText("Date: " + date);
+                        tvName.setTextSize(16);
+                        tvName.setTypeface(null, android.graphics.Typeface.BOLD);
+
+                        TextView tvDate = new TextView(getContext());
+                        tvDate.setText("📅 " + date);
+
+                        TextView tvLocation = new TextView(getContext());
                         tvLocation.setText("📍 " + location);
 
-                        // 🔥 CHECK ALREADY REGISTERED
-                        checkRegistered(name, btn);
+                        layout.addView(tvName);
+                        layout.addView(tvDate);
+                        layout.addView(tvLocation);
 
-                        btn.setOnClickListener(v ->
-                                registerCamp(name, date, btn));
+                        card.addView(layout);
 
-                        campsContainer.addView(view);
+                        LinearLayout.LayoutParams params =
+                                new LinearLayout.LayoutParams(
+                                        LinearLayout.LayoutParams.MATCH_PARENT,
+                                        LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                        params.setMargins(0,12,0,0);
+                        card.setLayoutParams(params);
+
+                        upcomingContainer.addView(card);
                     }
 
                 } catch (Exception e){
-                    Toast.makeText(getContext(),"JSON Error",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -140,125 +201,7 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    // 🔥 CHECK REGISTERED
-    private void checkRegistered(String campName, Button btn){
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("camp_name", campName);
-
-        client.post(Urls.CHECK_REGISTER, params, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                String res = new String(responseBody);
-
-                if(res.equalsIgnoreCase("registered")){
-                    btn.setText("Registered ✅");
-                    btn.setEnabled(false);
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
-        });
-    }
-
-    // 🔥 REGISTER CAMP
-    private void registerCamp(String name, String date, Button btn){
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("camp_name", name);
-        params.put("camp_date", date);
-
-        client.post(Urls.REGISTER_CAMP, params, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                String res = new String(responseBody);
-
-                if(res.equalsIgnoreCase("success")){
-                    btn.setText("Registered ✅");
-                    btn.setEnabled(false);
-                    Toast.makeText(getContext(),"Registered Successfully",Toast.LENGTH_SHORT).show();
-                }else{
-                    Toast.makeText(getContext(),"Already Registered",Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    // USER
-    private void loadUser(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-
-        client.post(Urls.GET_PROFILE, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject obj = new JSONObject(new String(responseBody));
-                    tvGreeting.setText("Hi,");
-                    tvUserName.setText(obj.getString("name"));
-                } catch (Exception e){}
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
-        });
-    }
-
-    // STATS
-    private void loadStats(){
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(Urls.GET_STATS, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                try {
-                    JSONObject obj = new JSONObject(new String(responseBody));
-                    tvDonors.setText(obj.getString("donors"));
-                    tvRequests.setText(obj.getString("requests"));
-                } catch (Exception e){}
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
-        });
-    }
-
-    private void autoRefresh(){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                loadStats();
-                handler.postDelayed(this, 5000);
-            }
-        },5000);
-    }
-
-    private void autoSlide(int size){
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(slider == null) return;
-                int current = slider.getCurrentItem();
-                slider.setCurrentItem((current + 1) % size);
-                handler.postDelayed(this, 4000);
-            }
-        },4000);
-    }
-
+    // 🔥 FRAGMENT SWITCH
     private void loadFragment(Fragment fragment){
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
@@ -267,9 +210,15 @@ public class HomeFragment extends Fragment {
                 .commit();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        handler.removeCallbacksAndMessages(null);
+    // 🔥 AUTO SLIDER
+    private void autoSlide(int size){
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                int current = slider.getCurrentItem();
+                slider.setCurrentItem((current + 1) % size);
+                handler.postDelayed(this, 3000);
+            }
+        },3000);
     }
 }

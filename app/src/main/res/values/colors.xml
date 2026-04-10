@@ -23,6 +23,12 @@
     <color name="textSecondary">#666666</color>
     <color name="accentColor">#E53935</color>
     <color name="green_success">#4CAF50</color>
+    <color name="health_bg_gradient_start">#FFFDE7</color>
+    <color name="health_bg_gradient_end">#FFF3E0</color>
+    <color name="health_title">#F57C00</color>
+    <color name="health_subtitle">#6D4C41</color>
+    <color name="health_icon_bg">#FFE0B2</color>
+    <color name="camp_card_bg">#FAFAFA</color>
     </resources>
 
 

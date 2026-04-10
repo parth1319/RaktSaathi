@@ -18,7 +18,7 @@
             android:id="@+id/tvCampName"
             android:text="Camp Name"
             android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="15sp"/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:textColor="@color/black"
             android:id="@+id/tvCampDate"
             android:text="Date"
-            android:textSize="16sp"/>
+            android:textSize="12sp"/>
 
         <TextView
             android:layout_height="wrap_content"
@@ -34,16 +34,8 @@
             android:textColor="@color/black"
             android:id="@+id/tvCampLocation"
             android:text="Location"
-            android:textSize="16sp"/>
+            android:textSize="12sp"/>
 
-        <Button
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/btnCampRegister"
-            android:text="Register"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="@color/rs_buttons_colour"
-            android:textColor="@android:color/white"/>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

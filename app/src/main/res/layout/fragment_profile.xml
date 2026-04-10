@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="#F6F7FB">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- 🔴 HEADER -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:background="@drawable/red_gradient"
-            android:gravity="center_horizontal"
-            android:paddingTop="40dp"
-            android:orientation="vertical">
+            android:layout_height="260dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/red_gradient">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imgProfile"
@@ -25,140 +24,152 @@
                 android:layout_height="100dp"
                 android:src="@drawable/rs_profilelogo"
                 app:civ_border_color="#FFFFFF"
-                app:civ_border_width="2dp"
-                android:layout_marginTop="10dp"
-             />
+                app:civ_border_width="2dp"/>
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/tvAddPhoto"
+                android:text="Add Profile Photo"
+                android:textColor="#90CAF9"
+                android:textSize="13sp"
+                android:layout_marginTop="6dp"/>
+
+            <!-- 🔥 NAME + VERIFIED -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add Profile Photo"
-                android:textColor="#2196F3"
-                android:textStyle="bold"
-                android:layout_marginTop="10sp"
-                android:textSize="14sp"
-                android:layout_marginBottom="3dp"/>
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="User Name"
-                android:textColor="#FFFFFF"
-                android:textSize="26sp"
+                android:orientation="horizontal"
                 android:gravity="center"
-                android:textStyle="bold"
-                android:fontFamily="@font/poppins_semibold"
-                android:layout_marginBottom="45dp" />
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/tvName"
+                    android:text="User Name"
+                    android:textColor="#FFFFFF"
+                    android:textSize="24sp"
+                    android:textStyle="bold"/>
+
+                <ImageView
+                    android:id="@+id/imgVerified"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="6dp"
+                    android:src="@drawable/rs_verified"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
         </LinearLayout>
 
+        <!-- 🔥 PROFILE CARD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="300dp"
             android:background="@drawable/profile_card_bg"
             android:orientation="vertical"
             android:padding="18dp"
-            android:elevation="12dp"
-            android:paddingBottom="30dp"
-            android:layout_marginTop="-35dp"
+            android:layout_marginTop="-30dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:elevation="8dp">
 
+            <!-- 🔥 PROGRESS -->
             <TextView
+                android:id="@+id/tvProgress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profile Complete: 0%"
+                android:textStyle="bold"
+                android:textColor="#444"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_marginTop="6dp"
+                android:progress="0"
+                android:progressTint="@color/rs_buttons_colour"
+                android:background="#E0E0E0"/>
+
+            <!-- 🔥 INFO -->
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/tvMobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins"
                 android:text="📞 Mobile"
-                android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:layout_marginTop="12dp"
+                android:textColor="#333"/>
 
             <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvEmail"
                 android:text="📧 Email"
                 android:layout_marginTop="6dp"
-                android:textColor="@color/black"
-                android:textSize="16dp"
-                android:fontFamily="@font/poppins"/>
+                android:textColor="#333"/>
 
             <TextView
-                android:id="@+id/tvBlood"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvBlood"
                 android:text="🩸 Blood Group"
                 android:layout_marginTop="6dp"
-                android:textSize="16dp"
-                android:textColor="@color/rs_buttons_colour"
-                android:fontFamily="@font/poppins"/>
+                android:textColor="@color/rs_buttons_colour"/>
 
             <TextView
-                android:id="@+id/tvCity"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/tvCity"
                 android:text="📍 City"
-                android:textColor="@color/black"
-                android:textSize="16dp"
                 android:layout_marginTop="6dp"
-                android:fontFamily="@font/poppins"/>
+                android:textColor="#333"/>
 
+            <!-- 🔥 SETTINGS -->
             <LinearLayout
                 android:id="@+id/btnSettingsToggle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:layout_marginTop="12dp">
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
                     android:text="⚙️ Settings"
-                    android:textColor="#333333"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:fontFamily="@font/poppins_semibold"/>
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/black"
                     android:id="@+id/arrowSettings"
-                    android:text="▼"
-                    android:textSize="14sp"/>
+                    android:text="▼"/>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/settingsContent"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/settingsContent"
                 android:orientation="vertical"
                 android:visibility="gone">
 
-
                 <TextView
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:id="@+id/btnEditProfile"
                     android:text="✏️ Edit Profile"
-                    android:background="@drawable/click_effect"
-                    android:padding="10dp"
-                    android:textColor="#DA22"
-                    android:fontFamily="@font/poppins"/>
+                    android:padding="10dp"/>
 
                 <TextView
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:id="@+id/btnChangePass"
                     android:text="🔒 Change Password"
-                    android:background="@drawable/click_effect"
-                    android:padding="10dp"
-                    android:textColor="#DA22"
-                    android:fontFamily="@font/poppins"/>
+                    android:padding="10dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,73 +177,58 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="🌙 Dark Mode"
-                        android:textColor="@color/DeepPurple"
-                        android:fontFamily="@font/poppins"/>
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:text="🌙 Dark Mode"/>
 
                     <Switch
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:id="@+id/switchDark"/>
                 </LinearLayout>
-
             </LinearLayout>
 
+            <!-- 🔥 ABOUT -->
             <LinearLayout
                 android:id="@+id/btnAboutToggle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
                     android:text="ℹ️ About Us"
-                    android:textStyle="bold"
-                    android:textSize="17sp"
-                    android:textColor="#DA22"
-                    android:fontFamily="@font/poppins_semibold"/>
+                    android:textStyle="bold"/>
 
                 <TextView
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textColor="@color/black"
                     android:id="@+id/arrowAbout"
-                    android:text="▼"
-                    android:textSize="14sp"/>
+                    android:text="▼"/>
             </LinearLayout>
 
             <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
                 android:id="@+id/aboutContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins"
-                android:lineSpacingExtra="3dp"
-                android:text="Raktsaathi is a life-saving platform that connects blood donors and patients instantly during emergencies. It ensures that no patient suffers due to lack of blood. Through this app, users can easily find nearby donors and request blood quickly. Regular donation improves health and saves lives. Our mission is to build a strong and supportive community."
-                android:textColor="#444"
-                android:textSize="17sp"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:text="Raktsaathi is a life-saving platform..."
+                android:layout_marginTop="6dp"/>
 
+            <!-- 🔥 LOGOUT -->
             <TextView
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/btnLogout"
                 android:text="🚪 Logout"
                 android:textColor="@color/rs_buttons_colour"
                 android:textStyle="bold"
-                android:textSize="20dp"
-                android:gravity="center"
-                android:layout_marginTop="25dp"
-                android:padding="12dp"
-                android:fontFamily="@font/poppins_semibold"/>
-
+                android:layout_marginTop="20dp"/>
         </LinearLayout>
 
     </LinearLayout>
+
 </ScrollView>

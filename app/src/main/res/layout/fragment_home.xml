@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- 🔴 HEADER -->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="190dp"
@@ -46,7 +45,6 @@
 
         </RelativeLayout>
 
-        <!-- 🔥 SLIDER -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -62,14 +60,12 @@
                 android:layout_height="match_parent"/>
         </androidx.cardview.widget.CardView>
 
-        <!-- 🔥 ACTION BUTTONS -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:orientation="horizontal">
 
-            <!-- DONATE -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnDonate"
                 android:layout_width="0dp"
@@ -104,7 +100,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- REQUEST -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnRequest"
                 android:layout_width="0dp"
@@ -140,7 +135,6 @@
 
         </LinearLayout>
 
-        <!-- 🔥 STATS -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -175,7 +169,7 @@
                     <TextView
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
-                        android:text="Donors"
+                        android:text="Total Donors"
                         android:textColor="@color/black"
                         android:textAlignment="center"/>
                 </LinearLayout>
@@ -209,7 +203,7 @@
                         android:layout_width="match_parent"
                         android:textColor="@color/black"
                         android:textAlignment="center"
-                        android:text="Requests"/>
+                        android:text="Total Requests"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -224,64 +218,57 @@
             android:layout_marginEnd="16dp"
             android:layout_marginTop="10dp"/>
 
+
         <androidx.cardview.widget.CardView
-            android:id="@+id/btnCamp"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="10dp"
-            android:backgroundTint="#FFECEC">
+            app:cardElevation="12dp"
+            android:backgroundTint="#FDECEC">
 
             <LinearLayout
                 android:orientation="vertical"
                 android:padding="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:text="🩸 Upcoming Blood Camp"
+                    android:text="🩸 Upcoming Blood Camps"
                     android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"/>
+                    android:textSize="17sp"
+                    android:textColor="#B71C1C"/>
 
-                <TextView
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:id="@+id/upcomingContainer"
                     android:layout_width="match_parent"
-                    android:id="@+id/tvCampName"
-                    android:text="City Blood Camp"
-                    android:textSize="14sp"
-                    android:layout_marginTop="6dp"/>
-
-                <TextView
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/tvCampDate"
-                    android:text="Date: 20 April"
-                    android:textSize="13sp"/>
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"/>
 
                 <Button
                     android:id="@+id/btnRegisterCamps"
                     android:text="Register for Blood Camp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="14dp"
                     android:backgroundTint="@color/rs_buttons_colour"
-                    android:textColor="@android:color/white"/>
+                    android:textColor="@android:color/white"
+                    android:textStyle="bold"/>
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
-        <!-- 🔥 HEALTH TIPS -->
         <androidx.cardview.widget.CardView
             android:id="@+id/btnHealthTips"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:layout_margin="16dp"
             app:cardCornerRadius="20dp"
-            app:cardElevation="10dp">
+            app:cardElevation="10dp"
+            android:backgroundTint="@color/health_bg_gradient_start">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -293,7 +280,7 @@
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:text="💡 Health Tips"
-                    android:textColor="@color/black"
+                    android:textColor="@color/health_title"
                     android:layout_marginLeft="75dp"
                     android:textStyle="bold"
                     android:textSize="20sp"/>
@@ -301,7 +288,7 @@
                 <TextView
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:textColor="@color/black"
+                    android:textColor="@color/health_subtitle"
                     android:textAlignment="center"
                     android:text="Donate blood, save lives ❤️"
                     android:textSize="15sp"
