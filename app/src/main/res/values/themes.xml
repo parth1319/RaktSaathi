@@ -1,35 +1,20 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.Light.NoActionBar">
-
-        <item name="colorPrimary">#B71C1C</item>
-        <item name="colorPrimaryVariant">#7F0000</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
-
+    <style name="Base.Theme.RaktSaathi" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/accentColor</item>
         <item name="android:statusBarColor">#7F0000</item>
-
-        <item name="colorControlActivated">@color/rs_buttons_colour</item>
-
-        <item name="colorSecondary">@color/rs_buttons_colour</item>
-
         <item name="android:windowLayoutInDisplayCutoutMode">never</item>
 
+        <item name="android:colorBackground">@color/bgColor</item>
+        <item name="colorSurface">@color/cardColor</item>
+        <item name="android:textColorPrimary">@color/textPrimary</item>
+        <item name="android:textColorSecondary">@color/textSecondary</item>
     </style>
 
     <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi"/>
 
-
-        <style name="Theme.Raktsaathi" parent="Theme.Material3.DayNight.NoActionBar">
-
-            <item name="android:colorBackground">@color/bgColor</item>
-            <item name="colorSurface">@color/cardColor</item>
-
-            <item name="android:textColorPrimary">@color/textPrimary</item>
-            <item name="android:textColorSecondary">@color/textSecondary</item>
-
-            <item name="colorPrimary">@color/accentColor</item>
-
-        </style>
-
+    <style name="App.CustomIndicator" parent="">
+        <item name="android:color">@android:color/transparent</item>
+    </style>
 
 </resources>

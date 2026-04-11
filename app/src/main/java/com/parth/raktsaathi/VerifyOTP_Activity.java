@@ -17,6 +17,7 @@ public class VerifyOTP_Activity extends AppCompatActivity {
     EditText etOtp;
     Button btnVerifyOtp;
     TextView tvResend;
+    ImageView btnBack;
 
     ProgressDialog progressDialog;
 
@@ -30,6 +31,9 @@ public class VerifyOTP_Activity extends AppCompatActivity {
         etOtp = findViewById(R.id.etOtp);
         btnVerifyOtp = findViewById(R.id.btnVerifyOtp);
         tvResend = findViewById(R.id.tvResend);
+        btnBack = findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(v -> finish());
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Verifying OTP...");

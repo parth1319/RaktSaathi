@@ -3,175 +3,301 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FB">
+    android:background="#FDFDFD"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- HEADER -->
-        <LinearLayout
+        <!-- 🔴 PREMIUM HEADER -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/red_gradient"
-            android:gravity="bottom"
-            android:padding="20dp">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="Request Blood 🩸"
-                android:textAlignment="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"/>
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="-30dp"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="10dp">
+            android:layout_height="220dp"
+            android:background="@drawable/red_header_bg"
+            android:padding="24dp">
 
             <LinearLayout
-                android:id="@+id/formLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp">
-
-                <!-- NAME -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:hint="Full Name"
-                    app:boxBackgroundMode="outline">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        android:textColor="@color/black"
-                        android:id="@+id/etName"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- MOBILE -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:hint="Mobile Number"
-                    android:layout_marginTop="8dp"
-                    app:boxBackgroundMode="outline">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        android:id="@+id/etMobile"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- SPINNERS -->
-                <Spinner
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/spBlood"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/edittext_line"/>
-
-                <Spinner
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/spArea"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edittext_line"/>
-
-                <!-- UNITS -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:hint="Units Required"
-                    android:layout_marginTop="8dp"
-                    app:boxBackgroundMode="outline">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        android:id="@+id/etUnits"
-                        android:inputType="number"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- ADDRESS -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:hint="Full Address"
-                    android:layout_marginTop="8dp"
-                    app:boxBackgroundMode="outline">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
-                        android:id="@+id/etAddress"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <!-- FINAL ADDRESS -->
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/tvFinalAddress"
-                    android:text="📍 Selected Address"
-                    android:layout_marginTop="8dp"
-                    android:padding="12dp"
-                    android:background="@drawable/edittext_line"
-                    android:textStyle="bold"/>
-
-                <!-- BUTTON -->
-                <Button
-                    android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:id="@+id/btnRequest"
-                    android:text="REQUEST BLOOD"
-                    android:layout_marginTop="12dp"
-                    android:backgroundTint="@color/rs_buttons_colour"
-                    android:textColor="@android:color/white"/>
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <!-- SUCCESS -->
-        <androidx.cardview.widget.CardView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:id="@+id/successCard"
-            android:visibility="gone"
-            android:layout_margin="16dp"
-            app:cardCornerRadius="18dp">
-
-            <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:padding="20dp">
+                android:layout_marginTop="20dp">
 
                 <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_width="match_parent"
-                    android:text="🎉 Request Successful"
+                    android:text="Request Blood"
+                    android:textColor="@android:color/white"
+                    android:textSize="32sp"
                     android:textStyle="bold"
-                    android:textColor="#2E7D32"/>
+                    android:letterSpacing="0.02"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Need blood urgently? We are here to help connect you with donors nearby. ❤️"
+                    android:textColor="#F5F5F5"
+                    android:textSize="15sp"
+                    android:layout_marginTop="8dp"
+                    android:alpha="0.9"
+                    android:lineSpacingExtra="4dp"/>
             </LinearLayout>
+        </RelativeLayout>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-50dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="15dp"
+            app:cardBackgroundColor="@color/white">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- 🔥 REQUEST FORM -->
+                <LinearLayout
+                    android:id="@+id/formLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Patient Name"
+                        app:startIconDrawable="@drawable/rs_profilelogo"
+                        app:boxStrokeColor="#D32F2F"
+                        app:hintTextColor="#D32F2F"
+                        app:boxCornerRadiusTopStart="15dp"
+                        app:boxCornerRadiusTopEnd="15dp"
+                        app:boxCornerRadiusBottomStart="15dp"
+                        app:boxCornerRadiusBottomEnd="15dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#212121"
+                            android:textSize="15sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Mobile Number"
+                        app:startIconDrawable="@drawable/rs_phone_icon"
+                        app:boxStrokeColor="#D32F2F"
+                        app:hintTextColor="#D32F2F"
+                        app:boxCornerRadiusTopStart="15dp"
+                        app:boxCornerRadiusTopEnd="15dp"
+                        app:boxCornerRadiusBottomStart="15dp"
+                        app:boxCornerRadiusBottomEnd="15dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etPhone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="phone"
+                            android:textColor="#212121"
+                            android:textSize="15sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp"
+                        android:weightSum="2">
+
+                        <Spinner
+                            android:id="@+id/spUnits"
+                            android:layout_width="0dp"
+                            android:layout_height="55dp"
+                            android:layout_weight="1"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/edittext_premium"/>
+
+                        <Spinner
+                            android:id="@+id/spBlood"
+                            android:layout_width="0dp"
+                            android:layout_height="55dp"
+                            android:layout_weight="1"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/edittext_premium"/>
+                    </LinearLayout>
+
+                    <Spinner
+                        android:id="@+id/spArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/edittext_premium"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:hint="Hospital Address"
+                        app:startIconDrawable="@drawable/rs_home_icon"
+                        app:boxStrokeColor="#D32F2F"
+                        app:hintTextColor="#D32F2F"
+                        app:boxCornerRadiusTopStart="15dp"
+                        app:boxCornerRadiusTopEnd="15dp"
+                        app:boxCornerRadiusBottomStart="15dp"
+                        app:boxCornerRadiusBottomEnd="15dp">
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="#212121"
+                            android:textSize="15sp"/>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnSubmit"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:text="SUBMIT REQUEST"
+                        android:layout_marginTop="25dp"
+                        android:backgroundTint="#D32F2F"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:elevation="4dp"
+                        app:cornerRadius="18dp"/>
+                </LinearLayout>
+
+                <!-- 🔥 SUCCESS UI -->
+                <LinearLayout
+                    android:id="@+id/successMsg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="40dp"
+                    android:gravity="center"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:src="@drawable/rs_bluetick"
+                        android:layout_marginBottom="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Request Submitted!"
+                        android:textColor="#212121"
+                        android:textSize="24sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Searching for nearby donors. We will notify you once someone responds ❤️"
+                        android:textColor="#757575"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="4dp"/>
+                </LinearLayout>
+
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- LIST -->
-        <TextView
-            android:layout_height="wrap_content"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:text="Available Donors"
-            android:textStyle="bold"
-            android:layout_margin="16dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="4dp"
+                android:layout_height="20dp"
+                android:background="#D32F2F"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Top Potential Donors"
+                android:textColor="#212121"
+                android:textStyle="bold"
+                android:textSize="18sp"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerDonors"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="20dp"
+            android:clipToPadding="false"
+            android:nestedScrollingEnabled="false"/>
+
+        <!-- 💡 REQUEST TIP CARD (Matching Home Style) -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="25dp"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="#D32F2F">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_toStartOf="@+id/ivInfoRequest">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Urgently Need Blood?"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fill the form above to notify all donors in your area. Make sure to provide the correct hospital address for faster response. ❤️"
+                        android:textColor="#F5F5F5"
+                        android:textSize="13sp"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingExtra="4dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivInfoRequest"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/rs_heartlogo"
+                    android:alpha="0.8"/>
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"/>
 
     </LinearLayout>
 </ScrollView>

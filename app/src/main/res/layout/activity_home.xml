@@ -10,23 +10,24 @@
     tools:context=".HomeActivity"
     android:fitsSystemWindows="true">
 
-    <!-- 🔴 TOOLBAR REMOVED -->
-
-    <!-- 🔥 FRAGMENT CONTAINER -->
     <FrameLayout
         android:id="@+id/homeFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <!-- 🔥 BOTTOM NAV -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/homeBottomNavigationView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        app:itemIconTint="@color/rs_buttons_colour"
-        app:itemTextColor="@color/rs_buttons_colour"
-        app:menu="@menu/home_bottom_nav_menu"/>
+        android:layout_height="70dp"
+        android:background="@color/nav_bg_color"
+        app:itemIconTint="@color/nav_item_color"
+        app:itemTextColor="@color/nav_item_color"
+        app:itemRippleColor="@color/nav_indicator_color"
+        app:labelVisibilityMode="labeled"
+        app:elevation="20dp"
+        app:menu="@menu/home_bottom_nav_menu"
+        app:itemPaddingTop="8dp"
+        app:itemPaddingBottom="10dp"/>
 
 </LinearLayout>

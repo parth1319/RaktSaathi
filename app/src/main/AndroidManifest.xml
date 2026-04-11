@@ -34,14 +34,9 @@
             android:name=".HealthTipsActivity"
             android:exported="false" />
         <activity
-            android:name=".RequestBloodActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DonateBloodActivity"
-            android:exported="false" />
-        <activity
             android:name=".NotificationActivity"
             android:exported="false" />
+
         <activity
             android:name=".Reset_PasswordActivity"
             android:exported="false" />
@@ -56,15 +51,26 @@
             android:exported="false" />
         <activity
             android:name=".HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditProfileActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
             android:name=".DonorActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <activity
+            android:name=".AddCampActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewAllCampsActivity"
             android:exported="false" />
 
         <meta-data

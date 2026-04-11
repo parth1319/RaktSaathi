@@ -16,6 +16,7 @@ public class Reset_PasswordActivity extends AppCompatActivity {
 
     EditText etNewPassword, etConfirmPassword;
     Button btnResetPassword;
+    ImageView btnBack;
 
     String email;
 
@@ -29,6 +30,9 @@ public class Reset_PasswordActivity extends AppCompatActivity {
         etNewPassword = findViewById(R.id.etNewPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         btnResetPassword = findViewById(R.id.btnResetPassword);
+        btnBack = findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(v -> finish());
 
         email = getIntent().getStringExtra("email");
 

@@ -30,10 +30,13 @@ public class Urls {
     // Blood Donote and Donors PHP
     public static final String DONATE_BLOOD = BASE_URL + "donate_blood.php";
     public static final String GET_DONORS = BASE_URL + "get_donors.php";
+    public static final String SEARCH_DONORS = BASE_URL + "search_donors.php";
 
     //Blood Requests PHP
     public static final String REQUEST_BLOOD = BASE_URL + "request_blood.php";
     public static final String GET_REQUESTS = BASE_URL + "get_request.php";
 
+    // Notifications PHP
+    public static final String GET_NOTIFICATIONS = BASE_URL + "get_notifications.php";
 
 }

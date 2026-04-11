@@ -11,9 +11,16 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
+        // 🔥 LOAD SAVED THEME MODE BEFORE ONCREATE
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
+        int mode = sp.getInt("mode", 1); // 1 = Light, 2 = Dark
+        if (mode == 2) {
+            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        super.onCreate(savedInstanceState);
         boolean isLoggedIn = sp.getBoolean("isLoggedIn", false);
 
         if (isLoggedIn) {

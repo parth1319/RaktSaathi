@@ -3,232 +3,304 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F7FB">
+    android:background="@color/bgColor"
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- 🔴 HEADER -->
-        <LinearLayout
+        <!-- PREMIUM HEADER -->
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="260dp"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/red_gradient">
+            android:layout_height="280dp"
+            android:background="@drawable/red_gradient"
+            android:padding="20dp">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgProfile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/rs_profilelogo"
-                app:civ_border_color="#FFFFFF"
-                app:civ_border_width="2dp"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/tvAddPhoto"
-                android:text="Add Profile Photo"
-                android:textColor="#90CAF9"
-                android:textSize="13sp"
-                android:layout_marginTop="6dp"/>
-
-            <!-- 🔥 NAME + VERIFIED -->
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center"
-                android:layout_marginTop="10dp">
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/imgProfile"
+                        android:layout_width="110dp"
+                        android:layout_height="110dp"
+                        android:src="@drawable/rs_profilelogo"
+                        app:civ_border_color="@android:color/white"
+                        app:civ_border_width="3dp" />
+
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/fabAddPhoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/imgProfile"
+                        android:layout_alignEnd="@id/imgProfile"
+                        android:layout_margin="4dp"
+                        android:src="@android:drawable/ic_menu_camera"
+                        app:backgroundTint="@android:color/white"
+                        app:fabCustomSize="36dp"
+                        app:maxImageSize="20dp"
+                        app:tint="@color/rs_buttons_colour" />
+
+                    <ImageView
+                        android:id="@+id/imgVerified"
+                        android:layout_width="28dp"
+                        android:layout_height="28dp"
+                        android:layout_alignTop="@id/imgProfile"
+                        android:layout_alignEnd="@id/imgProfile"
+                        android:src="@drawable/ic_verified"
+                        android:elevation="4dp"
+                        android:visibility="gone" />
+                </RelativeLayout>
 
                 <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:id="@+id/tvName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
                     android:text="User Name"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@android:color/white"
                     android:textSize="24sp"
-                    android:textStyle="bold"/>
+                    android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/imgVerified"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="6dp"
-                    android:src="@drawable/rs_verified"
-                    android:visibility="gone"/>
+                <TextView
+                    android:id="@+id/tvEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="user@example.com"
+                    android:textColor="#F5F5F5"
+                    android:textSize="14sp"
+                    android:alpha="0.9" />
+
+                <TextView
+                    android:id="@+id/tvAddPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Add Profile Photo"
+                    android:textColor="@android:color/white"
+                    android:textSize="12sp"
+                    android:alpha="0.8" />
             </LinearLayout>
+        </RelativeLayout>
 
-        </LinearLayout>
+        <!-- PROGRESS CARD -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-30dp"
+            android:layout_marginEnd="20dp"
+            app:cardBackgroundColor="@color/cardColor"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="8dp">
 
-        <!-- 🔥 PROFILE CARD -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="15dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Profile Completion"
+                        android:textColor="@color/textPrimary"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="0%"
+                        android:textColor="@color/rs_buttons_colour"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="8dp"
+                    android:layout_marginTop="10dp"
+                    android:progress="0" />
+
+                <TextView
+                    android:id="@+id/tvProgress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Complete your profile to get verified"
+                    android:textColor="@color/textSecondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- DETAILS SECTION -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/profile_card_bg"
-            android:orientation="vertical"
-            android:padding="18dp"
-            android:layout_marginTop="-30dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="20dp"
-            android:elevation="8dp">
+            android:layout_margin="20dp"
+            android:orientation="vertical">
 
-            <!-- 🔥 PROGRESS -->
             <TextView
-                android:id="@+id/tvProgress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Profile Complete: 0%"
-                android:textStyle="bold"
-                android:textColor="#444"/>
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:layout_marginTop="6dp"
-                android:progress="0"
-                android:progressTint="@color/rs_buttons_colour"
-                android:background="#E0E0E0"/>
-
-            <!-- 🔥 INFO -->
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tvMobile"
-                android:text="📞 Mobile"
-                android:layout_marginTop="12dp"
-                android:textColor="#333"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="📞 Not Added"
+                android:textColor="@color/textPrimary" />
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/tvEmail"
-                android:text="📧 Email"
-                android:layout_marginTop="6dp"
-                android:textColor="#333"/>
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tvBlood"
-                android:text="🩸 Blood Group"
-                android:layout_marginTop="6dp"
-                android:textColor="@color/rs_buttons_colour"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="🩸 Not Added"
+                android:textColor="@color/textPrimary" />
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/tvCity"
-                android:text="📍 City"
-                android:layout_marginTop="6dp"
-                android:textColor="#333"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="📍 Not Added"
+                android:textColor="@color/textPrimary" />
 
-            <!-- 🔥 SETTINGS -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="10dp"
+                android:background="#F0F0F0" />
+
+            <!-- ACTIONS -->
+            <TextView
+                android:id="@+id/btnEditProfile"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:text="Edit Profile"
+                android:textColor="@color/textPrimary"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/btnChangePass"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:text="Change Password"
+                android:textColor="@color/textPrimary"
+                android:textSize="16sp" />
+
+            <!-- SETTINGS TOGGLE -->
             <LinearLayout
                 android:id="@+id/btnSettingsToggle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
-                android:layout_marginTop="12dp">
-
+                android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:text="⚙️ Settings"
-                    android:textStyle="bold"/>
-
+                    android:text="Settings"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp" />
                 <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:id="@+id/arrowSettings"
-                    android:text="▼"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▼" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/settingsContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/btnEditProfile"
-                    android:text="✏️ Edit Profile"
-                    android:padding="10dp"/>
-
-                <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:id="@+id/btnChangePass"
-                    android:text="🔒 Change Password"
-                    android:padding="10dp"/>
-
-                <LinearLayout
+                android:visibility="gone"
+                android:paddingStart="20dp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="center_vertical">
-
+                    android:layout_height="50dp">
                     <TextView
-                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:layout_weight="1"
-                        android:text="🌙 Dark Mode"/>
-
-                    <Switch
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Dark Mode"
+                        android:textColor="@color/textPrimary" />
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchDark"
                         android:layout_width="wrap_content"
-                        android:id="@+id/switchDark"/>
-                </LinearLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+                </RelativeLayout>
             </LinearLayout>
 
-            <!-- 🔥 ABOUT -->
+            <!-- ABOUT TOGGLE -->
             <LinearLayout
                 android:id="@+id/btnAboutToggle"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical">
-
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
                 <TextView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    android:text="ℹ️ About Us"
-                    android:textStyle="bold"/>
-
+                    android:text="About Us"
+                    android:textColor="@color/textPrimary"
+                    android:textSize="16sp" />
                 <TextView
-                    android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
                     android:id="@+id/arrowAbout"
-                    android:text="▼"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="▼" />
             </LinearLayout>
 
             <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
                 android:id="@+id/aboutContent"
-                android:visibility="gone"
-                android:text="Raktsaathi is a life-saving platform..."
-                android:layout_marginTop="6dp"/>
-
-            <!-- 🔥 LOGOUT -->
-            <TextView
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:id="@+id/btnLogout"
-                android:text="🚪 Logout"
-                android:textColor="@color/rs_buttons_colour"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"/>
+                android:padding="10dp"
+                android:text="RaktSaathi is a platform to connect blood donors with those in need. Our mission is to save lives by making blood donation accessible to everyone."
+                android:textColor="@color/textSecondary"
+                android:visibility="gone" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_profile_logout"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginTop="20dp"
+                android:text="Logout"
+                android:textColor="@android:color/white"
+                app:backgroundTint="#D32F2F"
+                app:cornerRadius="10dp" />
+
         </LinearLayout>
 
-    </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginVertical="20dp"
+            android:text="Version 1.0.2"
+            android:textColor="@color/textSecondary"
+            android:textSize="12sp" />
 
+    </LinearLayout>
 </ScrollView>

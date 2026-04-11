@@ -16,6 +16,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     EditText forgotEmail;
     Button sendOtpBtn;
+    ImageView btnBack;
 
     ProgressDialog progressDialog;
 
@@ -26,6 +27,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
         forgotEmail = findViewById(R.id.forgotEmail);
         sendOtpBtn = findViewById(R.id.sendOtpBtn);
+        btnBack = findViewById(R.id.btn_back);
+
+        btnBack.setOnClickListener(v -> finish());
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Sending OTP...");

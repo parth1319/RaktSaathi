@@ -27,6 +27,9 @@ public class AddCampActivity extends AppCompatActivity {
         etDate = findViewById(R.id.etDate);
         etEmail = findViewById(R.id.etEmail);
         btnSubmit = findViewById(R.id.btnSubmit);
+        ImageView btnBack = findViewById(R.id.btnBack);
+
+        btnBack.setOnClickListener(v -> finish());
 
         // 🔥 DATE PICKER (PRO TOUCH)
         etDate.setOnClickListener(v -> openDatePicker());

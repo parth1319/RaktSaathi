@@ -1,249 +1,217 @@
 package com.parth.raktsaathi.Fragments;
 
 import android.os.Bundle;
-import android.text.*;
-import android.view.*;
-import android.widget.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.*;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
-import com.parth.raktsaathi.*;
 import com.parth.raktsaathi.R;
+import com.parth.raktsaathi.RequestAdapter;
+import com.parth.raktsaathi.RequestModel;
+import com.parth.raktsaathi.Urls;
 
-import org.json.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
 public class DonateFragment extends Fragment {
 
-    Spinner spAge, spBlood, spDistrict;
-    EditText etName, etMobile, etAddress;
-    TextView tvFinalAddress, successMsg;
-    Button btnDonate;
-    RecyclerView recyclerRequests;
-
-    String selectedDistrict = "";
-
-    // 🔥 IMPORTANT CHANGE
-    List<RequestModel> list = new ArrayList<>();
-    RequestAdapter adapter;
+    private EditText etName, etPhone, etAddress;
+    private Spinner spAge, spBlood, spArea;
+    private Button btnDonate;
+    private LinearLayout formLayout, successMsg;
+    private RecyclerView rvRequests;
+    private RequestAdapter adapter;
+    private List<RequestModel> requestList;
 
     public DonateFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_donate, container, false);
 
-        View view = inflater.inflate(R.layout.fragment_donate, container, false);
+        // Initialize Views
+        etName = v.findViewById(R.id.etName);
+        etPhone = v.findViewById(R.id.etPhone);
+        etAddress = v.findViewById(R.id.etAddress);
+        spAge = v.findViewById(R.id.spAge);
+        spBlood = v.findViewById(R.id.spBlood);
+        spArea = v.findViewById(R.id.spArea);
+        btnDonate = v.findViewById(R.id.btnDonate);
+        formLayout = v.findViewById(R.id.formLayout);
+        successMsg = v.findViewById(R.id.successMsg);
+        rvRequests = v.findViewById(R.id.recyclerRequests);
 
-        // 🔥 IDS
-        spAge = view.findViewById(R.id.spAge);
-        spBlood = view.findViewById(R.id.spBlood);
-        spDistrict = view.findViewById(R.id.spArea);
+        setupSpinners();
+        loadActiveRequests();
 
-        etName = view.findViewById(R.id.etName);
-        etMobile = view.findViewById(R.id.etPhone);
-        etAddress = view.findViewById(R.id.etAddress);
+        btnDonate.setOnClickListener(view -> submitDonation());
 
-        tvFinalAddress = view.findViewById(R.id.tvFinalAddress);
-        btnDonate = view.findViewById(R.id.btnDonate);
-        successMsg = view.findViewById(R.id.successMsg);
-
-        recyclerRequests = view.findViewById(R.id.recyclerRequests);
-        recyclerRequests.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // 🔥 FIXED ADAPTER
-        adapter = new RequestAdapter(getContext(), list);
-        recyclerRequests.setAdapter(adapter);
-
-        // 🔥 AGE
-        ArrayList<String> ageList = new ArrayList<>();
-        ageList.add("Select Age");
-        for(int i=19;i<=55;i++) ageList.add(String.valueOf(i));
-
-        spAge.setAdapter(new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, ageList));
-
-        // 🔥 BLOOD
-        String[] blood = {"Select Blood","A+","A-","B+","B-","O+","O-","AB+","AB-"};
-        spBlood.setAdapter(new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, blood));
-
-        // 🔥 AREA
-        String[] Area = {"Select Area","Akola City","Akot","Balapur","Murtizapur","Patur","Barshitakli","Telhara"};
-
-        spDistrict.setAdapter(new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_spinner_dropdown_item, Area));
-
-        spDistrict.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view1, int position, long id) {
-                selectedDistrict = Area[position];
-                updateAddress();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
-
-        etAddress.addTextChangedListener(new TextWatcher() {
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {}
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                updateAddress();
-            }
-        });
-
-        btnDonate.setOnClickListener(v -> submitData());
-
-        // 🔥 LOAD REQUESTS (NOT DONORS)
-        loadRequests();
-
-        return view;
+        return v;
     }
 
-    private void updateAddress() {
-        String addr = etAddress.getText().toString();
+    private void setupSpinners() {
+        // Age Spinner
+        List<String> ages = new ArrayList<>();
+        ages.add("Select Age");
+        for(int i=18; i<=60; i++) ages.add(String.valueOf(i));
+        
+        ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ages) {
+            @Override
+            public boolean isEnabled(int position) { return position != 0; }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                android.widget.TextView tv = (android.widget.TextView) view;
+                if(position == 0) tv.setTextColor(android.graphics.Color.GRAY);
+                else tv.setTextColor(android.graphics.Color.BLACK);
+                return view;
+            }
+        };
+        ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spAge.setAdapter(ageAdapter);
 
-        if(!addr.isEmpty() && !selectedDistrict.equals("Select Area")){
-            tvFinalAddress.setText(addr + ", " + selectedDistrict + ", Akola");
-        }
+        // Blood Group Spinner
+        List<String> bloods = new ArrayList<>();
+        bloods.add("Blood Group");
+        bloods.add("A+"); bloods.add("A-"); bloods.add("B+"); bloods.add("B-");
+        bloods.add("O+"); bloods.add("O-"); bloods.add("AB+"); bloods.add("AB-");
+        
+        ArrayAdapter<String> bloodAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, bloods) {
+            @Override
+            public boolean isEnabled(int position) { return position != 0; }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                android.widget.TextView tv = (android.widget.TextView) view;
+                if(position == 0) tv.setTextColor(android.graphics.Color.GRAY);
+                else tv.setTextColor(android.graphics.Color.BLACK);
+                return view;
+            }
+        };
+        bloodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spBlood.setAdapter(bloodAdapter);
+
+        // Area Spinner
+        List<String> areas = new ArrayList<>();
+        areas.add("Select Area");
+        areas.add("Mumbai"); areas.add("Pune"); areas.add("Nagpur"); 
+        areas.add("Nashik"); areas.add("Aurangabad"); areas.add("Solapur"); areas.add("Amravati");
+        areas.add("Thane"); areas.add("Kalyan"); areas.add("Vasai-Virar"); areas.add("Navi Mumbai");
+        
+        ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, areas) {
+            @Override
+            public boolean isEnabled(int position) { return position != 0; }
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                android.widget.TextView tv = (android.widget.TextView) view;
+                if(position == 0) tv.setTextColor(android.graphics.Color.GRAY);
+                else tv.setTextColor(android.graphics.Color.BLACK);
+                return view;
+            }
+        };
+        areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spArea.setAdapter(areaAdapter);
     }
 
-    private void submitData() {
+    private void loadActiveRequests() {
+        requestList = new ArrayList<>();
+        rvRequests.setLayoutManager(new LinearLayoutManager(getContext()));
+        
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(Urls.GET_REQUESTS, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                try {
+                    JSONArray array = new JSONArray(new String(responseBody));
+                    for(int i=0; i<array.length(); i++){
+                        JSONObject obj = array.getJSONObject(i);
+                        requestList.add(new RequestModel(
+                                obj.getString("name"),
+                                obj.getString("mobile"),
+                                obj.getString("blood_group"),
+                                obj.getString("units"),
+                                obj.optString("district", ""),
+                                obj.optString("city", ""),
+                                obj.getString("address")
+                        ));
+                    }
+                    adapter = new RequestAdapter(getContext(), requestList);
+                    rvRequests.setAdapter(adapter);
+                } catch (Exception e) {}
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+    }
 
-        String name = etName.getText().toString();
-        String mobile = etMobile.getText().toString();
-        String age = spAge.getSelectedItem().toString();
-        String bloodGroup = spBlood.getSelectedItem().toString();
-        String address = etAddress.getText().toString();
+    private void submitDonation() {
+        String name = etName.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+        String address = etAddress.getText().toString().trim();
 
-        if(name.isEmpty() || mobile.isEmpty() || age.equals("Select Age")
-                || bloodGroup.equals("Select Blood") || selectedDistrict.equals("Select Area")
-                || address.isEmpty()){
-
-            Toast.makeText(getContext(), "Fill all fields", Toast.LENGTH_SHORT).show();
+        if(name.isEmpty() || phone.isEmpty() || address.isEmpty() || 
+           spAge.getSelectedItemPosition() == 0 || 
+           spBlood.getSelectedItemPosition() == 0 || 
+           spArea.getSelectedItemPosition() == 0){
+            Toast.makeText(getContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        // Show Progress
+        android.app.ProgressDialog pd = new android.app.ProgressDialog(getContext());
+        pd.setMessage("Registering as Donor...");
+        pd.setCancelable(false);
+        pd.show();
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-
         params.put("name", name);
-        params.put("mobile", mobile);
-        params.put("age", age);
-        params.put("blood", bloodGroup);
-        params.put("district", selectedDistrict);
+        params.put("mobile", phone);
+        params.put("age", spAge.getSelectedItem().toString());
+        params.put("blood_group", spBlood.getSelectedItem().toString());
+        params.put("area", spArea.getSelectedItem().toString());
         params.put("address", address);
-        params.put("city", "Akola");
 
         client.post(Urls.DONATE_BLOOD, params, new AsyncHttpResponseHandler() {
-
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                String res = new String(responseBody);
-
-                if(res.toLowerCase().contains("success")){
+                pd.dismiss();
+                String response = new String(responseBody).trim();
+                if(response.equalsIgnoreCase("success") || response.contains("success")){
+                    formLayout.setVisibility(View.GONE);
                     successMsg.setVisibility(View.VISIBLE);
-
-                    if (isAdded()) {
-                        Toast.makeText(getContext(), "Donor Added ✅", Toast.LENGTH_SHORT).show();
-                    }
-
-                    list.clear();
-                    loadRequests(); // 🔥 refresh list
-
+                    // Refresh the list to see if new requests arrived
+                    loadActiveRequests();
                 } else {
-                    if (isAdded()) {
-                        Toast.makeText(getContext(), "Error ❌", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(getContext(), "Error: " + response, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                if (isAdded()) {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-                }
+                pd.dismiss();
+                Toast.makeText(getContext(), "Server Error! Please try again.", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    // 🔥 LOAD REQUESTS
-    private void loadRequests() {
-
-        AsyncHttpClient client = new AsyncHttpClient();
-
-        client.get(Urls.GET_REQUESTS, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                try {
-                    String res = new String(responseBody);
-
-                    JSONArray arr;
-                    if(res.trim().startsWith("[")){
-                        arr = new JSONArray(res);
-                    }else{
-                        JSONObject obj = new JSONObject(res);
-                        arr = obj.getJSONArray("data");
-                    }
-
-
-                    list.clear();
-
-                    for(int i=0;i<arr.length();i++){
-
-                        JSONObject o = arr.getJSONObject(i);
-
-                        // 🔥 ERROR FIX: correct constructor
-                        RequestModel model = new RequestModel(
-                                o.getString("name"),
-                                o.getString("mobile"),
-                                o.getString("blood_group"),
-                                o.getString("units"),
-                                o.getString("district"),
-                                o.getString("city"),
-                                o.getString("address")
-                        );
-
-                        list.add(model); // 🔥 NO ERROR NOW
-                    }
-
-                    adapter.notifyDataSetChanged();
-
-                } catch (Exception e){
-                    if (isAdded()) {
-                        Toast.makeText(getContext(), "JSON Error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                if (isAdded()) {
-                    Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        androidx.appcompat.app.ActionBar actionBar = ((androidx.appcompat.app.AppCompatActivity) getActivity()).getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
     }
 }

@@ -30,6 +30,14 @@
             android:layout_centerInParent="true"/>
     </RelativeLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNotifications"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:padding="8dp"
+        android:clipToPadding="false"/>
+
     <LinearLayout
         android:id="@+id/emptyLayout"
         android:layout_width="match_parent"

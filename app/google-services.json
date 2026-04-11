@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "790875880674",
+    "project_id": "raktsaath",
+    "storage_bucket": "raktsaath.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790875880674:android:b78174f4f70b4fa8b932bb",
+        "android_client_info": {
+          "package_name": "com.parth.raktsaathi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790875880674-9rig96juc5k7b8vo2t1be0fug2umii6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.parth.raktsaathi",
+            "certificate_hash": "265dedbd29d1b543a546f2c8c548ca7e229dbd60"
+          }
+        },
+        {
+          "client_id": "790875880674-fsn1vpgi69f86f7mgnq39bdncvloal0q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD9k4ZUe0NcMFgytjOpRc-zLE1PRAxhUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790875880674-fsn1vpgi69f86f7mgnq39bdncvloal0q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

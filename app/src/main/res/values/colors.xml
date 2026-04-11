@@ -2,34 +2,35 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="blue">#0000FF</color>
-    <color name="yellow">#FFFF00</color>
-    <color name="green">#008000</color>
-    <color name="light_grey">#A8A4A4</color>
-    <color name="orange">#FF8C00</color>
-    <color name="violet_intense">#933FD3</color>
-    <color name="leaf_green">#91CA4E</color>
-    <color name="rs_bg_color">#FFF5F5</color>
-    <color name="rs_heading_color">#B71C1C</color>
-    <color name="rs_qoute_color">#616161</color>
-    <color name="rs_buttons_colour">#8E0000</color>
-    <color name="linkColor">#2196F3</color>
-    <color name="Purple">#9C27B0</color>
-    <color name="orange1">#FF9800</color>
-    <color name="DeepPurple">#673AB7</color>
-    <color name="bgColor">#FFFFFF</color>
-    <color name="cardColor">#F5F5F5</color>
-    <color name="textPrimary">#000000</color>
-    <color name="textSecondary">#666666</color>
+
+    <!-- Premium RaktSaathi Theme Colors -->
+    <color name="rs_buttons_colour">#D32F2F</color>
     <color name="accentColor">#E53935</color>
+    <color name="rs_bg_color">#F8F9FA</color>
+    <color name="rs_heading_color">#1A1A1A</color>
+    <color name="rs_qoute_color">#555555</color>
+
+    <!-- Dark Mode Supportive Semantic Colors -->
+    <color name="bgColor">#F8F9FA</color>
+    <color name="cardColor">#FFFFFF</color>
+    <color name="textPrimary">#1A1A1A</color>
+    <color name="textSecondary">#8E8E93</color>
+
+    <!-- Other Design Colors -->
+    <color name="blue_600">#1E88E5</color>
     <color name="green_success">#4CAF50</color>
-    <color name="health_bg_gradient_start">#FFFDE7</color>
-    <color name="health_bg_gradient_end">#FFF3E0</color>
-    <color name="health_title">#F57C00</color>
-    <color name="health_subtitle">#6D4C41</color>
-    <color name="health_icon_bg">#FFE0B2</color>
-    <color name="camp_card_bg">#FAFAFA</color>
-    </resources>
+    <color name="active_donors_bg">#F1F8F1</color>
+    <color name="active_donors_text">#2E7D32</color>
+    <color name="active_requests_bg">#FDF2F2</color>
+    <color name="active_requests_text">#C62828</color>
+    <color name="health_bg">#D32F2F</color>
+    <color name="camp_card_bg">#D32F2F</color>
+    <color name="register_btn_bg">#8B0000</color>
+    <color name="search_bg">#FFFFFF</color>
 
-
-
+    <!-- Bottom Nav Selection -->
+    <color name="nav_item_selected">#D32F2F</color>
+    <color name="nav_item_unselected">#9E9E9E</color>
+    <color name="nav_bg_color">#FFFFFF</color>
+    <color name="nav_indicator_color">#FDEAEA</color>
+</resources>

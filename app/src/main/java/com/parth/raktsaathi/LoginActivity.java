@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.loopj.android.http.*;
 import com.google.android.gms.auth.api.signin.*;
 import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 
 import org.json.JSONObject;
 
@@ -23,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText email, password;
     Button loginbtnlogin;
     TextView signupText, forgotPassword;
-    LinearLayout googleBtn;
+    View googleBtn;
 
     ProgressDialog progressDialog;
 
@@ -36,8 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
         if (sp.getBoolean("isLoggedIn", false)) {
-            startActivity(new Intent(this, HomeActivity.class));
-            finish();
+            checkProfileAndRedirect(sp.getString("email",""));
             return;
         }
 
@@ -51,21 +51,22 @@ public class LoginActivity extends AppCompatActivity {
         googleBtn = findViewById(R.id.googleBtn);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Please wait...");
+        progressDialog.setMessage("Logging in...");
         progressDialog.setCancelable(false);
 
         loginbtnlogin.setOnClickListener(v -> loginUser());
 
         signupText.setOnClickListener(v ->
-                startActivity(new Intent(this, RegistrationActivity.class)));
+                startActivity(new Intent(this, RegistrationActivity.class))
+        );
 
         forgotPassword.setOnClickListener(v ->
-                startActivity(new Intent(this, ForgotPasswordActivity.class)));
+                startActivity(new Intent(this, ForgotPasswordActivity.class))
+        );
 
         // 🔥 GOOGLE CONFIG
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
-                .requestId() // 🔥 IMPORTANT (google_id)
                 .build();
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -73,62 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         googleBtn.setOnClickListener(v -> signInWithGoogle());
     }
 
-    // 🔥 EMAIL / MOBILE LOGIN
-    private void loginUser() {
-
-        String userInput = email.getText().toString().trim();
-        String userPassword = password.getText().toString().trim();
-
-        if (TextUtils.isEmpty(userInput)) {
-            email.setError("Enter Email or Mobile");
-            return;
-        }
-
-        if (TextUtils.isEmpty(userPassword)) {
-            password.setError("Enter Password");
-            return;
-        }
-
-        progressDialog.show();
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-
-        params.put("input", userInput);
-        params.put("password", userPassword);
-
-        client.post(Urls.LOGIN, params, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
-                progressDialog.dismiss();
-
-                String res = new String(responseBody).trim();
-
-                if (res.equalsIgnoreCase("success")) {
-
-                    saveLogin(userInput);
-
-                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
-
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
-
-                } else {
-                    Toast.makeText(LoginActivity.this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                progressDialog.dismiss();
-                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    // 🔥 GOOGLE LOGIN START
+    // 🔥 GOOGLE LOGIN
     private void signInWithGoogle() {
         startActivityForResult(googleSignInClient.getSignInIntent(), RC_SIGN_IN);
     }
@@ -138,11 +84,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
-
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-
             try {
-                GoogleSignInAccount account = task.getResult(ApiException.class);
+                GoogleSignInAccount account = GoogleSignIn
+                        .getSignedInAccountFromIntent(data)
+                        .getResult(ApiException.class);
 
                 String name = account.getDisplayName();
                 String emailStr = account.getEmail();
@@ -151,15 +96,14 @@ public class LoginActivity extends AppCompatActivity {
                 sendGoogleDataToServer(name, emailStr, googleId);
 
             } catch (Exception e) {
-                Toast.makeText(this, "Google Failed", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+                Toast.makeText(this, "Google Failed", Toast.LENGTH_LONG).show();
             }
         }
     }
 
     // 🔥 SEND GOOGLE DATA
     private void sendGoogleDataToServer(String name, String emailStr, String googleId) {
-
-        progressDialog.show();
 
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
@@ -173,38 +117,127 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
 
+                saveLogin(emailStr);
+
+                Toast.makeText(LoginActivity.this, "Google Login Success", Toast.LENGTH_SHORT).show();
+
+                checkProfileAndRedirect(emailStr);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    // 🔥 NORMAL LOGIN (FIXED)
+    private void loginUser() {
+
+        String userInput = email.getText().toString().trim();
+        String userPassword = password.getText().toString().trim();
+
+        if (TextUtils.isEmpty(userInput)) {
+            email.setError("Enter Email or Phone");
+            return;
+        }
+
+        if (TextUtils.isEmpty(userPassword)) {
+            password.setError("Enter Password");
+            return;
+        }
+
+        progressDialog.show();
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+
+        // 🔥 FIXED (EMAIL OR PHONE)
+        params.put("input", userInput);
+        params.put("password", userPassword);
+
+        client.post(Urls.LOGIN, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
                 progressDialog.dismiss();
 
+                String res = new String(responseBody).trim();
+                Log.d("LOGIN_RESPONSE", res);
+
                 try {
-                    JSONObject obj = new JSONObject(new String(responseBody));
+                    JSONObject obj = new JSONObject(res);
 
-                    String status = obj.getString("status");
+                    String email = obj.getString("email");
 
-                    saveLogin(emailStr);
+                    saveLogin(email);
 
-                    if(status.equals("registered")){
-                        Toast.makeText(LoginActivity.this, "Welcome New User 🎉", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(LoginActivity.this, "Welcome Back 👋", Toast.LENGTH_SHORT).show();
-                    }
+                    Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-                    finish();
+                    checkProfileAndRedirect(email);
 
-                } catch (Exception e){
-                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(LoginActivity.this, "Invalid Login", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+
                 progressDialog.dismiss();
                 Toast.makeText(LoginActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    // 🔥 SAVE SESSION
+    // 🔥 FORCE PROFILE COMPLETE
+    private void checkProfileAndRedirect(String email){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+
+        client.post(Urls.GET_PROFILE, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                try{
+                    JSONObject obj = new JSONObject(new String(responseBody));
+
+                    String phone = obj.optString("phone","");
+                    String blood = obj.optString("blood_group","");
+                    String city = obj.optString("location","");
+
+                    if(phone.equals("null")) phone="";
+                    if(blood.equals("null")) blood="";
+                    if(city.equals("null")) city="";
+
+                    if(phone.isEmpty() || blood.isEmpty() || city.isEmpty()){
+
+                        Toast.makeText(LoginActivity.this, "Complete your profile from Profile tab ⚠️", Toast.LENGTH_LONG).show();
+
+                    }
+                    
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+
+                }catch(Exception e){
+                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                finish();
+            }
+        });
+    }
+
+    // 🔥 SAVE LOGIN SESSION
     private void saveLogin(String email) {
 
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);

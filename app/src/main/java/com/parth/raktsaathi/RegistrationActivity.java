@@ -11,14 +11,15 @@ import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.loopj.android.http.*;
 
 import cz.msebera.android.httpclient.Header;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText name, phone, email, location, password, confirmPassword, lastdonationdate;
-    Spinner blood;
+    EditText name, phone, email, address, password, confirmPassword;
+    Spinner blood, city;
     Button register;
 
     ProgressDialog progressDialog;
@@ -33,26 +34,44 @@ public class RegistrationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_registration);
 
-        // 🔥 XML MATCHED IDS
+        // 🔥 Initialize Views
         name = findViewById(R.id.et_name);
         phone = findViewById(R.id.et_phone);
         email = findViewById(R.id.et_email);
+        address = findViewById(R.id.et_address);
         password = findViewById(R.id.et_password);
         confirmPassword = findViewById(R.id.et_confirm_password);
         blood = findViewById(R.id.sp_blood);
+        city = findViewById(R.id.sp_city);
         register = findViewById(R.id.btn_register);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Creating Account...");
         progressDialog.setCancelable(false);
 
-        // 🔥 SPINNER
+        // 🔥 BLOOD GROUP SPINNER
         String[] bloodGroups = {"Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"};
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
+        ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, bloodGroups);
+        blood.setAdapter(bloodAdapter);
 
-        blood.setAdapter(adapter);
+        // 🔥 MAHARASHTRA CITIES SPINNER
+        String[] cities = {
+            "Select City", 
+            "Mumbai", "Pune", "Nagpur", "Thane", "Nashik", 
+            "Kalyan-Dombivli", "Vasai-Virar", "Pimpri-Chinchwad", 
+            "Aurangabad", "Navi Mumbai", "Solapur", "Mira-Bhayandar", 
+            "Bhiwandi", "Amravati", "Nanded", "Kolhapur", "Akola", 
+            "Ulhasnagar", "Sangli-Miraj-Kupwad", "Malegaon", "Jalgaon", 
+            "Dhule", "Ahmednagar", "Satara", "Chandrapur", "Parbhani", 
+            "Ichalkaranji", "Jalna", "Ambarnath", "Bhusawal", "Panvel", 
+            "Badlapur", "Beed", "Gondia", "Satara", "Barshi", "Yavatmal", 
+            "Achalpur", "Osmanabad", "Nandurbar", "Wardha", "Udgir", 
+            "Hinganghat", "Other"
+        };
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_dropdown_item, cities);
+        city.setAdapter(cityAdapter);
 
         register.setOnClickListener(v -> registerUser());
     }
@@ -62,11 +81,11 @@ public class RegistrationActivity extends AppCompatActivity {
         String sName = name.getText().toString().trim();
         String sPhone = phone.getText().toString().trim();
         String sEmail = email.getText().toString().trim();
-        String sLocation = location.getText().toString().trim();
+        String sAddress = address.getText().toString().trim();
         String sPassword = password.getText().toString().trim();
         String sConfirm = confirmPassword.getText().toString().trim();
         String sBlood = blood.getSelectedItem().toString();
-        String sDate = lastdonationdate.getText().toString().trim();
+        String sCity = city.getSelectedItem().toString();
 
         // 🔥 VALIDATION
         if (TextUtils.isEmpty(sName)) {
@@ -86,6 +105,16 @@ public class RegistrationActivity extends AppCompatActivity {
 
         if (sBlood.equals("Select Blood Group")) {
             Toast.makeText(this, "Select Blood Group", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (sCity.equals("Select City")) {
+            Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(sAddress)) {
+            address.setError("Enter Full Address");
             return;
         }
 
@@ -110,8 +139,8 @@ public class RegistrationActivity extends AppCompatActivity {
         params.put("email", sEmail);
         params.put("password", sPassword);
         params.put("blood_group", sBlood);
-        params.put("last_donation_date", sDate);
-        params.put("location", sLocation);
+        params.put("city", sCity);
+        params.put("location", sAddress); // matching old backend field name 'location'
 
         client.post(Urls.REGISTER, params, new AsyncHttpResponseHandler() {
 
