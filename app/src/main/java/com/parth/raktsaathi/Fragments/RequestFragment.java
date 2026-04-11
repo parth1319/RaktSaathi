@@ -88,21 +88,26 @@ public class RequestFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    JSONArray array = new JSONArray(new String(responseBody));
-                    for(int i=0; i<array.length(); i++){
-                        JSONObject obj = array.getJSONObject(i);
-                        donorList.add(new DonorModel(
-                                obj.getString("name"),
-                                obj.getString("blood_group"),
-                                obj.getString("city"),
-                                obj.getString("district"),
-                                obj.getString("address"),
-                                obj.getString("mobile")
-                        ));
+                    JSONObject responseObj = new JSONObject(new String(responseBody));
+                    if (responseObj.getString("status").equals("success")) {
+                        JSONArray array = responseObj.getJSONArray("data");
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject obj = array.getJSONObject(i);
+                            donorList.add(new DonorModel(
+                                    obj.getString("name"),
+                                    obj.getString("mobile"),
+                                    obj.getString("blood_group"),
+                                    obj.getString("district"),
+                                    obj.getString("city"),
+                                    obj.getString("address")
+                            ));
+                        }
+                        adapter = new DonorAdapter(donorList);
+                        rvDonors.setAdapter(adapter);
                     }
-                    adapter = new DonorAdapter(donorList);
-                    rvDonors.setAdapter(adapter);
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
@@ -113,10 +118,11 @@ public class RequestFragment extends Fragment {
         String name = etName.getText().toString().trim();
         String phone = etPhone.getText().toString().trim();
         String address = etAddress.getText().toString().trim();
+        String blood = spBlood.getSelectedItem().toString();
+        String units = spUnits.getSelectedItem().toString();
+        String area = spArea.getSelectedItem().toString();
 
-        if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || 
-            spBlood.getSelectedItemPosition() == 0 || 
-            spArea.getSelectedItemPosition() == 0) {
+        if (name.isEmpty() || phone.isEmpty() || address.isEmpty()) {
             Toast.makeText(getContext(), "Please fill all fields correctly", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -131,21 +137,27 @@ public class RequestFragment extends Fragment {
         RequestParams params = new RequestParams();
         params.put("name", name);
         params.put("mobile", phone);
-        params.put("blood_group", spBlood.getSelectedItem().toString());
-        params.put("area", spArea.getSelectedItem().toString());
+        params.put("blood", blood);
+        params.put("units", units);
+        params.put("district", area);
+        params.put("city", area);
         params.put("address", address);
 
         client.post(Urls.REQUEST_BLOOD, params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 pd.dismiss();
-                String response = new String(responseBody).trim();
-                if (response.equalsIgnoreCase("success") || response.contains("success")) {
-                    formLayout.setVisibility(View.GONE);
-                    successMsg.setVisibility(View.VISIBLE);
-                    loadPotentialDonors();
-                } else {
-                    Toast.makeText(getContext(), "Error: " + response, Toast.LENGTH_SHORT).show();
+                try {
+                    String response = new String(responseBody).trim();
+                    if (response.equalsIgnoreCase("success") || response.contains("success")) {
+                        formLayout.setVisibility(View.GONE);
+                        successMsg.setVisibility(View.VISIBLE);
+                        loadPotentialDonors();
+                    } else {
+                        Toast.makeText(getContext(), "Error: " + response, Toast.LENGTH_SHORT).show();
+                    }
+                } catch (Exception e) {
+                    Toast.makeText(getContext(), "Response error", Toast.LENGTH_SHORT).show();
                 }
             }
 

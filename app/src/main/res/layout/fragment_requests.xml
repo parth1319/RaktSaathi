@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FDFDFD"
-    android:scrollbars="none">
+    android:scrollbars="none"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
         <!-- 🔴 PREMIUM HEADER -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="130dp"
             android:background="@drawable/red_header_bg"
             android:padding="24dp">
 
@@ -22,33 +23,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="-9dp">
 
                 <TextView
+                    android:id="@+id/tvHeaderTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Request Blood"
+                    android:layout_marginLeft="73sp"
                     android:textColor="@android:color/white"
-                    android:textSize="32sp"
+                    android:textSize="28sp"
                     android:textStyle="bold"
-                    android:letterSpacing="0.02"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Need blood urgently? We are here to help connect you with donors nearby. ❤️"
-                    android:textColor="#F5F5F5"
-                    android:textSize="15sp"
-                    android:layout_marginTop="8dp"
-                    android:alpha="0.9"
-                    android:lineSpacingExtra="4dp"/>
+                    android:letterSpacing="0.01"/>
             </LinearLayout>
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-50dp"
+            android:layout_marginTop="-65dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:cardCornerRadius="30dp"
@@ -72,7 +65,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Patient Name"
-                        app:startIconDrawable="@drawable/rs_profilelogo"
                         app:boxStrokeColor="#D32F2F"
                         app:hintTextColor="#D32F2F"
                         app:boxCornerRadiusTopStart="15dp"
@@ -217,7 +209,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="25dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="18dp"
             android:layout_marginBottom="15dp"
             android:gravity="center_vertical">
 
@@ -229,7 +221,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Top Potential Donors"
+                android:text="Blood Donors"
                 android:textColor="#212121"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -247,57 +239,6 @@
             android:nestedScrollingEnabled="false"/>
 
         <!-- 💡 REQUEST TIP CARD (Matching Home Style) -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="25dp"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="#D32F2F">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="24dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_toStartOf="@+id/ivInfoRequest">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Urgently Need Blood?"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        android:textSize="20sp"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fill the form above to notify all donors in your area. Make sure to provide the correct hospital address for faster response. ❤️"
-                        android:textColor="#F5F5F5"
-                        android:textSize="13sp"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="4dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:id="@+id/ivInfoRequest"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/rs_heartlogo"
-                    android:alpha="0.8"/>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="20dp"/>
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

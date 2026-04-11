@@ -142,22 +142,28 @@ public class DonateFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    JSONArray array = new JSONArray(new String(responseBody));
-                    for(int i=0; i<array.length(); i++){
-                        JSONObject obj = array.getJSONObject(i);
-                        requestList.add(new RequestModel(
-                                obj.getString("name"),
-                                obj.getString("mobile"),
-                                obj.getString("blood_group"),
-                                obj.getString("units"),
-                                obj.optString("district", ""),
-                                obj.optString("city", ""),
-                                obj.getString("address")
-                        ));
+                    JSONObject responseObj = new JSONObject(new String(responseBody));
+                    if (responseObj.getString("status").equals("success")) {
+                        JSONArray array = responseObj.getJSONArray("data");
+                        requestList.clear();
+                        for(int i=0; i<array.length(); i++){
+                            JSONObject obj = array.getJSONObject(i);
+                            requestList.add(new RequestModel(
+                                    obj.getString("name"),
+                                    obj.getString("mobile"),
+                                    obj.getString("blood_group"),
+                                    obj.getString("units"),
+                                    obj.optString("district", ""),
+                                    obj.optString("city", ""),
+                                    obj.getString("address")
+                            ));
+                        }
+                        adapter = new RequestAdapter(getContext(), requestList);
+                        rvRequests.setAdapter(adapter);
                     }
-                    adapter = new RequestAdapter(getContext(), requestList);
-                    rvRequests.setAdapter(adapter);
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
@@ -188,8 +194,9 @@ public class DonateFragment extends Fragment {
         params.put("name", name);
         params.put("mobile", phone);
         params.put("age", spAge.getSelectedItem().toString());
-        params.put("blood_group", spBlood.getSelectedItem().toString());
-        params.put("area", spArea.getSelectedItem().toString());
+        params.put("blood", spBlood.getSelectedItem().toString()); 
+        params.put("district", spArea.getSelectedItem().toString());
+        params.put("city", spArea.getSelectedItem().toString());
         params.put("address", address);
 
         client.post(Urls.DONATE_BLOOD, params, new AsyncHttpResponseHandler() {
