@@ -14,23 +14,23 @@ import androidx.activity.OnBackPressedCallback;
 
 public class HomeActivity extends AppCompatActivity {
 
-    BottomNavigationView bottomNav;
+    public BottomNavigationView bottomNav;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // 🔥 LOGIN CHECK
-        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
-
-        // 🔥 APPLY THEME
-        int mode = sp.getInt("mode", 1); // 1 = Light, 2 = Dark
-        if (mode == 2) {
+        // 🔥 APPLY THEME BEFORE EVERYTHING
+        SharedPreferences themeSp = getSharedPreferences("theme", MODE_PRIVATE);
+        boolean isDark = themeSp.getBoolean("isDark", false);
+        if (isDark) {
             androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
         }
 
+        super.onCreate(savedInstanceState);
+
+        // 🔥 LOGIN CHECK
+        SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
         if (!sp.getBoolean("isLoggedIn", false)) {
             startActivity(new Intent(this, LoginActivity.class));
             finish();

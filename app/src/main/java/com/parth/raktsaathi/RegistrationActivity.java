@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.loopj.android.http.*;
@@ -18,14 +19,24 @@ import cz.msebera.android.httpclient.Header;
 
 public class RegistrationActivity extends AppCompatActivity {
 
-    EditText name, phone, email, address, password, confirmPassword;
-    Spinner blood, city;
+    TextInputEditText name, phone, email, address, password, confirmPassword;
+    AutoCompleteTextView blood, city;
     Button register;
+    TextView loginText;
 
     ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply theme before super.onCreate
+        SharedPreferences themeSp = getSharedPreferences("theme", MODE_PRIVATE);
+        boolean isDark = themeSp.getBoolean("isDark", false);
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -44,20 +55,22 @@ public class RegistrationActivity extends AppCompatActivity {
         blood = findViewById(R.id.sp_blood);
         city = findViewById(R.id.sp_city);
         register = findViewById(R.id.btn_register);
+        loginText = findViewById(R.id.loginText);
+
+        loginText.setOnClickListener(v -> finish());
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Creating Account...");
         progressDialog.setCancelable(false);
 
-        // 🔥 BLOOD GROUP SPINNER
-        String[] bloodGroups = {"Select Blood Group","A+","A-","B+","B-","O+","O-","AB+","AB-"};
+        // 🔥 BLOOD GROUP SPINNER (AUTOCOMPLETE)
+        String[] bloodGroups = {"A+","A-","B+","B-","O+","O-","AB+","AB-"};
         ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, bloodGroups);
+                android.R.layout.simple_list_item_1, bloodGroups);
         blood.setAdapter(bloodAdapter);
 
-        // 🔥 MAHARASHTRA CITIES SPINNER
+        // 🔥 MAHARASHTRA CITIES SPINNER (AUTOCOMPLETE)
         String[] cities = {
-            "Select City", 
             "Mumbai", "Pune", "Nagpur", "Thane", "Nashik", 
             "Kalyan-Dombivli", "Vasai-Virar", "Pimpri-Chinchwad", 
             "Aurangabad", "Navi Mumbai", "Solapur", "Mira-Bhayandar", 
@@ -65,12 +78,12 @@ public class RegistrationActivity extends AppCompatActivity {
             "Ulhasnagar", "Sangli-Miraj-Kupwad", "Malegaon", "Jalgaon", 
             "Dhule", "Ahmednagar", "Satara", "Chandrapur", "Parbhani", 
             "Ichalkaranji", "Jalna", "Ambarnath", "Bhusawal", "Panvel", 
-            "Badlapur", "Beed", "Gondia", "Satara", "Barshi", "Yavatmal", 
+            "Badlapur", "Beed", "Gondia", "Barshi", "Yavatmal", 
             "Achalpur", "Osmanabad", "Nandurbar", "Wardha", "Udgir", 
             "Hinganghat", "Other"
         };
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_dropdown_item, cities);
+                android.R.layout.simple_list_item_1, cities);
         city.setAdapter(cityAdapter);
 
         register.setOnClickListener(v -> registerUser());
@@ -84,8 +97,8 @@ public class RegistrationActivity extends AppCompatActivity {
         String sAddress = address.getText().toString().trim();
         String sPassword = password.getText().toString().trim();
         String sConfirm = confirmPassword.getText().toString().trim();
-        String sBlood = blood.getSelectedItem().toString();
-        String sCity = city.getSelectedItem().toString();
+        String sBlood = blood.getText().toString().trim();
+        String sCity = city.getText().toString().trim();
 
         // 🔥 VALIDATION
         if (TextUtils.isEmpty(sName)) {
@@ -103,12 +116,12 @@ public class RegistrationActivity extends AppCompatActivity {
             return;
         }
 
-        if (sBlood.equals("Select Blood Group")) {
+        if (TextUtils.isEmpty(sBlood)) {
             Toast.makeText(this, "Select Blood Group", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if (sCity.equals("Select City")) {
+        if (TextUtils.isEmpty(sCity)) {
             Toast.makeText(this, "Select City", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -140,7 +153,7 @@ public class RegistrationActivity extends AppCompatActivity {
         params.put("password", sPassword);
         params.put("blood_group", sBlood);
         params.put("city", sCity);
-        params.put("location", sAddress); // matching old backend field name 'location'
+        params.put("address", sAddress); // changed from 'location' to 'address' to match PHP backend
 
         client.post(Urls.REGISTER, params, new AsyncHttpResponseHandler() {
 

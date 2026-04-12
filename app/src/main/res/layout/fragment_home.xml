@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFD"
-    android:scrollbars="none">
+    android:background="@color/bgColor"
+    android:scrollbars="none"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,17 +46,34 @@
                     android:layout_marginTop="4dp"/>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/btnNotification"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:layout_marginTop="20dp"
-                android:padding="12dp"
-                android:src="@drawable/rs_notification"
-                android:background="@drawable/rs_notification"
-                android:elevation="4dp"
-                app:tint="@color/white"/>
+                android:layout_marginTop="20dp">
+
+                <ImageView
+                    android:id="@+id/btnNotification"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:padding="12dp"
+                    android:src="@drawable/rs_notification"
+                    android:background="@drawable/bg_premium_notification"
+                    android:elevation="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:tint="@color/white"/>
+
+                <!-- Red dot for new notifications -->
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/bg_notification_dot"
+                    android:elevation="10dp" />
+            </FrameLayout>
 
         </RelativeLayout>
 
@@ -68,7 +86,7 @@
             android:layout_marginEnd="24dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="12dp"
-            app:cardBackgroundColor="@color/white">
+            app:cardBackgroundColor="@color/cardColor">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -89,8 +107,8 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:hint="Find donors by city..."
-                    android:textColorHint="#9E9E9E"
-                    android:textColor="#212121"
+                    android:textColorHint="@color/textSecondary"
+                    android:textColor="@color/textPrimary"
                     android:textSize="15sp"
                     android:paddingStart="15dp"
                     android:singleLine="true"
@@ -100,7 +118,119 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
+        <!-- QUICK ACTIONS GRID -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="25dp"
+            android:weightSum="3">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnQuickRequest"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/cardColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/rs_bloodrop_icon"
+                        app:tint="#D32F2F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Request"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnQuickDonate"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/cardColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/rs_bloodbag_icon"
+                        app:tint="#D32F2F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Donate"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btnQuickCamps"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="6dp"
+                app:cardBackgroundColor="@color/cardColor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/rs_locationlogo"
+                        app:tint="#D32F2F" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="Camps"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
         <!-- SLIDER SECTION -->
+
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="190dp"
@@ -135,7 +265,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Blood Inventory"
-                android:textColor="#212121"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginStart="10dp"/>
@@ -167,79 +297,114 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="20dp"
             android:weightSum="2">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#E8F5E9">
+                android:layout_marginEnd="8dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/active_donors_bg">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tvActiveDonorsCount"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/rs_homeprofile_icon"
+                        android:layout_alignParentEnd="true"
+                        android:alpha="0.1"
+                        app:tint="@color/active_donors_text" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#2E7D32"
-                        android:textSize="32sp"
-                        android:textStyle="bold"/>
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Active Donors"
-                        android:textColor="#388E3C"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.05"/>
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvActiveDonorsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/active_donors_text"
+                            android:textSize="32sp"
+                            android:includeFontPadding="false"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Donors"
+                            android:textColor="@color/active_donors_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:alpha="0.8"
+                            android:letterSpacing="0.05"/>
+                    </LinearLayout>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
-                android:layout_height="80dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
-                android:layout_marginStart="10dp"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#FFEBEE">
+                android:layout_marginStart="8dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="8dp"
+                app:cardBackgroundColor="@color/active_requests_bg">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/tvActiveRequestsCount"
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:src="@drawable/rs_bloodrop_icon"
+                        android:layout_alignParentEnd="true"
+                        android:alpha="0.1"
+                        app:tint="@color/active_requests_text" />
+
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#C62828"
-                        android:textSize="32sp"
-                        android:textStyle="bold"/>
+                        android:orientation="vertical"
+                        android:layout_centerVertical="true">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Requests"
-                        android:textColor="#D32F2F"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"
-                        android:letterSpacing="0.05"/>
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/tvActiveRequestsCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textColor="@color/active_requests_text"
+                            android:textSize="32sp"
+                            android:includeFontPadding="false"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Total Requests"
+                            android:textColor="@color/active_requests_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textAllCaps="true"
+                            android:alpha="0.8"
+                            android:letterSpacing="0.05"/>
+                    </LinearLayout>
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
@@ -256,7 +421,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nearby Camps"
-                android:textColor="#212121"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:textSize="20sp"/>
 
@@ -293,7 +458,6 @@
             android:layout_height="60dp"
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
-            android:layout_marginTop="15dp"
             android:text="Register Your Blood Camp"
             android:backgroundTint="#8B0000"
             android:textColor="@color/white"
@@ -310,8 +474,8 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             app:cardCornerRadius="28dp"
-            app:cardElevation="8dp"
-            app:cardBackgroundColor="#D32F2F">
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/active_requests_bg">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -328,7 +492,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Daily Health Tips"
-                        android:textColor="@color/white"
+                        android:textColor="@color/active_requests_text"
                         android:textStyle="bold"
                         android:textSize="22sp"/>
 
@@ -336,7 +500,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Every drop counts. Learn how to stay healthy and ready for your next donation! ❤️"
-                        android:textColor="#F5F5F5"
+                        android:textColor="@color/textSecondary"
                         android:textSize="14sp"
                         android:layout_marginTop="8dp"
                         android:lineSpacingExtra="4dp"/>
@@ -344,12 +508,14 @@
 
                 <ImageView
                     android:id="@+id/ivHeartTip"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:src="@drawable/rs_heartlogo"
-                    android:alpha="0.8"/>
+                    android:layout_marginEnd="-20dp"
+                    app:tint="@color/active_requests_text"
+                    android:alpha="0.08"
+                    android:rotation="-15"/>
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

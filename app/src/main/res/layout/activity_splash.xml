@@ -3,15 +3,39 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
+    android:background="#F8F9FA"
     android:fitsSystemWindows="true">
 
+    <!-- Premium Decorative Elements -->
+    <View
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="-150dp"
+        android:layout_marginEnd="-150dp"
+        android:alpha="0.08"
+        android:background="@drawable/circle_shape"
+        android:backgroundTint="@color/rs_buttons_colour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="-100dp"
+        android:layout_marginStart="-100dp"
+        android:alpha="0.05"
+        android:background="@drawable/circle_shape"
+        android:backgroundTint="@color/rs_buttons_colour"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- Main Content -->
     <LinearLayout
-        android:id="@+id/logoContainer"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,20 +43,24 @@
 
         <ImageView
             android:id="@+id/ivmainlogo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/rs_logo" />
+            android:layout_width="220dp"
+            android:layout_height="220dp"
+            android:src="@drawable/rs_final_logo"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
+            android:elevation="12dp" />
 
         <TextView
             android:id="@+id/tvmaintitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="RaktSaathi+"
-            android:textColor="@color/rs_heading_color"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+            android:textColor="#D32F2F"
+            android:textSize="38sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"/>
 
         <TextView
             android:id="@+id/tvmainslogan"
@@ -41,15 +69,30 @@
             android:layout_marginTop="4dp"
             android:fontFamily="@font/poppins"
             android:text="Life Saving Connections"
-            android:textColor="@color/textSecondary"
-            android:textSize="16sp" />
+            android:textColor="#757575"
+            android:textSize="16sp"
+            android:letterSpacing="0.1"/>
     </LinearLayout>
 
     <ProgressBar
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="48dp"
-        android:indeterminateTint="@color/rs_heading_color"
+        android:layout_marginBottom="80dp"
+        android:indeterminateTint="@color/rs_buttons_colour"
+        style="?android:attr/progressBarStyleSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:text="MADE WITH ❤️ IN INDIA"
+        android:textColor="#9E9E9E"
+        android:textSize="11sp"
+        android:letterSpacing="0.2"
+        android:fontFamily="@font/poppins_semibold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

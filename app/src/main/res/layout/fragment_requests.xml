@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFD"
+    android:background="@color/bgColor"
     android:scrollbars="none"
     android:fitsSystemWindows="true">
 
@@ -15,38 +15,44 @@
         <!-- 🔴 PREMIUM HEADER -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             android:background="@drawable/red_header_bg"
-            android:padding="24dp">
+            android:padding="20dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/rs_back"
+                app:tint="@color/white"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="-9dp">
+                android:text="Request Blood"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.01"/>
 
-                <TextView
-                    android:id="@+id/tvHeaderTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Request Blood"
-                    android:layout_marginLeft="73sp"
-                    android:textColor="@android:color/white"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.01"/>
-            </LinearLayout>
         </RelativeLayout>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-65dp"
+            android:layout_marginTop="-60dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="15dp"
-            app:cardBackgroundColor="@color/white">
+            app:cardBackgroundColor="@color/cardColor">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -75,7 +81,7 @@
                             android:id="@+id/etName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#212121"
+                            android:textColor="@color/textPrimary"
                             android:textSize="15sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +103,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="phone"
-                            android:textColor="#212121"
+                            android:textColor="@color/textPrimary"
                             android:textSize="15sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,14 +136,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:layout_marginTop="15dp"
-                        android:background="@drawable/edittext_premium"/>
+                        android:background="@drawable/edittext_premium"
+                        android:prompt="@string/select_area"/>
 
                     <com.google.android.material.textfield.TextInputLayout
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:hint="Hospital Address"
+                        android:hint="Hospital Name"
                         app:startIconDrawable="@drawable/rs_home_icon"
                         app:boxStrokeColor="#D32F2F"
                         app:hintTextColor="#D32F2F"
@@ -145,12 +152,15 @@
                         app:boxCornerRadiusTopEnd="15dp"
                         app:boxCornerRadiusBottomStart="15dp"
                         app:boxCornerRadiusBottomEnd="15dp">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etAddress"
+                        <AutoCompleteTextView
+                            android:id="@+id/etHospital"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#212121"
-                            android:textSize="15sp"/>
+                            android:textColor="@color/textPrimary"
+                            android:textSize="15sp"
+                            android:padding="16dp"
+                            android:background="@null"
+                            android:completionThreshold="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <Button
@@ -187,7 +197,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Request Submitted!"
-                        android:textColor="#212121"
+                        android:textColor="@color/textPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
 
@@ -195,7 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Searching for nearby donors. We will notify you once someone responds ❤️"
-                        android:textColor="#757575"
+                        android:textColor="@color/textSecondary"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:lineSpacingExtra="4dp"/>
@@ -222,7 +232,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Blood Donors"
-                android:textColor="#212121"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:layout_marginStart="10dp"/>

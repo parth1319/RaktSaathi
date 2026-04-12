@@ -10,18 +10,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit Profile Details"
+        android:text="Edit Camp Details"
         android:textColor="@color/textPrimary"
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_gravity="center"
         android:layout_marginBottom="24dp"/>
 
-    <!-- Full Name -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Full Name"
+        android:hint="Camp Name / Organization"
         app:startIconDrawable="@android:drawable/ic_menu_edit"
         app:startIconTint="#D32F2F"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -32,40 +31,17 @@
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_name"
+            android:id="@+id/etCampName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapWords"
             android:textColor="@color/textPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Phone Number -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone Number"
-        app:startIconDrawable="@drawable/rs_phone_icon"
-        app:startIconTint="#D32F2F"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-        app:boxCornerRadiusBottomEnd="16dp"
-        app:boxCornerRadiusBottomStart="16dp"
-        app:boxCornerRadiusTopEnd="16dp"
-        app:boxCornerRadiusTopStart="16dp"
-        android:layout_marginBottom="16dp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:textColor="@color/textPrimary" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Address -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Street Address"
+        android:hint="Full Address"
         app:startIconDrawable="@drawable/ic_location"
         app:startIconTint="#D32F2F"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -76,82 +52,66 @@
         android:layout_marginBottom="16dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_address"
+            android:id="@+id/etLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPostalAddress"
             android:textColor="@color/textPrimary" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Spinners Row -->
-    <LinearLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:hint="Date of Camp"
+        app:startIconDrawable="@android:drawable/ic_menu_my_calendar"
+        app:startIconTint="#D32F2F"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:textColor="@color/textPrimary" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Contact Email"
+        app:startIconDrawable="@android:drawable/sym_action_email"
+        app:startIconTint="#D32F2F"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxCornerRadiusBottomEnd="16dp"
+        app:boxCornerRadiusBottomStart="16dp"
+        app:boxCornerRadiusTopEnd="16dp"
+        app:boxCornerRadiusTopStart="16dp"
         android:layout_marginBottom="24dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:hint="Blood">
+            android:inputType="textEmailAddress"
+            android:textColor="@color/textPrimary" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <AutoCompleteTextView
-                android:id="@+id/sp_blood"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:textColor="@color/textPrimary" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:hint="Taluka">
-
-            <AutoCompleteTextView
-                android:id="@+id/sp_city"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="none"
-                android:textColor="@color/textPrimary" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_cancel"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:layout_marginEnd="8dp"
-            android:text="Cancel"
-            android:textColor="@color/textSecondary"
-            app:cornerRadius="16dp"/>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="54dp"
-            android:layout_weight="1"
-            android:layout_marginStart="8dp"
-            android:text="Save Changes"
-            android:textColor="@android:color/white"
-            android:textStyle="bold"
-            app:backgroundTint="#D32F2F"
-            app:cornerRadius="16dp"
-            app:elevation="4dp"/>
-
-    </LinearLayout>
+        android:layout_height="60dp"
+        android:backgroundTint="#D32F2F"
+        android:text="Update Camp Details"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:cornerRadius="18dp"
+        app:elevation="8dp"
+        android:textColor="@android:color/white"/>
 
 </LinearLayout>

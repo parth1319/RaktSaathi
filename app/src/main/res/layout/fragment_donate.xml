@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FDFDFD"
+    android:background="@color/bgColor"
     android:scrollbars="none">
 
     <LinearLayout
@@ -13,39 +13,45 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="130dp"
+            android:layout_height="160dp"
             android:background="@drawable/red_header_bg"
-            android:padding="24dp">
+            android:padding="20dp">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="8dp"
+                android:src="@drawable/rs_back"
+                app:tint="@color/white"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="10dp"/>
+
+            <TextView
+                android:id="@+id/tvHeaderTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="-9dp">
+                android:text="Become a Donor"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="12dp"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.01"/>
 
-                <TextView
-                    android:id="@+id/tvHeaderTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Become a Donor"
-                    android:layout_marginLeft="70sp"
-                    android:textColor="@android:color/white"
-                    android:textSize="28sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.01"/>
-            </LinearLayout>
         </RelativeLayout>
 
         <!-- 📝 FLOATING DONATION FORM -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-65dp"
+            android:layout_marginTop="-60dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             app:cardCornerRadius="30dp"
             app:cardElevation="12dp"
-            app:cardBackgroundColor="@color/white">
+            app:cardBackgroundColor="@color/cardColor">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -73,7 +79,7 @@
                             android:id="@+id/etName"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#212121"
+                            android:textColor="@color/textPrimary"
                             android:textSize="15sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +101,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="phone"
-                            android:textColor="#212121"
+                            android:textColor="@color/textPrimary"
                             android:textSize="15sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -147,7 +153,7 @@
                             android:id="@+id/etAddress"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="#212121"
+                            android:textColor="@color/textPrimary"
                             android:textSize="15sp"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,7 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Registration Successful!"
-                        android:textColor="#212121"
+                        android:textColor="@color/textPrimary"
                         android:textSize="24sp"
                         android:textStyle="bold"/>
 
@@ -193,7 +199,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="You are now a part of RaktSaathi. Thank you! ❤️"
-                        android:textColor="#757575"
+                        android:textColor="@color/textSecondary"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:lineSpacingExtra="4dp"/>
@@ -221,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Blood Requests"
-                android:textColor="#212121"
+                android:textColor="@color/textPrimary"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_marginStart="12dp"/>

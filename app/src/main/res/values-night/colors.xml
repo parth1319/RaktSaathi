@@ -6,9 +6,26 @@
     <color name="textPrimary">#FFFFFF</color>
     <color name="textSecondary">#B0B0B0</color>
 
+    <!-- RaktSaathi Theme Overrides for Dark Mode -->
+    <color name="rs_bg_color">#121212</color>
+    <color name="rs_heading_color">#FFFFFF</color>
+    <color name="rs_qoute_color">#CCCCCC</color>
+    <color name="rs_buttons_colour">#EF5350</color>
+
     <color name="active_donors_bg">#1B2E1C</color>
     <color name="active_donors_text">#81C784</color>
     <color name="active_requests_bg">#311B1B</color>
     <color name="active_requests_text">#E57373</color>
     <color name="search_bg">#2C2C2C</color>
+    <color name="blood_stat_card_start">#1E1E1E</color>
+    <color name="blood_stat_card_end">#2D1B1B</color>
+    <color name="blood_stat_circle_bg">#311B1B</color>
+    <color name="blood_stat_circle_stroke">#4D2B2B</color>
+    <!-- Bottom Nav Selection -->
+    <color name="nav_item_selected">#EF5350</color>
+    <color name="nav_item_unselected">#8E8E93</color>
+    <color name="nav_bg_color">#1A1A1A</color>
+    <color name="nav_indicator_color">#00000000</color>
+    <color name="progress_track">#333333</color>
+    <color name="divider_color">#1AFFFFFF</color>
 </resources>

@@ -13,4 +13,11 @@
 
     <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi"/>
 
+    <!-- Splash Screen Theme (Dark Mode) -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#F8F9FA</item>
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="postSplashScreenTheme">@style/Theme.RaktSaathi</item>
+    </style>
+
 </resources>

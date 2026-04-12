@@ -33,6 +33,7 @@ public class DonorActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private ImageView btnBack;
     private TextView tvTitle;
+    private View layoutEmpty;
     
     private DonorAdapter adapter;
     private List<DonorModel> donorList = new ArrayList<>();
@@ -48,6 +49,7 @@ public class DonorActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         btnBack = findViewById(R.id.btnBack);
         tvTitle = findViewById(R.id.tvTitle);
+        layoutEmpty = findViewById(R.id.layoutEmpty);
 
         btnBack.setOnClickListener(v -> finish());
 
@@ -122,8 +124,12 @@ public class DonorActivity extends AppCompatActivity {
                     }
                     adapter.notifyDataSetChanged();
                     
-                    if (donorList.isEmpty() && !query.isEmpty()) {
-                        // Optional: show a message if no results found for search
+                    if (donorList.isEmpty()) {
+                        layoutEmpty.setVisibility(View.VISIBLE);
+                        rvDonors.setVisibility(View.GONE);
+                    } else {
+                        layoutEmpty.setVisibility(View.GONE);
+                        rvDonors.setVisibility(View.VISIBLE);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

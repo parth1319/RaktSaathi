@@ -13,6 +13,22 @@
 
     <style name="Theme.RaktSaathi" parent="Base.Theme.RaktSaathi"/>
 
+    <!-- Splash Screen Theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#F8F9FA</item>
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+        <item name="postSplashScreenTheme">@style/Theme.RaktSaathi</item>
+    </style>
+
+    <!-- Premium Bottom Sheet Theme -->
+    <style name="BottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
     <style name="App.CustomIndicator" parent="">
         <item name="android:color">@android:color/transparent</item>
     </style>

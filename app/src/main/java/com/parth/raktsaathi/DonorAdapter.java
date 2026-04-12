@@ -23,7 +23,7 @@ public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView name, blood, location, address;
-        ImageButton btnCall;
+        View btnCall;
 
         public ViewHolder(View v){
             super(v);

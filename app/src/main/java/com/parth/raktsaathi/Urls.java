@@ -9,8 +9,10 @@ public class Urls {
     public static final String LOGIN = BASE_URL + "users_login.php";
     public static final String GoogleSignIn = BASE_URL + "google_login.php";
     public static final String GET_STATS = BASE_URL + "get_stats.php";
+    public static final String GET_USER_ACTIVITY = BASE_URL + "get_user_activity.php";
     public static final String GET_CAMPS = BASE_URL + "get_camps.php";
     public static final String ADD_CAMP = BASE_URL + "add_camp.php";
+    public static final String UPDATE_CAMP = BASE_URL + "update.php";
     public static final String CHECK_REGISTER = BASE_URL + "check_registered.php";
     public static final String REGISTER_CAMP = BASE_URL + "register_camp.php";
 
@@ -27,10 +29,12 @@ public class Urls {
     public static final String CHANGE_PASSWORD = BASE_URL + "change_password.php";
 
 
-    // Blood Donote and Donors PHP
+    // Blood Donate and Donors PHP (Consolidated)
     public static final String DONATE_BLOOD = BASE_URL + "donate_blood.php";
     public static final String GET_DONORS = BASE_URL + "get_donors.php";
-    public static final String SEARCH_DONORS = BASE_URL + "search_donors.php";
+    public static final String SEARCH_DONORS = BASE_URL + "get_donors.php";
+
+    
 
     //Blood Requests PHP
     public static final String REQUEST_BLOOD = BASE_URL + "request_blood.php";

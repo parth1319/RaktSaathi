@@ -1,6 +1,8 @@
 package com.parth.raktsaathi;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.TextView;
@@ -23,17 +25,23 @@ public class ChangePasswordActivity extends AppCompatActivity {
     TextView tvStrength;
 
     ProgressDialog progressDialog;
+    String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
+        SharedPreferences sp = getSharedPreferences("user", Context.MODE_PRIVATE);
+        userEmail = sp.getString("email", "");
+
         oldPass = findViewById(R.id.etOldPass);
         newPass = findViewById(R.id.etNewPass);
         confirmPass = findViewById(R.id.etConfirmPass);
         btnChange = findViewById(R.id.btnChangePass);
         tvStrength = findViewById(R.id.tvStrength);
+        
+        findViewById(R.id.ivBack).setOnClickListener(v -> finish());
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Updating Password...");
@@ -69,10 +77,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
         progressDialog.show();
 
         AsyncHttpClient client = new AsyncHttpClient();
-
         RequestParams params = new RequestParams();
 
-        params.put("email", "user@gmail.com");
+        params.put("email", userEmail);
         params.put("old_password", oldP);
         params.put("new_password", newP);
 
@@ -83,13 +90,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                 progressDialog.dismiss();
 
-                String res = new String(responseBody);
+                String res = new String(responseBody).trim();
 
-                if (res.contains("success")) {
+                if (res.equalsIgnoreCase("success")) {
                     Toast.makeText(ChangePasswordActivity.this, "Password Updated ✅", Toast.LENGTH_SHORT).show();
                     finish();
+                } else if (res.equalsIgnoreCase("wrong_old_password")) {
+                    Toast.makeText(ChangePasswordActivity.this, "Wrong Old Password ❌", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(ChangePasswordActivity.this, "Failed ❌", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ChangePasswordActivity.this, "Failed: " + res, Toast.LENGTH_SHORT).show();
                 }
             }
 

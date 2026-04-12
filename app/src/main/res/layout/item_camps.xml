@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="20dp"
-    app:cardCornerRadius="28dp"
-    app:cardElevation="8dp"
-    app:cardBackgroundColor="@color/white">
+    android:layout_marginBottom="16dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="6dp"
+    app:cardBackgroundColor="@color/cardColor">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,18 +15,19 @@
         android:padding="16dp"
         android:gravity="center_vertical">
 
+        <!-- ICON (Generic Blood/Camp Icon) -->
         <androidx.cardview.widget.CardView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            app:cardCornerRadius="18dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
+            app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
-            app:cardBackgroundColor="#FFF5F5">
+            app:cardBackgroundColor="#0D000000">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/rs_redlocation"
-                android:padding="15dp"
+                android:src="@drawable/ic_location"
+                android:padding="14dp"
                 app:tint="#D32F2F"/>
         </androidx.cardview.widget.CardView>
 
@@ -35,44 +36,61 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp">
 
             <TextView
                 android:id="@+id/tvCampName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="City Hospital Blood Drive"
-                android:textColor="#212121"
-                android:textSize="16sp"
+                android:text="Blood Drive"
+                android:textColor="@color/textPrimary"
+                android:textSize="17sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvCampLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📍 Main Street, Akola"
-                android:textColor="#757575"
+                android:text="Full Address Here"
+                android:textColor="@color/textSecondary"
                 android:textSize="13sp"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="4dp"
+                android:alpha="0.8"
+                android:lineSpacingExtra="2dp"/>
+        </LinearLayout>
+
+        <!-- DATE TAG (Right aligned, perfect for short dates) -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="8dp"
+            android:background="@drawable/bg_premium_notification"
+            android:backgroundTint="#0A000000">
 
             <TextView
                 android:id="@+id/tvCampDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="📅 20 Oct, 2024"
+                android:text="20 Oct"
                 android:textColor="#D32F2F"
                 android:textSize="12sp"
-                android:textStyle="bold"
-                android:layout_marginTop="4dp"/>
-        </LinearLayout>
+                android:textStyle="bold"/>
 
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_media_play"
-            app:tint="#EEEEEE"
-            android:rotation="0"
-            android:layout_marginStart="8dp"/>
+            <ImageView
+                android:id="@+id/btnEditCamp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="8dp"
+                android:padding="6dp"
+                android:src="@android:drawable/ic_menu_edit"
+                app:tint="#D32F2F"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:visibility="gone" />
+        </LinearLayout>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

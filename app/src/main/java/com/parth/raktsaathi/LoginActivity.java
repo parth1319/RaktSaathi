@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.*;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.loopj.android.http.*;
 import com.google.android.gms.auth.api.signin.*;
@@ -33,6 +34,15 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply theme before super.onCreate
+        SharedPreferences themeSp = getSharedPreferences("theme", MODE_PRIVATE);
+        boolean isDark = themeSp.getBoolean("isDark", false);
+        if (isDark) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
         super.onCreate(savedInstanceState);
 
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
