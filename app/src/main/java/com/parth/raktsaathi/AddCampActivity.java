@@ -40,11 +40,10 @@ public class AddCampActivity extends AppCompatActivity {
         etDate = findViewById(R.id.etDate);
         etEmail = findViewById(R.id.etEmail);
         
-        // Fetch logged-in email and LOCK it
         android.content.SharedPreferences sp = getSharedPreferences("user", android.content.Context.MODE_PRIVATE);
         String userEmail = sp.getString("email", "");
         etEmail.setText(userEmail);
-        etEmail.setEnabled(false); // User cannot change this
+        etEmail.setEnabled(false);
         etEmail.setFocusable(false);
 
         btnSubmit = findViewById(R.id.btnSubmit);
@@ -93,7 +92,7 @@ public class AddCampActivity extends AppCompatActivity {
         int d = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog dp = new DatePickerDialog(this, (view, year, month, day) -> {
-            // Use String.format to ensure 2 digits for month and day (e.g. 2024-05-09)
+
             String date = String.format(java.util.Locale.getDefault(), "%d-%02d-%02d", year, (month + 1), day);
             etDate.setText(date);
         }, y, m, d);
@@ -116,7 +115,7 @@ public class AddCampActivity extends AppCompatActivity {
         params.put("location", location);
         params.put("camp_date", date);
         params.put("email", etEmail.getText().toString());
-        params.put("photo", encodedImage); // Sending Base64 image
+        params.put("photo", encodedImage);
 
         client.post(Urls.ADD_CAMP, params, new AsyncHttpResponseHandler() {
             @Override

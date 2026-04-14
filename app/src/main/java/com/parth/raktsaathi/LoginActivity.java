@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Apply theme before super.onCreate
+
         SharedPreferences themeSp = getSharedPreferences("theme", MODE_PRIVATE);
         boolean isDark = themeSp.getBoolean("isDark", false);
         if (isDark) {
@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(this, ForgotPasswordActivity.class))
         );
 
-        // 🔥 GOOGLE CONFIG
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -84,7 +84,6 @@ public class LoginActivity extends AppCompatActivity {
         googleBtn.setOnClickListener(v -> signInWithGoogle());
     }
 
-    // 🔥 GOOGLE LOGIN
     private void signInWithGoogle() {
         startActivityForResult(googleSignInClient.getSignInIntent(), RC_SIGN_IN);
     }
@@ -112,7 +111,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // 🔥 SEND GOOGLE DATA
+
     private void sendGoogleDataToServer(String name, String emailStr, String googleId) {
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -141,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // 🔥 NORMAL LOGIN (FIXED)
+
     private void loginUser() {
 
         String userInput = email.getText().toString().trim();
@@ -162,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
 
-        // 🔥 FIXED (EMAIL OR PHONE)
+
         params.put("input", userInput);
         params.put("password", userPassword);
 
@@ -201,7 +200,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // 🔥 FORCE PROFILE COMPLETE
+
     private void checkProfileAndRedirect(String email){
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -247,7 +246,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    // 🔥 SAVE LOGIN SESSION
+
     private void saveLogin(String email) {
 
         SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);

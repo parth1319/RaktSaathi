@@ -34,16 +34,16 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.tvMessage.setText(model.getMessage());
         holder.tvTime.setText(model.getTime());
 
-        // Custom icon color based on type
+
         if ("URGENT".equalsIgnoreCase(model.getType())) {
-            holder.ivIcon.setImageResource(R.drawable.rs_notification); // Or an alert icon
+            holder.ivIcon.setImageResource(R.drawable.rs_notification);
             holder.ivIcon.setColorFilter(holder.itemView.getContext().getResources().getColor(R.color.rs_buttons_colour));
         } else if ("CAMP".equalsIgnoreCase(model.getType())) {
-            holder.ivIcon.setImageResource(R.drawable.rs_notification); // Or a camp/location icon
-            holder.ivIcon.setColorFilter(holder.itemView.getContext().getResources().getColor(R.color.blue_600)); // Need to ensure blue exists or use a default
+            holder.ivIcon.setImageResource(R.drawable.rs_notification);
+            holder.ivIcon.setColorFilter(holder.itemView.getContext().getResources().getColor(R.color.blue_600));
         }
 
-        // Show/Hide unread dot
+
         holder.unreadIndicator.setVisibility(model.isRead() ? View.GONE : View.VISIBLE);
     }
 

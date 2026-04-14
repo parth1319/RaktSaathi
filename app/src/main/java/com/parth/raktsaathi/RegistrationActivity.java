@@ -28,7 +28,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Apply theme before super.onCreate
+
         SharedPreferences themeSp = getSharedPreferences("theme", MODE_PRIVATE);
         boolean isDark = themeSp.getBoolean("isDark", false);
         if (isDark) {
@@ -45,7 +45,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_registration);
 
-        // 🔥 Initialize Views
+
         name = findViewById(R.id.et_name);
         phone = findViewById(R.id.et_phone);
         email = findViewById(R.id.et_email);
@@ -63,13 +63,13 @@ public class RegistrationActivity extends AppCompatActivity {
         progressDialog.setMessage("Creating Account...");
         progressDialog.setCancelable(false);
 
-        // 🔥 BLOOD GROUP SPINNER (AUTOCOMPLETE)
+
         String[] bloodGroups = {"A+","A-","B+","B-","O+","O-","AB+","AB-"};
         ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, bloodGroups);
         blood.setAdapter(bloodAdapter);
 
-        // 🔥 MAHARASHTRA CITIES SPINNER (AUTOCOMPLETE)
+
         String[] cities = {
             "Mumbai", "Pune", "Nagpur", "Thane", "Nashik", 
             "Kalyan-Dombivli", "Vasai-Virar", "Pimpri-Chinchwad", 
@@ -100,7 +100,7 @@ public class RegistrationActivity extends AppCompatActivity {
         String sBlood = blood.getText().toString().trim();
         String sCity = city.getText().toString().trim();
 
-        // 🔥 VALIDATION
+
         if (TextUtils.isEmpty(sName)) {
             name.setError("Enter Name");
             return;
@@ -153,7 +153,7 @@ public class RegistrationActivity extends AppCompatActivity {
         params.put("password", sPassword);
         params.put("blood_group", sBlood);
         params.put("city", sCity);
-        params.put("address", sAddress); // changed from 'location' to 'address' to match PHP backend
+        params.put("address", sAddress);
 
         client.post(Urls.REGISTER, params, new AsyncHttpResponseHandler() {
 
@@ -166,7 +166,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
                 if (res.equalsIgnoreCase("success")) {
 
-                    // 🔥 SAVE LOGIN
+
                     SharedPreferences sp = getSharedPreferences("user", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sp.edit();
 

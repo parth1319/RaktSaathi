@@ -1,29 +1,21 @@
 package com.parth.raktsaathi.Fragments;
 
 import android.content.*;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.loopj.android.http.AsyncHttpClient;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
+import com.loopj.android.http.*;
+import com.parth.raktsaathi.*;
 import com.parth.raktsaathi.R;
-import com.parth.raktsaathi.Urls;
-import com.parth.raktsaathi.LoginActivity;
-import com.parth.raktsaathi.ChangePasswordActivity;
 import com.squareup.picasso.Picasso;
 import com.yalantis.ucrop.UCrop;
 
@@ -36,13 +28,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileFragment extends Fragment {
 
-    TextView tvName, tvMobile, tvEmail, tvBlood, tvCity, tvPercent, tvProgress;
+    TextView tvName, tvMobile, tvEmail, tvBlood, tvCity, tvAddPhoto, tvPercent, tvProgress;
     TextView btnEditProfile, btnChangePass;
     MaterialButton btnLogout;
-    LinearLayout btnSettingsToggle, btnAboutToggle, settingsContent;
+
+    LinearLayout btnSettingsToggle, btnAboutToggle;
+    LinearLayout settingsContent;
     TextView aboutContent, arrowSettings, arrowAbout;
     SwitchCompat switchDark;
     FloatingActionButton fabAddPhoto;
+
     CircleImageView imgProfile;
     ProgressBar progressBar;
     ImageView imgVerified;
@@ -54,26 +49,30 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        // 1. Get Email from Login Session
         SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
 
-        // 2. Initialize Views
         imgProfile = view.findViewById(R.id.imgProfile);
+        tvAddPhoto = view.findViewById(R.id.tvAddPhoto);
+
         tvName = view.findViewById(R.id.tvName);
         tvMobile = view.findViewById(R.id.tvMobile);
         tvEmail = view.findViewById(R.id.tvEmail);
         tvBlood = view.findViewById(R.id.tvBlood);
         tvCity = view.findViewById(R.id.tvCity);
         tvPercent = view.findViewById(R.id.tvPercent);
+
         progressBar = view.findViewById(R.id.progressBar);
         tvProgress = view.findViewById(R.id.tvProgress);
         imgVerified = view.findViewById(R.id.imgVerified);
+
         btnEditProfile = view.findViewById(R.id.btnEditProfile);
         btnChangePass = view.findViewById(R.id.btnChangePass);
         btnLogout = view.findViewById(R.id.btn_profile_logout);
+
         btnSettingsToggle = view.findViewById(R.id.btnSettingsToggle);
         btnAboutToggle = view.findViewById(R.id.btnAboutToggle);
         settingsContent = view.findViewById(R.id.settingsContent);
@@ -83,55 +82,20 @@ public class ProfileFragment extends Fragment {
         switchDark = view.findViewById(R.id.switchDark);
         fabAddPhoto = view.findViewById(R.id.fabAddPhoto);
 
+        int mode = sp.getInt("mode", 1);
+        switchDark.setChecked(mode == 2);
+
         tvEmail.setText(email);
 
-        // 3. Load Data
-        if (!email.isEmpty()) {
-            loadProfile();
-        } else {
-            Toast.makeText(getContext(), "Session Expired. Please Login.", Toast.LENGTH_SHORT).show();
-        }
+        loadProfile();
 
-        // 4. Toggle Listeners
-        btnSettingsToggle.setOnClickListener(v -> {
-            if (settingsContent.getVisibility() == View.GONE) {
-                settingsContent.setVisibility(View.VISIBLE);
-                arrowSettings.setText("▲");
-            } else {
-                settingsContent.setVisibility(View.GONE);
-                arrowSettings.setText("▼");
-            }
-        });
+        fabAddPhoto.setOnClickListener(v -> openGallery());
+        imgProfile.setOnClickListener(v -> openGallery());
 
-        btnAboutToggle.setOnClickListener(v -> {
-            if (aboutContent.getVisibility() == View.GONE) {
-                aboutContent.setVisibility(View.VISIBLE);
-                arrowAbout.setText("▲");
-            } else {
-                aboutContent.setVisibility(View.GONE);
-                arrowAbout.setText("▼");
-            }
-        });
-
-        // 5. Dark Mode Toggle
-        SharedPreferences themeSp = getActivity().getSharedPreferences("theme", Context.MODE_PRIVATE);
-        boolean isDark = themeSp.getBoolean("isDark", false);
-        switchDark.setChecked(isDark);
-
-        switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            themeSp.edit().putBoolean("isDark", isChecked).apply();
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
-        });
-
-        // 6. Button Listeners
         btnLogout.setOnClickListener(v -> {
             new androidx.appcompat.app.AlertDialog.Builder(getContext())
-                    .setTitle("Logout")
-                    .setMessage("Are you sure you want to logout?")
+                    .setTitle("Sign Out")
+                    .setMessage("Are you sure you want to sign out?")
                     .setPositiveButton("Yes", (dialog, which) -> {
                         sp.edit().clear().apply();
                         startActivity(new Intent(getContext(), LoginActivity.class));
@@ -142,25 +106,176 @@ public class ProfileFragment extends Fragment {
         });
 
         btnEditProfile.setOnClickListener(v -> showEditProfileDialog());
-        btnChangePass.setOnClickListener(v -> startActivity(new Intent(getContext(), ChangePasswordActivity.class)));
-        fabAddPhoto.setOnClickListener(v -> {
-            String[] options = {"Upload from Gallery", "Use Default Avatar"};
-            new MaterialAlertDialogBuilder(getContext())
-                    .setTitle("Profile Photo")
-                    .setItems(options, (dialog, which) -> {
-                        if (which == 0) {
-                            openGallery();
-                        } else {
-                            useDefaultAvatar();
-                        }
-                    })
-                    .show();
+
+        btnChangePass.setOnClickListener(v ->
+                startActivity(new Intent(getContext(), ChangePasswordActivity.class)));
+
+        switchDark.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                sp.edit().putInt("mode", 2).apply();
+            } else {
+                androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                sp.edit().putInt("mode", 1).apply();
+            }
+        });
+
+        btnSettingsToggle.setOnClickListener(v -> {
+            if(settingsContent.getVisibility() == View.GONE){
+                settingsContent.setVisibility(View.VISIBLE);
+                arrowSettings.setText("▲");
+            } else {
+                settingsContent.setVisibility(View.GONE);
+                arrowSettings.setText("▼");
+            }
+        });
+
+        btnAboutToggle.setOnClickListener(v -> {
+            if(aboutContent.getVisibility() == View.GONE){
+                aboutContent.setVisibility(View.VISIBLE);
+                arrowAbout.setText("▲");
+            } else {
+                aboutContent.setVisibility(View.GONE);
+                arrowAbout.setText("▼");
+            }
         });
 
         return view;
     }
 
-    private void loadProfile() {
+    private void loadProfile(){
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("email", email);
+
+        client.post(Urls.GET_PROFILE, params, new AsyncHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+
+                try {
+                    JSONObject obj = new JSONObject(new String(responseBody));
+
+                    String name = obj.optString("name", "");
+                    String phone = obj.optString("phone", "");
+                    String blood = obj.optString("blood_group", "");
+                    String city = obj.optString("city", "");
+                    String address = obj.optString("location", "");
+                    String imagePath = obj.optString("profile_image", "");
+
+                    if(name.equals("null")) name = "";
+                    if(phone.equals("null")) phone = "";
+                    if(blood.equals("null")) blood = "";
+                    if(city.equals("null")) city = "";
+                    if(address.equals("null")) address = "";
+                    if(imagePath.equals("null")) imagePath = "";
+
+                    tvName.setText(name.isEmpty() ? "User Name" : name);
+                    tvMobile.setText("📞 " + (phone.isEmpty() ? "Not Added" : phone));
+                    tvBlood.setText("🩸 " + (blood.isEmpty() ? "Not Added" : blood));
+
+                    if (!address.isEmpty() && !city.isEmpty()) {
+                        tvCity.setText("📍 " + address + ", " + city);
+                    } else if (!address.isEmpty()) {
+                        tvCity.setText("📍 " + address);
+                    } else if (!city.isEmpty()) {
+                        tvCity.setText("📍 " + city);
+                    } else {
+                        tvCity.setText("📍 Not Added");
+                    }
+
+                    if(!imagePath.isEmpty()){
+                        Picasso.get()
+                                .load(Urls.BASE_URL + imagePath)
+                                .placeholder(R.drawable.rs_profilelogo)
+                                .error(R.drawable.rs_profilelogo)
+                                .into(imgProfile);
+
+                        tvAddPhoto.setText("Change Photo");
+                    } else {
+                        imgProfile.setImageResource(R.drawable.rs_profilelogo);
+                        tvAddPhoto.setText("Add Profile Photo");
+                    }
+
+                    int progress = 0;
+
+                    if(!name.isEmpty()) progress += 20;
+                    if(!phone.isEmpty()) progress += 20;
+                    if(!email.isEmpty()) progress += 20;
+                    if(!blood.isEmpty()) progress += 20;
+                    if(!city.isEmpty()) progress += 20;
+
+                    progressBar.setProgress(progress);
+                    tvPercent.setText(progress + "%");
+
+
+                    if(progress < 40){
+                        progressBar.setProgressTintList(android.content.res.ColorStateList.valueOf(ContextCompat.getColor(getContext(), android.R.color.holo_red_dark)));
+                    } else if(progress < 80){
+                        progressBar.setProgressTintList(android.content.res.ColorStateList.valueOf(ContextCompat.getColor(getContext(), android.R.color.holo_orange_dark)));
+                    } else {
+                        progressBar.setProgressTintList(android.content.res.ColorStateList.valueOf(ContextCompat.getColor(getContext(), android.R.color.holo_green_dark)));
+                    }
+
+                    if(progress >= 80){
+                        imgVerified.setVisibility(View.VISIBLE);
+                        imgVerified.setAlpha(0f);
+                        imgVerified.animate().alpha(1f).setDuration(500);
+                    } else {
+                        imgVerified.setVisibility(View.GONE);
+                    }
+
+                } catch (Exception e){
+                    Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(getContext(),"Server Error",Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void showEditProfileDialog() {
+        android.app.Dialog dialog = new android.app.Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_edit_profile);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCancelable(true);
+
+        EditText etName = dialog.findViewById(R.id.et_name);
+        EditText etPhone = dialog.findViewById(R.id.et_phone);
+        EditText etAddress = dialog.findViewById(R.id.et_address);
+        Spinner spBlood = dialog.findViewById(R.id.sp_blood);
+        Spinner spCity = dialog.findViewById(R.id.sp_city);
+        Button btnSave = dialog.findViewById(R.id.btn_save);
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
+
+        String[] bloodGroups = {"Select Blood Group", "A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"};
+        String[] cities = {
+                "Select City",
+                "Mumbai", "Pune", "Nagpur", "Thane", "Nashik",
+                "Kalyan-Dombivli", "Vasai-Virar", "Pimpri-Chinchwad",
+                "Aurangabad", "Navi Mumbai", "Solapur", "Mira-Bhayandar",
+                "Bhiwandi", "Amravati", "Nanded", "Kolhapur", "Akola",
+                "Ulhasnagar", "Sangli-Miraj-Kupwad", "Malegaon", "Jalgaon",
+                "Dhule", "Ahmednagar", "Satara", "Chandrapur", "Parbhani",
+                "Ichalkaranji", "Jalna", "Ambarnath", "Bhusawal", "Panvel",
+                "Badlapur", "Beed", "Gondia", "Barshi", "Yavatmal",
+                "Achalpur", "Osmanabad", "Nandurbar", "Wardha", "Udgir",
+                "Hinganghat", "Other"
+        };
+
+        ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, bloodGroups);
+        bloodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spBlood.setAdapter(bloodAdapter);
+
+        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, cities);
+        cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spCity.setAdapter(cityAdapter);
+
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("email", email);
@@ -169,173 +284,86 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
-                    String response = new String(responseBody);
-                    JSONObject obj = new JSONObject(response);
+                    JSONObject obj = new JSONObject(new String(responseBody));
+                    etName.setText(obj.optString("name", ""));
+                    etPhone.setText(obj.optString("phone", ""));
+                    etAddress.setText(obj.optString("location", ""));
 
-                    // Use optString to avoid crashes if keys are missing
-                    String name = obj.optString("name", "");
-                    String phone = obj.optString("phone", "");
                     String blood = obj.optString("blood_group", "");
-                    String location = obj.optString("location", "");
-                    String image = obj.optString("profile_image", "");
-
-                    // Update UI
-                    tvName.setText(name.isEmpty() || name.equals("null") ? "Not Set" : name);
-                    tvMobile.setText(phone.isEmpty() || phone.equals("null") ? "Not Set" : phone);
-                    tvBlood.setText(blood.isEmpty() || blood.equals("null") ? "Not Set" : blood);
-                    tvCity.setText(location.isEmpty() || location.equals("null") ? "Not Set" : location);
-
-                    // Handle image and completion calculation
-                    if (!image.isEmpty() && !image.equals("null") && !image.equals("default")) {
-                        Picasso.get().load(Urls.BASE_URL + image).placeholder(R.drawable.rs_profilelogo).into(imgProfile);
-                    } else {
-                        imgProfile.setImageResource(R.drawable.rs_profilelogo);
-                    }
-
-                    // 🔥 Improved Progress Calculation (5 points x 20% = 100%)
-                    int p = 0;
-                    StringBuilder missingFields = new StringBuilder();
-
-                    // 1. Name
-                    if (!name.isEmpty() && !name.equals("null")) {
-                        p += 20;
-                    } else {
-                        missingFields.append("Name, ");
-                    }
-
-                    // 2. Phone
-                    if (!phone.isEmpty() && !phone.equals("null")) {
-                        p += 20;
-                    } else {
-                        missingFields.append("Phone, ");
-                    }
-
-                    // 3. Blood Group
-                    if (!blood.isEmpty() && !blood.equals("null")) {
-                        p += 20;
-                    } else {
-                        missingFields.append("Blood Group, ");
-                    }
-
-                    // 4. Location/City
-                    if (!location.isEmpty() && !location.equals("null")) {
-                        p += 20;
-                    } else {
-                        missingFields.append("Location, ");
-                    }
-
-                    // 5. Profile Image (Only real uploaded photos count for 20%)
-                    if (!image.isEmpty() && !image.equals("null") && !image.equals("default")) {
-                        p += 20;
-                    } else {
-                        missingFields.append("Profile Photo, ");
-                    }
-
-                    progressBar.setProgress(p);
-                    tvPercent.setText(p + "%");
-
-                    // Set helpful message and Badge based on completion
-                    if (p < 80) {
-                        String msg = missingFields.toString();
-                        if (msg.endsWith(", ")) {
-                            msg = msg.substring(0, msg.length() - 2);
+                    for (int i = 0; i < bloodGroups.length; i++) {
+                        if (bloodGroups[i].equalsIgnoreCase(blood)) {
+                            spBlood.setSelection(i);
+                            break;
                         }
-                        tvProgress.setText("Complete your profile: " + msg);
-                        tvProgress.setTextColor(ContextCompat.getColor(getContext(), R.color.rs_buttons_colour));
-                        imgVerified.setVisibility(View.GONE); // Hide badge if < 80%
-                    } else if (p < 100) {
-                        tvProgress.setText("You are now a Verified Donor! 🏆");
-                        tvProgress.setTextColor(ContextCompat.getColor(getContext(), R.color.green_success));
-                        imgVerified.setVisibility(View.VISIBLE); // Show badge at 80%
-                    } else {
-                        tvProgress.setText("Profile 100% Completed! 💎");
-                        tvProgress.setTextColor(ContextCompat.getColor(getContext(), R.color.green_success));
-                        imgVerified.setVisibility(View.VISIBLE);
                     }
 
+                    String city = obj.optString("city", "");
+                    for (int i = 0; i < cities.length; i++) {
+                        if (cities[i].equalsIgnoreCase(city)) {
+                            spCity.setSelection(i);
+                            break;
+                        }
+                    }
                 } catch (Exception e) {
-                    Log.e("PROFILE_ERROR", e.getMessage());
-                    Toast.makeText(getContext(), "Data Error", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
-
             @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), "Server Unreachable", Toast.LENGTH_SHORT).show();
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        btnSave.setOnClickListener(v -> {
+            String name = etName.getText().toString().trim();
+            String phone = etPhone.getText().toString().trim();
+            String address = etAddress.getText().toString().trim();
+            String blood = spBlood.getSelectedItem().toString();
+            String city = spCity.getSelectedItem().toString();
+
+            if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || blood.equals("Select Blood Group") || city.equals("Select City")) {
+                Toast.makeText(getContext(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            android.app.ProgressDialog pd = new android.app.ProgressDialog(getContext());
+            pd.setMessage("Updating...");
+            pd.show();
+
+            RequestParams updateParams = new RequestParams();
+            updateParams.put("email", email);
+            updateParams.put("name", name);
+            updateParams.put("phone", phone);
+            updateParams.put("blood_group", blood);
+            updateParams.put("city", city);
+            updateParams.put("location", address); // address maps to 'location' in backend
+
+            AsyncHttpClient updateClient = new AsyncHttpClient();
+            updateClient.post(Urls.UPDATE_PROFILE, updateParams, new AsyncHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                    pd.dismiss();
+                    String res = new String(responseBody).trim();
+                    if (res.equalsIgnoreCase("success")) {
+                        Toast.makeText(getContext(), "Profile Updated ✅", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        loadProfile(); // Refresh Fragment UI
+                    } else {
+                        Toast.makeText(getContext(), "Failed: " + res, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    pd.dismiss();
+                    Toast.makeText(getContext(), "Server Error ❌", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
-    }
-
-    private void showEditProfileDialog() {
-        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_edit_profile, null);
-        TextInputEditText etName = dialogView.findViewById(R.id.et_name);
-        TextInputEditText etPhone = dialogView.findViewById(R.id.et_phone);
-        TextInputEditText etLocation = dialogView.findViewById(R.id.et_address);
-        AutoCompleteTextView spBlood = dialogView.findViewById(R.id.sp_blood);
-        AutoCompleteTextView spCity = dialogView.findViewById(R.id.sp_city);
-
-        etName.setText(tvName.getText().toString());
-        etPhone.setText(tvMobile.getText().toString());
-        etLocation.setText(tvCity.getText().toString());
-
-        // Setup Blood Group Adapter
-        String[] bloodGroups = {"A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"};
-        ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, bloodGroups);
-        spBlood.setAdapter(bloodAdapter);
-        spBlood.setText(tvBlood.getText().toString(), false);
-
-        // Setup City Adapter (Talukas)
-        String[] cities = {"Akola", "Akot", "Telhara", "Balapur", "Patur", "Murtizapur", "Barshitakli"};
-        ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
-        spCity.setAdapter(cityAdapter);
-        spCity.setText(tvCity.getText().toString(), false);
-
-        AlertDialog dialog = new MaterialAlertDialogBuilder(getContext())
-                .setView(dialogView)
-                .setCancelable(true)
-                .create();
-
-        dialogView.findViewById(R.id.btn_save).setOnClickListener(v -> {
-            String name = etName.getText().toString();
-            String phone = etPhone.getText().toString();
-            String location = etLocation.getText().toString();
-            String blood = spBlood.getText().toString();
-            String city = spCity.getText().toString();
-            
-            updateProfile(name, phone, location, blood, city);
-            dialog.dismiss();
-        });
-
-        dialogView.findViewById(R.id.btn_cancel).setOnClickListener(v -> dialog.dismiss());
 
         dialog.show();
     }
 
-    private void updateProfile(String name, String phone, String location, String blood, String city) {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("name", name);
-        params.put("phone", phone);
-        params.put("location", location);
-        params.put("blood_group", blood);
-        params.put("city", city);
-
-        client.post(Urls.UPDATE_PROFILE, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Toast.makeText(getContext(), "Profile Updated!", Toast.LENGTH_SHORT).show();
-                loadProfile();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), "Update Failed", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void openGallery() {
+    private void openGallery(){
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         startActivityForResult(intent, 101);
@@ -344,70 +372,55 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 101 && resultCode == getActivity().RESULT_OK && data != null) {
+
+        if(requestCode == 101 && resultCode == getActivity().RESULT_OK && data != null){
             Uri sourceUri = data.getData();
             File tempFile = new File(getContext().getCacheDir(), "profile_crop.jpg");
-            UCrop.of(sourceUri, Uri.fromFile(tempFile)).withAspectRatio(1, 1).start(getContext(), this);
+            Uri destinationUri = Uri.fromFile(tempFile);
+
+            UCrop.of(sourceUri, destinationUri)
+                    .withAspectRatio(1, 1)
+                    .withMaxResultSize(1000, 1000)
+                    .start(getContext(), this);
         } else if (resultCode == getActivity().RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             imageUri = UCrop.getOutput(data);
             imgProfile.setImageURI(imageUri);
             uploadImage();
+        } else if (resultCode == UCrop.RESULT_ERROR) {
+            final Throwable cropError = UCrop.getError(data);
+            Toast.makeText(getContext(), "Crop Error: " + cropError.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void useDefaultAvatar() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("image_type", "default"); // Tell PHP to set it to 'default' string
-        
-        client.post(Urls.UPLOAD_IMAGE, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Toast.makeText(getContext(), "Default Avatar Applied!", Toast.LENGTH_SHORT).show();
-                loadProfile(); // Refresh UI
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), "Server Error", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
+    private void uploadImage(){
 
-    private void removePhoto() {
-        AsyncHttpClient client = new AsyncHttpClient();
-        RequestParams params = new RequestParams();
-        params.put("email", email);
-        params.put("image_type", "remove"); // Flag to clear the field in DB
-        
-        client.post(Urls.UPLOAD_IMAGE, params, new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Toast.makeText(getContext(), "Photo Removed", Toast.LENGTH_SHORT).show();
-                loadProfile(); // Refresh UI and recalculate progress
-            }
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getContext(), "Failed to remove photo", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void uploadImage() {
-        try {
+        try{
             AsyncHttpClient client = new AsyncHttpClient();
+
             RequestParams params = new RequestParams();
             params.put("email", email);
-            params.put("image", getContext().getContentResolver().openInputStream(imageUri), "profile.jpg");
+
+            params.put("image",
+                    getContext().getContentResolver().openInputStream(imageUri),
+                    "profile.jpg");
+
             client.post(Urls.UPLOAD_IMAGE, params, new AsyncHttpResponseHandler() {
+
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                    Toast.makeText(getContext(), "Uploaded!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"Uploaded ✅",Toast.LENGTH_SHORT).show();
                     loadProfile();
                 }
+
                 @Override
-                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+                public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                    Toast.makeText(getContext(),"Upload Failed ❌",Toast.LENGTH_SHORT).show();
+                }
             });
-        } catch (Exception e) { e.printStackTrace(); }
+
+        }catch(Exception e){
+            e.printStackTrace();
+            Toast.makeText(getContext(),"File Error ❌",Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgColor"
-    android:scrollbars="none"
-    android:fitsSystemWindows="true">
+    android:background="@color/rs_bg_color"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <!-- Header Section matching app style -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="60dp"
+        android:background="@drawable/red_gradient"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
-        <!-- 🔴 PREMIUM HEADER -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:background="@drawable/red_header_bg"
-            android:padding="24dp">
+        <ImageView
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:src="@drawable/rs_back"
+            app:tint="@color/white" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Health &amp; Wellness"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
 
-                <ImageView
-                    android:id="@+id/btnBack"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="9dp"
-                    android:src="@drawable/rs_back"
-                    app:tint="@color/white"
-                    android:background="?attr/selectableItemBackgroundBorderless"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Health &amp; Wellness"
-                    android:layout_gravity="center_horizontal"
-                    android:textColor="@android:color/white"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:letterSpacing="0.01"/>
-            </LinearLayout>
-        </RelativeLayout>
-
-        <!-- 📝 MAIN CONTENT CARD -->
-        <androidx.cardview.widget.CardView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-45dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="25dp"
-            app:cardCornerRadius="30dp"
-            app:cardElevation="15dp"
-            app:cardBackgroundColor="@color/cardColor">
+            android:orientation="vertical"
+            android:padding="16dp">
 
-            <LinearLayout
+            <!-- Title and Intro -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Stay Informed 🩺"
+                android:textColor="@color/textPrimary"
+                android:textSize="24sp"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Essential health tips for a better lifestyle."
+                android:textColor="@color/textSecondary"
+                android:textSize="14sp"
+                android:layout_marginBottom="20dp" />
+
+            <!-- 1. Blood Donation -->
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="22dp">
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Expert Health Advice 🩺"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="22sp"
-                    android:layout_marginBottom="16dp"/>
-
-                <!-- 1. Blood Donation -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="24dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:src="@drawable/blood_donation_healthtips" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Blood Donation Guide"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="18sp"
+                            android:text="Blood Donation"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -104,53 +104,61 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingExtra="4dp"
                         android:maxLines="3"
-                        android:text="❤️ Save Lives, Be a Hero. Blood donation is a noble act that can save up to three lives with a single donation. Regular donation not only helps the community but also benefits the donor's health by reducing excess iron levels in the blood, which can lower the risk of heart disease and liver damage. Before donating, ensure you are well-rested, hydrated, and have had a light, healthy meal. Avoid fatty foods and alcohol at least 24 hours prior. After the procedure, keep yourself hydrated and avoid heavy physical activity for the rest of the day. Your single contribution acts as a lifeline for patients undergoing surgeries, cancer treatments, or recovering from chronic illnesses. Remember, your blood can be the reason someone else celebrates another birthday. Stay healthy to keep others alive! Your donation matters more than you can imagine."
-                        android:textColor="@color/textSecondary"
-                        android:textSize="14sp" />
+                        android:text="❤️ Save Lives, Be a Hero. Blood donation is a noble act that can save up to three lives with a single donation. Beyond the altruistic benefits, it offers several health advantages for the donor. It helps in maintaining healthy iron levels in the body, which reduces the risk of heart disease and liver damage. Regular donation also stimulates the production of new blood cells, keeping your system refreshed and functioning at its peak. Before donating, ensure you are well-rested, have had a healthy meal, and are hydrated. Most people between 18 and 65 years of age can donate if they weigh over 50kg and are in good health. The screening process involves checking your hemoglobin levels and vital signs, ensuring it's safe for you to give. The actual donation process is quick and safe, usually taking only 10-15 minutes of your time. After donating, drink plenty of fluids and avoid strenuous physical activities for the rest of the day. Your contribution is vital for surgeries, cancer treatments, chronic illnesses, and emergency care following accidents. Join the growing community of life-savers today and make a lasting impact on someone's life. Remember, every drop counts and you could be the silent hero behind someone's recovery."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/btn1"
                         android:layout_width="wrap_content"
-                        android:layout_height="32dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/active_requests_bg"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Read More"
                         android:textAllCaps="false"
-                        android:textColor="@color/active_requests_text"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:cornerRadius="16dp" />
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- 2. Addiction -->
+            <!-- 2. Addiction -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="24dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:src="@drawable/addiction_healthtips" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:text="Overcoming Addiction"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="18sp"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -160,53 +168,61 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingExtra="4dp"
                         android:maxLines="3"
-                        android:text="⚠️ Break Free, Live Better. Addiction is a complex condition that affects the brain and behavior, making it difficult to control the use of legal or illegal substances. Whether it is tobacco, alcohol, or other substances, the path to recovery starts with acceptance and a strong will to change. Chronic addiction can lead to severe health issues, including respiratory failure, cardiovascular disease, and mental health disorders like anxiety and depression. To start your journey, identify your triggers—stress, peer pressure, or specific environments. Surround yourself with supportive family and friends, and don't hesitate to seek professional counseling or join support groups. Replacing harmful habits with productive activities like exercise, meditation, or hobbies can significantly rewire your brain's reward system. Healing takes time, but every day without the substance is a victory for your future and your loved ones. You are stronger than your addiction!"
-                        android:textColor="@color/textSecondary"
-                        android:textSize="14sp" />
+                        android:text="⚠️ Break Free, Live Better. Addiction is a complex condition that affects the brain and behavior, leading to an inability to control the use of legal or illegal drugs or alcohol. Whether it's smoking, substance abuse, or even digital addiction, the impact on physical health can be devastating. Chronic usage leads to serious diseases like lung cancer, liver failure, and severe cardiovascular issues. It also significantly impacts mental well-being, causing anxiety, depression, and social isolation. Overcoming addiction requires a structured and compassionate approach. Start by acknowledging the problem and seeking professional guidance from counselors or doctors. Understanding withdrawal symptoms and having a medical plan can make the journey smoother. Surround yourself with a supportive network of family and friends who encourage your recovery and hold you accountable. Replace harmful habits with healthy alternatives like regular exercise, meditation, or pursuing creative hobbies. Staying hydrated and maintaining a balanced diet rich in vitamins can help the body detoxify faster and rebuild its strength. Remember, every step towards a clean life is a major victory for your future self and your loved ones. You have the inherent strength to reclaim your life and build a healthier, happier version of yourself."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/btn2"
                         android:layout_width="wrap_content"
-                        android:layout_height="32dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/active_requests_bg"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Read More"
                         android:textAllCaps="false"
-                        android:textColor="@color/active_requests_text"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:cornerRadius="16dp" />
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- 3. Heart Health -->
+            <!-- 3. Heart Health -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="24dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:src="@drawable/heart_healthtips" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Heart Health Secrets"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="18sp"
+                            android:text="Heart Health"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -216,53 +232,61 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingExtra="4dp"
                         android:maxLines="3"
-                        android:text="💓 Keep Your Heart Strong. Your heart is the engine of your body, pumping life-sustaining blood to every cell. Maintaining its health requires a combination of a balanced diet, regular physical activity, and stress management. Incorporate heart-healthy fats found in olive oil, nuts, and fish, and reduce intake of processed sugars and trans-fats that clog arteries. Aim for at least 30 minutes of moderate exercise like brisk walking or swimming daily to strengthen the cardiac muscles. High blood pressure and high cholesterol are silent killers, so regular screenings are crucial. Additionally, managing stress through deep breathing or yoga can prevent long-term damage to the heart's rhythm. Quality sleep of 7-8 hours is also vital for the heart to repair itself. A healthy heart isn't just about living longer; it's about having the energy to enjoy every moment of your life to the fullest. Take care of your heart, and it will take care of you! Healthy habits today mean a stronger heart tomorrow."
-                        android:textColor="@color/textSecondary"
-                        android:textSize="14sp" />
+                        android:text="💓 Keep Your Heart Strong. Your heart is the engine of your body, and keeping it in top condition is essential for a long, vibrant life. A heart-healthy lifestyle starts with a balanced diet rich in fruits, vegetables, whole grains, and lean proteins. Reducing the intake of saturated fats, salt, and added sugars can significantly lower blood pressure and cholesterol levels, which are primary risk factors for heart disease. Physical activity is equally crucial; aim for at least 150 minutes of moderate aerobic exercise per week to strengthen the heart muscle. Managing stress through techniques like deep breathing, yoga, or spending time in nature can also protect your heart from the damaging effects of chronic stress hormones. Avoid smoking and limit alcohol consumption to further reduce your risk of cardiovascular complications. Incorporate heart-healthy fats found in nuts, seeds, and oily fish like salmon, which provide essential omega-3 fatty acids. Regular health screenings are important to monitor your blood pressure and heart rate, helping to catch any potential issues early before they become serious. Remember, small, consistent changes in your daily routine can lead to massive improvements in your heart health over time. Prioritize your heart today for a healthier and more active tomorrow."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/btn3"
                         android:layout_width="wrap_content"
-                        android:layout_height="32dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/active_requests_bg"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Read More"
                         android:textAllCaps="false"
-                        android:textColor="@color/active_requests_text"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:cornerRadius="16dp" />
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- 4. Hydration -->
+            <!-- 4. Hydration -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="24dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
                             android:src="@drawable/hydration_healthtips" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="The Power of Hydration"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="18sp"
+                            android:text="Optimal Hydration"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -272,53 +296,61 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingExtra="4dp"
                         android:maxLines="3"
-                        android:text="🌊 Stay Hydrated, Stay Energized. Water is fundamental to every biological process in the human body, from regulating temperature to lubricating joints and transporting nutrients. Dehydration can lead to fatigue, headaches, poor concentration, and even kidney problems. For blood donors, hydration is especially critical because it helps maintain blood volume and prevents dizziness post-donation. Aim to drink at least 8-10 glasses of water daily, and more if you are physically active or living in a hot climate. Don't wait until you feel thirsty; thirst is a late sign of dehydration. Incorporate water-rich foods like cucumbers, watermelons, and oranges into your diet. Limit excessive intake of caffeine and soda, which can act as diuretics. A well-hydrated body ensures glowing skin, improved digestion, and a faster metabolism. Make carrying a water bottle a habit, and your body will thank you with sustained energy levels throughout the day! Water is the elixir of life, so drink up!"
-                        android:textColor="@color/textSecondary"
-                        android:textSize="14sp" />
+                        android:text="🌊 Stay Hydrated, Stay Energized. Water is fundamental to every biological process in the human body, making up about 60% of our total body weight. Staying properly hydrated is key to maintaining high energy levels, as even mild dehydration can lead to fatigue, headaches, and reduced cognitive function. Water helps regulate body temperature through sweating, lubricates joints for smooth movement, and protects sensitive tissues. It also plays a vital role in digestion and the absorption of nutrients, while helping the kidneys efficiently flush out waste products and toxins from the blood. To stay adequately hydrated, aim to drink at least 8-10 glasses of water daily, and significantly more if you are physically active or living in a hot climate. Don't wait until you're feeling thirsty to drink, as thirst is often a late sign that your body is already dehydrated. You can also increase your water intake by eating fruits and vegetables with high water content, like cucumbers, watermelons, and oranges. Carrying a reusable water bottle can serve as a constant reminder to sip throughout the day. Proper hydration also improves skin health, making it look more radiant and youthful. Make clean water your primary beverage of choice for a healthier, more energetic version of yourself."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/btn4"
                         android:layout_width="wrap_content"
-                        android:layout_height="32dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/active_requests_bg"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Read More"
                         android:textAllCaps="false"
-                        android:textColor="@color/active_requests_text"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:cornerRadius="16dp" />
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- 5. Nutrition -->
+            <!-- 5. Exercise -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="24dp">
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/food_healthtips" />
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/exercise_healthtips" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Balanced Nutrition"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="18sp"
+                            android:text="Exercise &amp; Fitness"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -328,52 +360,61 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingExtra="4dp"
                         android:maxLines="3"
-                        android:text="🥗 Fuel Your Body Right. A balanced diet is the cornerstone of good health and a robust immune system. Consuming a variety of whole foods, including colorful vegetables, fruits, lean proteins, and whole grains, provides the essential vitamins and minerals your body needs to function optimally. Iron-rich foods like spinach, beans, and lean meats are particularly important for blood donors to help replenish hemoglobin levels quickly. Avoid excessive intake of highly processed foods, which are often high in sodium, unhealthy fats, and added sugars that can lead to weight gain and chronic diseases like diabetes. Fiber-dense foods aid in digestion and help maintain a healthy weight. Planning your meals ahead of time can prevent impulsive, unhealthy eating choices. Remember, what you put on your plate today determines your energy levels and long-term health. Nutrition isn't about restriction; it's about nourishing your cells and thriving. Treat your body like a temple, and it will serve you well for years to come! Eat well to live well."
-                        android:textColor="@color/textSecondary"
-                        android:textSize="14sp" />
+                        android:text="🏃 Stay Active, Stay Fit. Regular physical activity is one of the most important things you can do for your overall health. It helps control your weight, reduces the risk of chronic diseases, and strengthens your bones and muscles. Beyond the obvious physical benefits, exercise is a powerful tool for improving mental health by releasing endorphins that act as natural mood lifters and stress reducers. Whether it's a brisk walk, a high-intensity gym session, or a fun dance class, find an activity you truly enjoy to ensure you stay consistent. Aim for a mix of aerobic exercises for heart health and strength training to maintain muscle mass and metabolic rate as you age. Flexibility and balance exercises, like yoga or gentle stretching, are also critical for long-term mobility and preventing falls. Consistency is far more important than intensity; even 30 minutes of moderate activity most days can make a profound difference in your longevity. Always remember to warm up properly before starting and cool down afterward to prevent muscle injuries. Listen to your body's signals and give it ample time to recover after intense workouts. Staying active not only adds years to your life but also adds life to your years, making you feel more capable and confident every single day."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/btn5"
                         android:layout_width="wrap_content"
-                        android:layout_height="32dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/active_requests_bg"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Read More"
                         android:textAllCaps="false"
-                        android:textColor="@color/active_requests_text"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:cornerRadius="16dp" />
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-                <!-- 6. Exercise -->
+            <!-- 6. Healthy Food -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@drawable/exercise_healthtips" />
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/food_healthtips" />
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
-                            android:text="Stay Active Daily"
-                            android:textColor="@color/textPrimary"
-                            android:textSize="18sp"
+                            android:text="Healthy Eating"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -383,32 +424,157 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12dp"
                         android:ellipsize="end"
-                        android:lineSpacingExtra="6dp"
+                        android:lineSpacingExtra="4dp"
                         android:maxLines="3"
-                        android:text="🏃‍♂️ Move More, Live Longer. Regular physical activity is one of the most important things you can do for your health. Exercise helps control weight, reduces the risk of cardiovascular diseases, and strengthens your bones and muscles. Beyond physical benefits, staying active is a powerful tool for improving mental health by reducing anxiety and boosting mood through the release of endorphins. You don't need a gym membership to stay fit; simple activities like taking the stairs, gardening, or a daily 30-minute walk can make a massive difference over time. Consistency is key—find an activity you enjoy, whether it's dancing, cycling, or yoga, and make it a non-negotiable part of your routine. Exercise also improves sleep quality and increases your overall energy levels, making you more productive throughout the day. Listen to your body and start at your own pace, gradually increasing intensity as you get stronger. Every step you take is a step toward a healthier, happier you. Don't find time to exercise; make time for it! Your future self will thank you for the effort you put in today."
-                        android:textColor="@color/textSecondary"
-                        android:textSize="14sp" />
+                        android:text="🥗 Eat Healthy, Stay Strong. Nutrition is the fundamental foundation of good health, providing the energy and essential nutrients your body needs to function at its best. A balanced diet should include a wide variety of whole foods: colorful fruits and vegetables, whole grains, lean proteins, and healthy fats. These foods provide critical vitamins and minerals that support the immune system and protect against chronic illnesses. Pay close attention to portion sizes and try to minimize highly processed foods that are high in empty calories, excess sodium, and artificial preservatives. Home-cooked meals are often much healthier than restaurant food because you have complete control over the ingredients and cooking methods used. Incorporating fiber-rich foods like beans and lentils can improve digestion and help you feel satisfied longer. Don't forget the importance of healthy fats found in nuts, seeds, and avocados for brain health and hormone production. Mindful eating—paying attention to what, why, and when you eat—can also help you maintain a healthy weight and improve your relationship with food. Small, sustainable changes to your eating habits, like swapping sugary sodas for water or adding an extra serving of greens to your plate, can lead to significant long-term health benefits for you and your family."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
 
                     <Button
                         android:id="@+id/btn6"
                         android:layout_width="wrap_content"
-                        android:layout_height="32dp"
+                        android:layout_height="40dp"
                         android:layout_gravity="end"
                         android:layout_marginTop="8dp"
-                        android:backgroundTint="@color/active_requests_bg"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Read More"
                         android:textAllCaps="false"
-                        android:textColor="@color/active_requests_text"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
-                        app:cornerRadius="16dp" />
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <!-- 7. Sleep Health -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
 
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/sleep_healthtips" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Sleep Hygiene"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="4dp"
+                        android:maxLines="3"
+                        android:text="😴 Good Sleep, Better Life. Sleep is a vital component of overall health and well-being, yet it is often the first thing sacrificed in our modern, busy lives. During deep sleep, your body works tirelessly to support healthy brain function, repair damaged tissues, and maintain your physical health. Getting enough quality sleep at the right times is essential to protect your mental health, quality of life, and personal safety. Chronic sleep deficiency can dramatically increase the risk of obesity, heart disease, kidney disease, high blood pressure, and type 2 diabetes. To improve your sleep hygiene, establish a regular sleep schedule by going to bed and waking up at the same time every single day, including weekends. Create a restful environment that is dark, quiet, and comfortably cool. Avoid electronic devices like smartphones, tablets, and laptops at least one hour before bed, as the blue light can interfere with your natural sleep-wake cycle. Practice relaxation techniques such as light reading, meditation, or taking a warm bath to signal to your body that it's time to wind down. Limiting caffeine and heavy meals in the evening can also help you fall asleep faster. Prioritizing 7-9 hours of restful sleep each night will leave you feeling truly refreshed, mentally alert, and ready to tackle your day's challenges with ease."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/btn7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="Read More"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:cornerRadius="20dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 8. Hygiene -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="4dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:src="@drawable/hygiene_healthtips" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="Personal Hygiene"
+                            android:textColor="@color/rs_heading_color"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv8"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:ellipsize="end"
+                        android:lineSpacingExtra="4dp"
+                        android:maxLines="3"
+                        android:text="🧴 Stay Clean, Stay Healthy. Personal hygiene is the daily practice of maintaining cleanliness and grooming of the external body. It is one of the single best ways to protect yourself and those around you from gastrointestinal or infectious diseases like colds, flu, and skin infections. Effective handwashing is the absolute cornerstone of good hygiene; wash your hands frequently with soap and clean water for at least 20 seconds, especially after using the restroom, before eating, and after being in public spaces. Maintaining oral hygiene by brushing twice a day and flossing daily helps prevent gum disease, cavities, and bad breath. Daily bathing helps remove sweat, oil, and dead skin cells, preventing skin irritations and body odor. Keeping your fingernails trimmed and clean also reduces the risk of harboring and spreading harmful germs. Don't forget environmental hygiene—keeping your living, sleeping, and working spaces clean is equally important for overall health. Good hygiene habits not only boost your physical health but also significantly enhance your self-esteem and social confidence. By making these simple, effective practices a non-negotiable part of your daily routine, you contribute to a much healthier environment for yourself and everyone else in your community. Cleanliness is a key pillar of a long and healthy lifestyle."
+                        android:textColor="@color/rs_qoute_color"
+                        android:textSize="15sp" />
+
+                    <Button
+                        android:id="@+id/btn8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="8dp"
+                        android:backgroundTint="@color/rs_buttons_colour"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="Read More"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp"
+                        app:cornerRadius="20dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

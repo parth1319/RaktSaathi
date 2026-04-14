@@ -13,10 +13,10 @@ public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // 🔥 Handle the splash screen transition
+
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
 
-        // 🔥 LOAD SAVED THEME MODE BEFORE ONCREATE
+
         SharedPreferences themeSp = getSharedPreferences("theme", MODE_PRIVATE);
         boolean isDark = themeSp.getBoolean("isDark", false);
         if (isDark) {
@@ -38,6 +38,6 @@ public class SplashActivity extends AppCompatActivity {
                 startActivity(new Intent(SplashActivity.this, IntroScreenActivity.class));
             }
             finish();
-        }, 2500); // 2.5 seconds delay to show the splash screen
+        }, 2500);
     }
 }

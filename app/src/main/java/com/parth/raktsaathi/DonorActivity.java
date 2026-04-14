@@ -90,13 +90,11 @@ public class DonorActivity extends AppCompatActivity {
         String url;
 
         if (query.isEmpty()) {
-            // Load all or by blood group using existing fetch_donors.php
             url = Urls.GET_DONORS;
             if (selectedBloodGroup != null && !selectedBloodGroup.isEmpty()) {
                 params.put("blood_group", selectedBloodGroup);
             }
         } else {
-            // Use NEW search_donors.php for filtering
             url = Urls.SEARCH_DONORS;
             params.put("search_query", query);
             if (selectedBloodGroup != null && !selectedBloodGroup.isEmpty()) {

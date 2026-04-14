@@ -47,7 +47,7 @@ public class DonorAdapter extends RecyclerView.Adapter<DonorAdapter.ViewHolder> 
         DonorModel d = list.get(position);
 
         h.name.setText(d.getName());
-        h.blood.setText(d.getBlood_group()); // Clean badge text
+        h.blood.setText(d.getBlood_group());
         h.location.setText(d.getDistrict());
         h.address.setText(d.getAddress());
 

@@ -53,7 +53,7 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void fetchNotifications() {
-        // Assuming user_id = 0 for guest/all, or fetch from SharedPreferences if you have login
+
         String url = Urls.GET_NOTIFICATIONS + "?user_id=0"; 
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
