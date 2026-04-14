@@ -1,5 +1,7 @@
 package com.parth.raktsaathi.Fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,6 +43,7 @@ public class DonateFragment extends Fragment {
     private RecyclerView rvRequests;
     private RequestAdapter adapter;
     private List<RequestModel> requestList;
+    private String userEmail = "";
 
     public DonateFragment() {}
 
@@ -48,6 +51,10 @@ public class DonateFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_donate, container, false);
 
+        SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        userEmail = sp.getString("email", "");
+
+        // Initialize Views
         etName = v.findViewById(R.id.etName);
         etPhone = v.findViewById(R.id.etPhone);
         etAddress = v.findViewById(R.id.etAddress);
@@ -59,6 +66,12 @@ public class DonateFragment extends Fragment {
         successMsg = v.findViewById(R.id.successMsg);
         rvRequests = v.findViewById(R.id.recyclerRequests);
 
+        v.findViewById(R.id.btnBack).setOnClickListener(view -> {
+            if (getActivity() != null) {
+                getActivity().onBackPressed();
+            }
+        });
+
         setupSpinners();
         loadActiveRequests();
 
@@ -68,25 +81,33 @@ public class DonateFragment extends Fragment {
     }
 
     private void setupSpinners() {
+        // Age Spinner
         List<String> ages = new ArrayList<>();
         ages.add("Select Age");
         for(int i=18; i<=60; i++) ages.add(String.valueOf(i));
         
         ArrayAdapter<String> ageAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, ages) {
             @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((android.widget.TextView) v).setTextColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.textPrimary));
+                return v;
+            }
+            @Override
             public boolean isEnabled(int position) { return position != 0; }
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 android.widget.TextView tv = (android.widget.TextView) view;
-                if(position == 0) tv.setTextColor(android.graphics.Color.GRAY);
-                else tv.setTextColor(android.graphics.Color.BLACK);
+                tv.setTextColor(position == 0 ? android.graphics.Color.GRAY : androidx.core.content.ContextCompat.getColor(getContext(), R.color.textPrimary));
+                view.setBackgroundColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.cardColor));
                 return view;
             }
         };
         ageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spAge.setAdapter(ageAdapter);
 
+        // Blood Group Spinner
         List<String> bloods = new ArrayList<>();
         bloods.add("Blood Group");
         bloods.add("A+"); bloods.add("A-"); bloods.add("B+"); bloods.add("B-");
@@ -94,34 +115,51 @@ public class DonateFragment extends Fragment {
         
         ArrayAdapter<String> bloodAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, bloods) {
             @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((android.widget.TextView) v).setTextColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.textPrimary));
+                return v;
+            }
+            @Override
             public boolean isEnabled(int position) { return position != 0; }
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 android.widget.TextView tv = (android.widget.TextView) view;
-                if(position == 0) tv.setTextColor(android.graphics.Color.GRAY);
-                else tv.setTextColor(android.graphics.Color.BLACK);
+                tv.setTextColor(position == 0 ? android.graphics.Color.GRAY : androidx.core.content.ContextCompat.getColor(getContext(), R.color.textPrimary));
+                view.setBackgroundColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.cardColor));
                 return view;
             }
         };
         bloodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBlood.setAdapter(bloodAdapter);
 
+        // Area Spinner (Akola District Talukas)
         List<String> areas = new ArrayList<>();
-        areas.add("Select Area");
-        areas.add("Mumbai"); areas.add("Pune"); areas.add("Nagpur"); 
-        areas.add("Nashik"); areas.add("Aurangabad"); areas.add("Solapur"); areas.add("Amravati");
-        areas.add("Thane"); areas.add("Kalyan"); areas.add("Vasai-Virar"); areas.add("Navi Mumbai");
+        areas.add("Select Taluka");
+        areas.add("Akola");
+        areas.add("Akot");
+        areas.add("Telhara");
+        areas.add("Balapur");
+        areas.add("Patur");
+        areas.add("Murtizapur");
+        areas.add("Barshitakli");
         
         ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, areas) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View v = super.getView(position, convertView, parent);
+                ((android.widget.TextView) v).setTextColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.textPrimary));
+                return v;
+            }
             @Override
             public boolean isEnabled(int position) { return position != 0; }
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 android.widget.TextView tv = (android.widget.TextView) view;
-                if(position == 0) tv.setTextColor(android.graphics.Color.GRAY);
-                else tv.setTextColor(android.graphics.Color.BLACK);
+                tv.setTextColor(position == 0 ? android.graphics.Color.GRAY : androidx.core.content.ContextCompat.getColor(getContext(), R.color.textPrimary));
+                view.setBackgroundColor(androidx.core.content.ContextCompat.getColor(getContext(), R.color.cardColor));
                 return view;
             }
         };
@@ -179,6 +217,7 @@ public class DonateFragment extends Fragment {
             return;
         }
 
+        // Show Progress
         android.app.ProgressDialog pd = new android.app.ProgressDialog(getContext());
         pd.setMessage("Registering as Donor...");
         pd.setCancelable(false);
@@ -202,6 +241,7 @@ public class DonateFragment extends Fragment {
                 if(response.equalsIgnoreCase("success") || response.contains("success")){
                     formLayout.setVisibility(View.GONE);
                     successMsg.setVisibility(View.VISIBLE);
+                    // Refresh the list to see if new requests arrived
                     loadActiveRequests();
                 } else {
                     Toast.makeText(getContext(), "Error: " + response, Toast.LENGTH_SHORT).show();

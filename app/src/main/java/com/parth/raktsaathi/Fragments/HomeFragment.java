@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.loopj.android.http.*;
 import com.parth.raktsaathi.*;
 import com.parth.raktsaathi.R;
@@ -20,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
         SharedPreferences sp = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
         email = sp.getString("email", "");
 
+        // Initialize Views
         tvGreeting = view.findViewById(R.id.tvGreeting);
         tvUserName = view.findViewById(R.id.tvUserName);
         tvActiveDonorsCount = view.findViewById(R.id.tvActiveDonorsCount);
@@ -56,21 +59,48 @@ public class HomeFragment extends Fragment {
         slider = view.findViewById(R.id.imageSlider);
         etSearchDonors = view.findViewById(R.id.etSearchDonors);
 
-        ImageView btnNotification = view.findViewById(R.id.btnNotification);
         Button btnCamp = view.findViewById(R.id.btnRegisterCamps);
         CardView btnHealth = view.findViewById(R.id.btnHealthTips);
 
+        // Quick Actions Wiring
+        CardView btnQuickRequest = view.findViewById(R.id.btnQuickRequest);
+        CardView btnQuickDonate = view.findViewById(R.id.btnQuickDonate);
+        CardView btnQuickCamps = view.findViewById(R.id.btnQuickCamps);
+
+        btnQuickRequest.setOnClickListener(v -> {
+            // Navigate to Requests Fragment via HomeActivity
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).bottomNav.setSelectedItemId(R.id.homebottomnavRequests);
+            }
+        });
+
+        btnQuickDonate.setOnClickListener(v -> {
+            if (getActivity() instanceof HomeActivity) {
+                ((HomeActivity) getActivity()).bottomNav.setSelectedItemId(R.id.homebottomnavDonate);
+            }
+        });
+
+        btnQuickCamps.setOnClickListener(v -> {
+            btnViewAllCamps.performClick();
+            // Scroll to camps
+            view.post(() -> {
+                int y = upcomingContainer.getTop();
+                ((ScrollView)view).smoothScrollTo(0, y - 100);
+            });
+        });
+
+        // Slider Setup
         int[] images = {R.drawable.rs_homefragment_slider1, R.drawable.rs_homefragment_slider2, R.drawable.rs_homefragment_slider3};
         slider.setAdapter(new SliderAdapter(images));
         autoSlide(images.length);
 
+        // Click Events
         btnHealth.setOnClickListener(v -> startActivity(new Intent(getActivity(), HealthTipsActivity.class)));
-        btnNotification.setOnClickListener(v -> startActivity(new Intent(getActivity(), NotificationActivity.class)));
         btnCamp.setOnClickListener(v -> startActivity(new Intent(getActivity(), AddCampActivity.class)));
         
         btnViewAllCamps.setOnClickListener(v -> {
             isAllCampsVisible = !isAllCampsVisible;
-            btnViewAllCamps.setText(isAllCampsVisible ? "Show Less" : "View All");
+            btnViewAllCamps.setText(isAllCampsVisible ? "View Less" : "View All");
             displayCamps();
         });
 
@@ -84,9 +114,10 @@ public class HomeFragment extends Fragment {
             return true;
         });
 
+        // Load Data
         loadUser();
-        loadBloodInventory();
-        loadStats();
+        loadBloodInventory(); // Setup the UI for inventory first
+        loadStats();         // Update the counts from DB
         loadUpcomingCamps();
 
         return view;
@@ -116,14 +147,18 @@ public class HomeFragment extends Fragment {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 try {
                     JSONObject obj = new JSONObject(new String(responseBody));
-                    tvActiveDonorsCount.setText(obj.getString("donors"));
-                    tvActiveRequestsCount.setText(obj.getString("requests"));
                     
-                    // Update blood group inventory real-time counts
+                    // Set General Stats
+                    tvActiveDonorsCount.setText(obj.optString("donors", "0"));
+                    tvActiveRequestsCount.setText(obj.optString("requests", "0"));
+                    
+                    // Update Blood Inventory (Horizontal ScrollView)
                     if (obj.has("blood_counts")) {
                         updateBloodInventory(obj.getJSONObject("blood_counts"));
                     }
-                } catch (Exception e){}
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
@@ -179,29 +214,188 @@ public class HomeFragment extends Fragment {
     private void displayCamps() {
         upcomingContainer.removeAllViews();
         try {
-            List<JSONObject> sortedCamps = new ArrayList<>();
+            List<JSONObject> filteredCamps = new ArrayList<>();
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+            java.util.Date today = new java.util.Date();
+            
+            // Set today to start of day for accurate comparison
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(today);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            cal.set(Calendar.SECOND, 0);
+            cal.set(Calendar.MILLISECOND, 0);
+            long todayMillis = cal.getTimeInMillis();
+
             for (int i = 0; i < campsArray.length(); i++) {
-                sortedCamps.add(campsArray.getJSONObject(i));
+                JSONObject obj = campsArray.getJSONObject(i);
+                String campDateStr = obj.getString("camp_date");
+                try {
+                    java.util.Date cDate = sdf.parse(campDateStr);
+                    if (cDate != null && cDate.getTime() >= todayMillis) {
+                        filteredCamps.add(obj);
+                    }
+                } catch (Exception e) {
+                    // Fallback: If date format is wrong, still show it so it doesn't look "broken"
+                    filteredCamps.add(obj);
+                }
             }
             
-            Collections.sort(sortedCamps, (o1, o2) -> {
+            // Sort by date: closest to today first
+            Collections.sort(filteredCamps, (o1, o2) -> {
                 try {
                     return o1.getString("camp_date").compareTo(o2.getString("camp_date"));
-                } catch (Exception e) {
-                    return 0;
-                }
+                } catch (Exception e) { return 0; }
             });
 
-            int limit = isAllCampsVisible ? sortedCamps.size() : Math.min(sortedCamps.size(), 2);
+            // Hide "View All" button if there's only 1 or 0 camps
+            if (filteredCamps.size() <= 1) {
+                btnViewAllCamps.setVisibility(View.GONE);
+            } else {
+                btnViewAllCamps.setVisibility(View.VISIBLE);
+            }
+
+            // "View Less" shows 1 camp, "View All" shows all
+            int limit = isAllCampsVisible ? filteredCamps.size() : Math.min(filteredCamps.size(), 1);
+            
+            if (filteredCamps.isEmpty()) {
+                TextView tvNoCamps = new TextView(getContext());
+                tvNoCamps.setText("No upcoming camps found");
+                tvNoCamps.setGravity(Gravity.CENTER);
+                tvNoCamps.setPadding(0, 50, 0, 50);
+                tvNoCamps.setTextColor(getResources().getColor(R.color.textSecondary));
+                upcomingContainer.addView(tvNoCamps);
+                return;
+            }
+
             for(int i=0; i < limit; i++){
-                JSONObject obj = sortedCamps.get(i);
+                JSONObject obj = filteredCamps.get(i);
                 View card = getLayoutInflater().inflate(R.layout.item_camps, upcomingContainer, false);
-                ((TextView)card.findViewById(R.id.tvCampName)).setText(obj.getString("camp_name"));
-                ((TextView)card.findViewById(R.id.tvCampDate)).setText("📅 " + obj.getString("camp_date"));
-                ((TextView)card.findViewById(R.id.tvCampLocation)).setText("📍 " + obj.getString("location"));
+                
+                // Using optString with your exact database column names
+                ((TextView)card.findViewById(R.id.tvCampName)).setText(obj.optString("camp_name", "Upcoming Camp"));
+                
+                String dateStr = obj.optString("camp_date", "");
+                String dateToShow = dateStr;
+                try {
+                    java.util.Date d = sdf.parse(dateStr);
+                    if (d != null) {
+                        dateToShow = new java.text.SimpleDateFormat("dd MMM, yyyy", java.util.Locale.getDefault()).format(d);
+                    }
+                } catch(Exception e){}
+                
+                // Clean text without the '17' emoji
+                ((TextView)card.findViewById(R.id.tvCampDate)).setText(dateToShow);
+                
+                // Match your database 'location' column
+                String loc = obj.optString("location", "Venue Not Set");
+                ((TextView)card.findViewById(R.id.tvCampLocation)).setText(loc);
+
+                // --- SECURITY LOGIC: Show Edit button ONLY if it's YOUR camp ---
+                ImageView btnEdit = card.findViewById(R.id.btnEditCamp);
+                String campOwnerEmail = obj.optString("email", "");
+
+                if (campOwnerEmail.equalsIgnoreCase(email)) {
+                    btnEdit.setVisibility(View.VISIBLE);
+                    btnEdit.setOnClickListener(v -> {
+                        showEditDialog(obj);
+                    });
+                } else {
+                    btnEdit.setVisibility(View.GONE);
+                }
+
                 upcomingContainer.addView(card);
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showEditDialog(JSONObject camp) {
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_edit_camp, null);
+        
+        TextInputEditText etName = dialogView.findViewById(R.id.etCampName);
+        TextInputEditText etLoc = dialogView.findViewById(R.id.etLocation);
+        TextInputEditText etDate = dialogView.findViewById(R.id.etDate);
+        TextInputEditText etEmail = dialogView.findViewById(R.id.etEmail);
+        Button btnSave = dialogView.findViewById(R.id.btnSubmit);
+        
+        btnSave.setText("Update Camp Details");
+
+        try {
+            etName.setText(camp.getString("camp_name"));
+            etLoc.setText(camp.getString("location"));
+            etDate.setText(camp.getString("camp_date"));
+            etEmail.setText(camp.getString("email"));
+            etEmail.setEnabled(false); // Still locked
+            
+            etDate.setOnClickListener(v -> {
+                Calendar cal = Calendar.getInstance();
+                new android.app.DatePickerDialog(getContext(), (view, year, month, day) -> {
+                    String date = String.format(java.util.Locale.getDefault(), "%d-%02d-%02d", year, (month + 1), day);
+                    etDate.setText(date);
+                }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show();
+            });
+
+            android.app.Dialog dialog = new android.app.Dialog(getContext());
+            dialog.setContentView(dialogView);
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setCancelable(true);
+            
+            btnSave.setOnClickListener(v -> {
+                String name = etName.getText().toString().trim();
+                String loc = etLoc.getText().toString().trim();
+                String date = etDate.getText().toString().trim();
+                
+                if(name.isEmpty() || loc.isEmpty() || date.isEmpty()){
+                    Toast.makeText(getContext(), "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                RequestParams params = new RequestParams();
+                try {
+                    // CRITICAL: Ensure your get_camps.php sends 'id'
+                    String campId = camp.optString("id", "");
+                    if(campId.isEmpty()){
+                        // Debugging: Show all available keys in the JSONObject
+                        java.util.Iterator<String> keys = camp.keys();
+                        StringBuilder sb = new StringBuilder("Keys: ");
+                        while(keys.hasNext()) sb.append(keys.next()).append(", ");
+                        Toast.makeText(getContext(), "ID missing. Found " + sb.toString(), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    params.put("id", campId);
+                    params.put("camp_name", name);
+                    params.put("location", loc);
+                    params.put("camp_date", date);
+
+                    client.post(Urls.UPDATE_CAMP, params, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            String res = new String(responseBody).trim();
+                            android.util.Log.d("UpdateCamp", "Server Response: " + res);
+                            
+                            if (res.equalsIgnoreCase("success")) {
+                                Toast.makeText(getContext(), "✅ Updated Successfully", Toast.LENGTH_SHORT).show();
+                                dialog.dismiss();
+                                loadUpcomingCamps(); // Refresh the list
+                            } else {
+                                Toast.makeText(getContext(), "Server Error: " + res, Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                            Toast.makeText(getContext(), "Network Error: Update Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } catch (Exception e) { e.printStackTrace(); }
+            });
+
+            dialog.show();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     private void autoSlide(int size){

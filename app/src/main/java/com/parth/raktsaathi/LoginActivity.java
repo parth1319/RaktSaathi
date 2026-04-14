@@ -76,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("790875880674-fsn1vpgi69f86f7mgnq39bdncvloal0q.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
 
@@ -85,7 +86,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signInWithGoogle() {
-        startActivityForResult(googleSignInClient.getSignInIntent(), RC_SIGN_IN);
+        // Force sign-out before starting intent to show the Account Picker dialog
+        googleSignInClient.signOut().addOnCompleteListener(this, task -> {
+            startActivityForResult(googleSignInClient.getSignInIntent(), RC_SIGN_IN);
+        });
     }
 
     @Override

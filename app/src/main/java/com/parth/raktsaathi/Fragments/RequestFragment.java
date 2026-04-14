@@ -55,6 +55,7 @@ public class RequestFragment extends Fragment {
         android.content.SharedPreferences sp = getActivity().getSharedPreferences("user", android.content.Context.MODE_PRIVATE);
         userEmail = sp.getString("email", "");
 
+        // Initialize Views
         etName = v.findViewById(R.id.etName);
         etPhone = v.findViewById(R.id.etPhone);
         etHospital = v.findViewById(R.id.etHospital);
@@ -81,6 +82,7 @@ public class RequestFragment extends Fragment {
     }
 
     private void setupSpinners() {
+        // Units Spinner
         List<String> unitList = new ArrayList<>();
         unitList.add("Select Units");
         unitList.add("1 Unit"); unitList.add("2 Units"); unitList.add("3 Units");
@@ -107,6 +109,7 @@ public class RequestFragment extends Fragment {
         unitAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spUnits.setAdapter(unitAdapter);
 
+        // Blood Group Spinner
         List<String> bloodList = new ArrayList<>();
         bloodList.add("Blood Group");
         bloodList.add("A+"); bloodList.add("A-"); bloodList.add("B+"); bloodList.add("B-");
@@ -133,6 +136,7 @@ public class RequestFragment extends Fragment {
         bloodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBlood.setAdapter(bloodAdapter);
 
+        // Area Spinner (Akola District Talukas)
         List<String> areas = new ArrayList<>();
         areas.add("Select Taluka");
         areas.add("Akola");
@@ -164,6 +168,7 @@ public class RequestFragment extends Fragment {
         areaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spArea.setAdapter(areaAdapter);
 
+        // Dynamic Hospital Logic based on Area
         spArea.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -254,6 +259,7 @@ public class RequestFragment extends Fragment {
             return;
         }
 
+        // Show Progress
         android.app.ProgressDialog pd = new android.app.ProgressDialog(getContext());
         pd.setMessage("Posting Request...");
         pd.setCancelable(false);

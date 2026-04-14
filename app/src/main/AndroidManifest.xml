@@ -33,9 +33,6 @@
         <activity
             android:name=".HealthTipsActivity"
             android:exported="false" />
-        <activity
-            android:name=".NotificationActivity"
-            android:exported="false" />
 
         <activity
             android:name=".Reset_PasswordActivity"

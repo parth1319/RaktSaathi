@@ -12,7 +12,7 @@ public class Urls {
     public static final String GET_USER_ACTIVITY = BASE_URL + "get_user_activity.php";
     public static final String GET_CAMPS = BASE_URL + "get_camps.php";
     public static final String ADD_CAMP = BASE_URL + "add_camp.php";
-    public static final String UPDATE_CAMP = BASE_URL + "update.php";
+    public static final String UPDATE_CAMP = BASE_URL + "update_camp.php";
     public static final String CHECK_REGISTER = BASE_URL + "check_registered.php";
     public static final String REGISTER_CAMP = BASE_URL + "register_camp.php";
 
@@ -42,5 +42,4 @@ public class Urls {
 
     // Notifications PHP
     public static final String GET_NOTIFICATIONS = BASE_URL + "get_notifications.php";
-
 }

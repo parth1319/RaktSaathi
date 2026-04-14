@@ -16,64 +16,36 @@
         <!-- 🔴 PREMIUM HEADER -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="189dp"
+            android:layout_height="210dp"
             android:background="@drawable/red_header_bg"
-            android:padding="24dp">
+            android:padding="28dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="30dp">
 
                 <TextView
                     android:id="@+id/tvGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Welcome Back,"
-                    android:textColor="#E0E0E0"
-                    android:textSize="16sp"
-                    android:letterSpacing="0.05"/>
+                    android:textColor="#CCFFFFFF"
+                    android:textSize="15sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"/>
 
                 <TextView
                     android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Hello, User!"
+                    android:text="Paarth Pande"
                     android:textColor="@android:color/white"
-                    android:textSize="26sp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="4dp"/>
+                    android:textSize="28sp"
+                    android:fontFamily="sans-serif-black"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
-
-            <FrameLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="20dp">
-
-                <ImageView
-                    android:id="@+id/btnNotification"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:padding="12dp"
-                    android:src="@drawable/rs_notification"
-                    android:background="@drawable/bg_premium_notification"
-                    android:elevation="8dp"
-                    android:clickable="true"
-                    android:focusable="true"
-                    app:tint="@color/white"/>
-
-                <!-- Red dot for new notifications -->
-                <View
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="top|end"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_notification_dot"
-                    android:elevation="10dp" />
-            </FrameLayout>
 
         </RelativeLayout>
 
@@ -131,24 +103,25 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnQuickRequest"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="6dp"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/cardColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_quick_action">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/rs_bloodrop_icon"
-                        app:tint="#D32F2F" />
+                        app:tint="@color/rs_red_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -156,32 +129,33 @@
                         android:layout_marginTop="8dp"
                         android:text="Request"
                         android:textColor="@color/textPrimary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnQuickDonate"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="6dp"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/cardColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_quick_action">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/rs_bloodbag_icon"
-                        app:tint="#D32F2F" />
+                        app:tint="@color/rs_red_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -189,32 +163,33 @@
                         android:layout_marginTop="8dp"
                         android:text="Donate"
                         android:textColor="@color/textPrimary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnQuickCamps"
                 android:layout_width="0dp"
-                android:layout_height="100dp"
+                android:layout_height="110dp"
                 android:layout_weight="1"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="6dp"
+                android:layout_margin="6dp"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="2dp"
                 app:cardBackgroundColor="@color/cardColor">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_quick_action">
 
                     <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
                         android:src="@drawable/rs_locationlogo"
-                        app:tint="#D32F2F" />
+                        app:tint="@color/rs_red_primary" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -222,8 +197,8 @@
                         android:layout_marginTop="8dp"
                         android:text="Camps"
                         android:textColor="@color/textPrimary"
-                        android:textSize="13sp"
-                        android:textStyle="bold" />
+                        android:textSize="14sp"
+                        android:fontFamily="sans-serif-medium" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

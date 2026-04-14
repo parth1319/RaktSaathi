@@ -4,29 +4,25 @@
     <color name="white">#FFFFFFFF</color>
 
     <!-- Premium RaktSaathi Theme Colors -->
-    <color name="rs_buttons_colour">#D32F2F</color>
-    <color name="accentColor">#E53935</color>
+    <color name="rs_red_primary">#E53935</color>
+    <color name="rs_red_dark">#B71C1C</color>
+    <color name="rs_red_light">#FFEBEE</color>
+    <color name="rs_blue_accent">#1976D2</color>
     <color name="rs_bg_color">#F8F9FA</color>
-    <color name="rs_heading_color">#1A1A1A</color>
-    <color name="rs_qoute_color">#555555</color>
+    <color name="rs_card_bg">#FFFFFF</color>
 
-    <!-- Dark Mode Supportive Semantic Colors -->
+    <!-- Semantic Colors -->
     <color name="bgColor">#F8F9FA</color>
     <color name="cardColor">#FFFFFF</color>
-    <color name="textPrimary">#1A1A1A</color>
-    <color name="textSecondary">#555555</color>
-    <color name="blood_stat_card_start">#FFFFFF</color>
-    <color name="blood_stat_card_end">#FFEBEB</color>
-    <color name="blood_stat_circle_bg">#FFF0F0</color>
-    <color name="blood_stat_circle_stroke">#FFEBEE</color>
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="textOnRed">#FFFFFF</color>
 
-    <!-- Other Design Colors -->
-    <color name="blue_600">#1E88E5</color>
-    <color name="green_success">#4CAF50</color>
-    <color name="active_donors_bg">#F1F8F1</color>
+    <!-- Stats Cards -->
+    <color name="active_donors_bg">#E8F5E9</color>
     <color name="active_donors_text">#2E7D32</color>
-    <color name="active_requests_bg">#FDF2F2</color>
-    <color name="active_requests_text">#C62828</color>
+    <color name="active_requests_bg">#FFF3E0</color>
+    <color name="active_requests_text">#E65100</color>
     <color name="health_bg">#D32F2F</color>
     <color name="camp_card_bg">#D32F2F</color>
     <color name="register_btn_bg">#8B0000</color>
@@ -34,9 +30,23 @@
     <color name="progress_track">#EEEEEE</color>
     <color name="divider_color">#1A000000</color>
 
+    <!-- Stats Card Premium (Missing in Light Mode) -->
+    <color name="blood_stat_card_start">#FFFFFF</color>
+    <color name="blood_stat_card_end">#FFEBEE</color>
+    <color name="blood_stat_circle_bg">#FFFFFF</color>
+    <color name="blood_stat_circle_stroke">#FFCDD2</color>
+    <color name="rs_heading_color">#212121</color>
+
     <!-- Bottom Nav Selection -->
     <color name="nav_item_selected">#D32F2F</color>
     <color name="nav_item_unselected">#757575</color>
     <color name="nav_bg_color">#FFFFFF</color>
     <color name="nav_indicator_color">#00000000</color>
+
+    <!-- Semantic Status Colors -->
+    <color name="green_success">#2E7D32</color>
+    <color name="blue_600">#1E88E5</color>
+    <color name="rs_buttons_colour">#E53935</color>
+    <color name="rs_qoute_color">#757575</color>
+    <color name="accentColor">#E53935</color>
 </resources>

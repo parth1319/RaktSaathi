@@ -54,10 +54,14 @@ public class DonorActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         selectedBloodGroup = getIntent().getStringExtra("blood_group");
+        String initialCity = getIntent().getStringExtra("city");
         boolean searchMode = getIntent().getBooleanExtra("search_mode", false);
 
         if (selectedBloodGroup != null && !selectedBloodGroup.isEmpty()) {
             tvTitle.setText(selectedBloodGroup + " Donors");
+        } else if (initialCity != null && !initialCity.isEmpty()) {
+            tvTitle.setText("Donors in " + initialCity);
+            etSearch.setText(initialCity);
         } else if (searchMode) {
             tvTitle.setText("Search Donors");
             etSearch.requestFocus();
@@ -67,7 +71,7 @@ public class DonorActivity extends AppCompatActivity {
         adapter = new DonorAdapter(donorList);
         rvDonors.setAdapter(adapter);
 
-        loadDonors("");
+        loadDonors(initialCity != null ? initialCity : "");
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override

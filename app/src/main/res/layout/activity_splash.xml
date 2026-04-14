@@ -73,28 +73,4 @@
             android:textSize="16sp"
             android:letterSpacing="0.1"/>
     </LinearLayout>
-
-    <ProgressBar
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="80dp"
-        android:indeterminateTint="@color/rs_buttons_colour"
-        style="?android:attr/progressBarStyleSmall"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:text="MADE WITH ❤️ IN INDIA"
-        android:textColor="#9E9E9E"
-        android:textSize="11sp"
-        android:letterSpacing="0.2"
-        android:fontFamily="@font/poppins_semibold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

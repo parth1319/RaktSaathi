@@ -71,16 +71,7 @@ public class RegistrationActivity extends AppCompatActivity {
 
 
         String[] cities = {
-            "Mumbai", "Pune", "Nagpur", "Thane", "Nashik", 
-            "Kalyan-Dombivli", "Vasai-Virar", "Pimpri-Chinchwad", 
-            "Aurangabad", "Navi Mumbai", "Solapur", "Mira-Bhayandar", 
-            "Bhiwandi", "Amravati", "Nanded", "Kolhapur", "Akola", 
-            "Ulhasnagar", "Sangli-Miraj-Kupwad", "Malegaon", "Jalgaon", 
-            "Dhule", "Ahmednagar", "Satara", "Chandrapur", "Parbhani", 
-            "Ichalkaranji", "Jalna", "Ambarnath", "Bhusawal", "Panvel", 
-            "Badlapur", "Beed", "Gondia", "Barshi", "Yavatmal", 
-            "Achalpur", "Osmanabad", "Nandurbar", "Wardha", "Udgir", 
-            "Hinganghat", "Other"
+         "Akola City"
         };
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, cities);
