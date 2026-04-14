@@ -1,306 +1,419 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgColor"
-    android:fillViewport="true">
+    android:scrollbars="none"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- PREMIUM HEADER -->
+        <!-- 🔴 PREMIUM HEADER -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:background="@drawable/red_gradient"
-            android:padding="20dp">
+            android:layout_height="240dp"
+            android:background="@drawable/red_header_bg"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="My Profile"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.02"/>
+
+            <RelativeLayout
+                android:id="@+id/profileImageContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="70dp"
+                android:clipChildren="false"
+                android:clipToPadding="false">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgProfile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/rs_profilelogo"
+                    app:civ_border_color="@android:color/white"
+                    app:civ_border_width="4dp" />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAddPhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/imgProfile"
+                    android:layout_alignEnd="@id/imgProfile"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:src="@android:drawable/ic_menu_camera"
+                    app:backgroundTint="@android:color/white"
+                    app:fabCustomSize="30dp"
+                    app:maxImageSize="15dp"
+                    app:tint="#D32F2F"
+                    app:elevation="10dp"
+                    app:pressedTranslationZ="12dp"
+                    app:useCompatPadding="false"/>
+
+                <ImageView
+                    android:id="@+id/imgVerified"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignTop="@id/imgProfile"
+                    android:layout_alignEnd="@id/imgProfile"
+                    android:src="@drawable/ic_verified"
+                    android:elevation="15dp"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- 📝 MAIN PROFILE CARD -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="35dp"
+            app:cardElevation="12dp"
+            app:cardBackgroundColor="@color/cardColor">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:orientation="vertical"
-                android:layout_marginTop="20dp">
-
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/imgProfile"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:src="@drawable/rs_profilelogo"
-                        app:civ_border_color="@android:color/white"
-                        app:civ_border_width="3dp" />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fabAddPhoto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/imgProfile"
-                        android:layout_alignEnd="@id/imgProfile"
-                        android:layout_margin="4dp"
-                        android:src="@android:drawable/ic_menu_camera"
-                        app:backgroundTint="@android:color/white"
-                        app:fabCustomSize="36dp"
-                        app:maxImageSize="20dp"
-                        app:tint="@color/rs_buttons_colour" />
-
-                    <ImageView
-                        android:id="@+id/imgVerified"
-                        android:layout_width="28dp"
-                        android:layout_height="28dp"
-                        android:layout_alignTop="@id/imgProfile"
-                        android:layout_alignEnd="@id/imgProfile"
-                        android:src="@drawable/ic_verified"
-                        android:elevation="4dp"
-                        android:visibility="gone" />
-                </RelativeLayout>
+                android:padding="24dp"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/tvName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
                     android:text="User Name"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/textPrimary"
                     android:textSize="24sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tvEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="user@example.com"
-                    android:textColor="#F5F5F5"
+                    android:textColor="@color/textSecondary"
                     android:textSize="14sp"
-                    android:alpha="0.9" />
+                    android:layout_marginTop="2dp"/>
 
-                <TextView
-                    android:id="@+id/tvAddPhoto"
-                    android:layout_width="wrap_content"
+                <!-- Stats/Progress Section -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:text="Add Profile Photo"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp"
-                    android:alpha="0.8" />
-            </LinearLayout>
-        </RelativeLayout>
+                    android:orientation="vertical"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/edittext_premium"
+                    android:backgroundTint="@color/active_requests_bg"
+                    android:padding="18dp">
 
-        <!-- PROGRESS CARD -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Profile Completion"
+                            android:textColor="@color/active_requests_text"
+                            android:textStyle="bold"
+                            android:textSize="13sp"/>
+                        <TextView
+                            android:id="@+id/tvPercent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:text="0%"
+                            android:textColor="@color/active_requests_text"
+                            android:textStyle="bold"
+                            android:textSize="13sp"/>
+                    </RelativeLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="8dp"
+                        android:layout_marginTop="12dp"
+                        android:progress="0"
+                        android:progressDrawable="@drawable/custom_progress_bar"/>
+
+                    <TextView
+                        android:id="@+id/tvProgress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Complete your profile to get verified"
+                        android:textColor="@color/active_requests_text"
+                        android:textSize="12sp"
+                        android:textStyle="italic"
+                        android:alpha="0.8"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_color"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="24dp"/>
+
+                <!-- Contact Info Grid -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="20dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/rs_phone_icon"
+                            app:tint="@color/rs_buttons_colour"/>
+                        <TextView
+                            android:id="@+id/tvMobile"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Not Added"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="20dp">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/rs_bloodrop_icon"
+                            app:tint="@color/rs_buttons_colour"/>
+                        <TextView
+                            android:id="@+id/tvBlood"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Not Added"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/ic_location"
+                            app:tint="@color/rs_buttons_colour"/>
+                        <TextView
+                            android:id="@+id/tvCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:text="Not Added"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="16sp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- 📊 ACTIVITY STATS SECTION -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="center_vertical">
+
+        </LinearLayout>
+
+        <!-- ACCOUNT ACTIONS SECTION -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="-30dp"
             android:layout_marginEnd="20dp"
-            app:cardBackgroundColor="@color/cardColor"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="8dp">
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/cardColor">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="15dp">
+                android:orientation="vertical">
 
-                <RelativeLayout
+                <LinearLayout
+                    android:id="@+id/btnSettingsToggle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
+                    android:layout_height="65dp"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="24dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_manage"
+                        app:tint="@color/rs_buttons_colour"/>
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Profile Completion"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:text="Settings &amp; Security"
                         android:textColor="@color/textPrimary"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
-
                     <TextView
-                        android:id="@+id/tvPercent"
+                        android:id="@+id/arrowSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="0%"
-                        android:textColor="@color/rs_buttons_colour"
-                        android:textStyle="bold" />
-                </RelativeLayout>
+                        android:text="▼"
+                        android:textSize="14sp"
+                        android:textColor="@color/textSecondary"/>
+                </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="?android:attr/progressBarStyleHorizontal"
+                <LinearLayout
+                    android:id="@+id/settingsContent"
                     android:layout_width="match_parent"
-                    android:layout_height="8dp"
-                    android:layout_marginTop="10dp"
-                    android:progress="0" />
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="24dp"
+                    android:paddingBottom="15dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/btnEditProfile"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:gravity="center_vertical"
+                        android:text="Edit Profile Information"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:background="?attr/selectableItemBackground"/>
+
+                    <TextView
+                        android:id="@+id/btnChangePass"
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp"
+                        android:gravity="center_vertical"
+                        android:text="Update Password"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="15sp"
+                        android:background="?attr/selectableItemBackground"/>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="55dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Dark Mode Experience"
+                            android:textColor="@color/textPrimary"
+                            android:textSize="15sp"/>
+                        <androidx.appcompat.widget.SwitchCompat
+                            android:id="@+id/switchDark"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            app:thumbTint="@color/rs_buttons_colour"
+                            app:trackTint="@color/active_requests_bg"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/divider_color" android:layout_marginHorizontal="24dp"/>
+
+                <LinearLayout
+                    android:id="@+id/btnAboutToggle"
+                    android:layout_width="match_parent"
+                    android:layout_height="65dp"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="24dp"
+                    android:background="?attr/selectableItemBackground">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_info_details"
+                        app:tint="@color/rs_buttons_colour"/>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="16dp"
+                        android:text="About RaktSaathi"
+                        android:textColor="@color/textPrimary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/arrowAbout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="▼"
+                        android:textSize="14sp"
+                        android:textColor="@color/textSecondary"/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvProgress"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/aboutContent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="Complete your profile to get verified"
-                    android:textColor="@color/textSecondary"
-                    android:textSize="12sp" />
+                    android:padding="24dp"
+                    android:text="🩸 RaktSaathi: Your Digital Lifeline\n\nRaktSaathi is a premium, community-driven platform dedicated to bridging the gap between blood donors and those in urgent need. Born out of a mission to ensure no life is lost due to a shortage of blood, we leverage cutting-edge technology to provide a seamless experience for both heroes (donors) and families in crisis.\n\nOur platform offers real-time donor tracking, nearby blood camp registrations, and verified health tips from experts. By joining RaktSaathi, you are not just an app user; you are part of a noble movement to make blood donation a household habit. \n\nEvery drop you donate, every request you share, and every camp you attend brings us one step closer to a healthier, safer India. Together, let's be the heartbeat of our community."
+                    android:textColor="@color/textPrimary"
+                    android:lineSpacingExtra="6dp"
+                    android:textSize="14sp"
+                    android:visibility="gone"
+                    android:background="@android:color/transparent"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- DETAILS SECTION -->
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_profile_logout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvMobile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="📞 Not Added"
-                android:textColor="@color/textPrimary" />
-
-            <TextView
-                android:id="@+id/tvBlood"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="🩸 Not Added"
-                android:textColor="@color/textPrimary" />
-
-            <TextView
-                android:id="@+id/tvCity"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="📍 Not Added"
-                android:textColor="@color/textPrimary" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="#F0F0F0" />
-
-            <!-- ACTIONS -->
-            <TextView
-                android:id="@+id/btnEditProfile"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="Edit Profile"
-                android:textColor="@color/textPrimary"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/btnChangePass"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:text="Change Password"
-                android:textColor="@color/textPrimary"
-                android:textSize="16sp" />
-
-            <!-- SETTINGS TOGGLE -->
-            <LinearLayout
-                android:id="@+id/btnSettingsToggle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Settings"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/arrowSettings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="▼" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/settingsContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone"
-                android:paddingStart="20dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Dark Mode"
-                        android:textColor="@color/textPrimary" />
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:id="@+id/switchDark"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true" />
-                </RelativeLayout>
-            </LinearLayout>
-
-            <!-- ABOUT TOGGLE -->
-            <LinearLayout
-                android:id="@+id/btnAboutToggle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="About Us"
-                    android:textColor="@color/textPrimary"
-                    android:textSize="16sp" />
-                <TextView
-                    android:id="@+id/arrowAbout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="▼" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/aboutContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="RaktSaathi is a platform to connect blood donors with those in need. Our mission is to save lives by making blood donation accessible to everyone."
-                android:textColor="@color/textSecondary"
-                android:visibility="gone" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_profile_logout"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginTop="20dp"
-                android:text="Logout"
-                android:textColor="@android:color/white"
-                app:backgroundTint="#D32F2F"
-                app:cornerRadius="10dp" />
-
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginVertical="20dp"
-            android:text="Version 1.0.2"
-            android:textColor="@color/textSecondary"
-            android:textSize="12sp" />
+            android:layout_height="62dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:text="SIGN OUT FROM ACCOUNT"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            app:backgroundTint="#8B0000"
+            app:cornerRadius="25dp"
+            app:elevation="8dp"
+            app:icon="@drawable/rs_logoutlogo"
+            app:iconGravity="textStart"
+            app:iconPadding="12dp"
+            app:iconSize="22dp"
+            app:iconTint="@color/white"
+            android:letterSpacing="0.05"/>
 
     </LinearLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

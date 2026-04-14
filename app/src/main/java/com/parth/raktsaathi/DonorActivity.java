@@ -54,14 +54,14 @@ public class DonorActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         selectedBloodGroup = getIntent().getStringExtra("blood_group");
-        String initialCity = getIntent().getStringExtra("city");
+        String cityQuery = getIntent().getStringExtra("city");
         boolean searchMode = getIntent().getBooleanExtra("search_mode", false);
 
         if (selectedBloodGroup != null && !selectedBloodGroup.isEmpty()) {
             tvTitle.setText(selectedBloodGroup + " Donors");
-        } else if (initialCity != null && !initialCity.isEmpty()) {
-            tvTitle.setText("Donors in " + initialCity);
-            etSearch.setText(initialCity);
+        } else if (cityQuery != null && !cityQuery.isEmpty()) {
+            tvTitle.setText("Donors in " + cityQuery);
+            etSearch.setText(cityQuery);
         } else if (searchMode) {
             tvTitle.setText("Search Donors");
             etSearch.requestFocus();
@@ -71,7 +71,7 @@ public class DonorActivity extends AppCompatActivity {
         adapter = new DonorAdapter(donorList);
         rvDonors.setAdapter(adapter);
 
-        loadDonors(initialCity != null ? initialCity : "");
+        loadDonors(etSearch.getText().toString().trim());
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -94,11 +94,13 @@ public class DonorActivity extends AppCompatActivity {
         String url;
 
         if (query.isEmpty()) {
+            // Load all or by blood group using existing fetch_donors.php
             url = Urls.GET_DONORS;
             if (selectedBloodGroup != null && !selectedBloodGroup.isEmpty()) {
                 params.put("blood_group", selectedBloodGroup);
             }
         } else {
+            // Use NEW search_donors.php for filtering
             url = Urls.SEARCH_DONORS;
             params.put("search_query", query);
             if (selectedBloodGroup != null && !selectedBloodGroup.isEmpty()) {

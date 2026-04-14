@@ -136,16 +136,33 @@ public class RequestFragment extends Fragment {
         bloodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBlood.setAdapter(bloodAdapter);
 
-        // Area Spinner (Akola District Talukas)
+        // Area Spinner (Akola & Amravati Region - Extended)
         List<String> areas = new ArrayList<>();
-        areas.add("Select Taluka");
-        areas.add("Akola");
+        areas.add("Select Area/City");
+        areas.add("Akola - Gorakshan Road");
+        areas.add("Akola - Jatar Peth");
+        areas.add("Akola - Kaulkhed");
+        areas.add("Akola - Civil Lines");
+        areas.add("Akola - Old City");
+        areas.add("Akola - Ramdaspeth");
+        areas.add("Amravati - Rajapeth");
+        areas.add("Amravati - Badnera");
+        areas.add("Amravati - Sai Nagar");
+        areas.add("Amravati - Gadge Nagar");
+        areas.add("Amravati - Rukhmini Nagar");
         areas.add("Akot");
-        areas.add("Telhara");
-        areas.add("Balapur");
-        areas.add("Patur");
         areas.add("Murtizapur");
+        areas.add("Balapur");
+        areas.add("Telhara");
+        areas.add("Patur");
         areas.add("Barshitakli");
+        areas.add("Anjangaon Surji");
+        areas.add("Achalpur");
+        areas.add("Daryapur");
+        areas.add("Warud");
+        areas.add("Morshi");
+        areas.add("Chandur Bazar");
+        areas.add("Dharni (Melghat)");
         
         ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, areas) {
             @Override
@@ -181,27 +198,57 @@ public class RequestFragment extends Fragment {
 
     private void updateHospitalList(String area) {
         List<String> hospitals = new ArrayList<>();
-        if (area.equals("Akola")) {
+        if (area.contains("Akola")) {
             hospitals.add("Civil Hospital, Akola");
             hospitals.add("Government Medical College (GMC)");
             hospitals.add("Icon Hospital");
             hospitals.add("Ozone Hospital");
             hospitals.add("Suryachandra Hospital");
             hospitals.add("District Women Hospital");
+            hospitals.add("Khandelwal Hospital");
+            hospitals.add("Sarda Hospital");
+            hospitals.add("Maitri Hospital");
+        } else if (area.contains("Amravati")) {
+            hospitals.add("District General Hospital, Amravati");
+            hospitals.add("PDMC Hospital");
+            hospitals.add("Radiant Hospital");
+            hospitals.add("Vytal Hospital");
+            hospitals.add("Best Care Hospital");
+            hospitals.add("Dayasagar Hospital");
+            hospitals.add("Bakatar Hospital");
         } else if (area.equals("Akot")) {
             hospitals.add("Sub-District Hospital, Akot");
             hospitals.add("Shraddha Hospital");
+            hospitals.add("Civil Hospital, Akot");
         } else if (area.equals("Telhara")) {
             hospitals.add("Rural Hospital, Telhara");
+            hospitals.add("Government Hospital, Telhara");
         } else if (area.equals("Balapur")) {
             hospitals.add("Rural Hospital, Balapur");
+            hospitals.add("Municipal Hospital, Balapur");
         } else if (area.equals("Patur")) {
             hospitals.add("Rural Hospital, Patur");
+            hospitals.add("Government Clinic, Patur");
         } else if (area.equals("Murtizapur")) {
             hospitals.add("Sub-District Hospital, Murtizapur");
             hospitals.add("Laxmibai Deshmukh Hospital");
+            hospitals.add("Civil Hospital, Murtizapur");
         } else if (area.equals("Barshitakli")) {
             hospitals.add("Rural Hospital, Barshitakli");
+        } else if (area.equals("Anjangaon Surji")) {
+            hospitals.add("Rural Hospital, Anjangaon");
+            hospitals.add("Suryawanshi Hospital");
+        } else if (area.equals("Achalpur") || area.equals("Chandur Bazar")) {
+            hospitals.add("Sub-District Hospital, Achalpur");
+            hospitals.add("Finolex Hospital");
+        } else if (area.equals("Daryapur")) {
+            hospitals.add("Sub-District Hospital, Daryapur");
+        } else if (area.equals("Warud") || area.equals("Morshi")) {
+            hospitals.add("Rural Hospital, Warud");
+            hospitals.add("Rural Hospital, Morshi");
+        } else if (area.equals("Dharni (Melghat)")) {
+            hospitals.add("Sub-District Hospital, Dharni");
+            hospitals.add("Khandwa Road Hospital");
         } else {
             hospitals.add("Government Hospital");
             hospitals.add("Private Clinic");

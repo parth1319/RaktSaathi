@@ -302,6 +302,10 @@ public class HomeFragment extends Fragment {
                     });
                 } else {
                     btnEdit.setVisibility(View.GONE);
+                    // If not owner, allow them to Register for the camp
+                    card.setOnClickListener(v -> {
+                        checkAndRegisterForCamp(obj);
+                    });
                 }
 
                 upcomingContainer.addView(card);
@@ -309,6 +313,59 @@ public class HomeFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void checkAndRegisterForCamp(JSONObject camp) {
+        String campId = camp.optString("id", "");
+        if (campId.isEmpty()) return;
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("camp_id", campId);
+        params.put("email", email);
+
+        // 1. First check if already registered
+        client.post(Urls.CHECK_REGISTER, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String res = new String(responseBody).trim();
+                if (res.equalsIgnoreCase("registered")) {
+                    Toast.makeText(getContext(), "You are already registered for this camp! 😊", Toast.LENGTH_SHORT).show();
+                } else {
+                    // 2. If not, show confirmation to register
+                    new android.app.AlertDialog.Builder(getContext())
+                            .setTitle("Join Blood Camp")
+                            .setMessage("Do you want to register for " + camp.optString("camp_name") + "?")
+                            .setPositiveButton("Register Now", (dialog, which) -> {
+                                registerUserForCamp(campId);
+                            })
+                            .setNegativeButton("Maybe Later", null)
+                            .show();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
+    }
+
+    private void registerUserForCamp(String campId) {
+        AsyncHttpClient client = new AsyncHttpClient();
+        RequestParams params = new RequestParams();
+        params.put("camp_id", campId);
+        params.put("email", email);
+
+        client.post(Urls.REGISTER_CAMP, params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                if (new String(responseBody).trim().equalsIgnoreCase("success")) {
+                    Toast.makeText(getContext(), "Registration Successful! See you there! 🩸", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {}
+        });
     }
 
     private void showEditDialog(JSONObject camp) {

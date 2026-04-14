@@ -134,16 +134,33 @@ public class DonateFragment extends Fragment {
         bloodAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spBlood.setAdapter(bloodAdapter);
 
-        // Area Spinner (Akola District Talukas)
+        // Area Spinner (Akola & Amravati Region - Extended)
         List<String> areas = new ArrayList<>();
-        areas.add("Select Taluka");
-        areas.add("Akola");
+        areas.add("Select Area/City");
+        areas.add("Akola - Gorakshan Road");
+        areas.add("Akola - Jatar Peth");
+        areas.add("Akola - Kaulkhed");
+        areas.add("Akola - Civil Lines");
+        areas.add("Akola - Old City");
+        areas.add("Akola - Ramdaspeth");
+        areas.add("Amravati - Rajapeth");
+        areas.add("Amravati - Badnera");
+        areas.add("Amravati - Sai Nagar");
+        areas.add("Amravati - Gadge Nagar");
+        areas.add("Amravati - Rukhmini Nagar");
         areas.add("Akot");
-        areas.add("Telhara");
-        areas.add("Balapur");
-        areas.add("Patur");
         areas.add("Murtizapur");
+        areas.add("Balapur");
+        areas.add("Telhara");
+        areas.add("Patur");
         areas.add("Barshitakli");
+        areas.add("Anjangaon Surji");
+        areas.add("Achalpur");
+        areas.add("Daryapur");
+        areas.add("Warud");
+        areas.add("Morshi");
+        areas.add("Chandur Bazar");
+        areas.add("Dharni (Melghat)");
         
         ArrayAdapter<String> areaAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, areas) {
             @Override

@@ -192,40 +192,40 @@ public class ProfileFragment extends Fragment {
                         imgProfile.setImageResource(R.drawable.rs_profilelogo);
                     }
 
-                    // 🔥 Improved Progress Calculation (5 points x 20% = 100%)
+                    // 🔥 Improved Progress Calculation (Ignore "Not Set" or "null")
                     int p = 0;
                     StringBuilder missingFields = new StringBuilder();
 
                     // 1. Name
-                    if (!name.isEmpty() && !name.equals("null")) {
+                    if (isValid(name)) {
                         p += 20;
                     } else {
                         missingFields.append("Name, ");
                     }
 
                     // 2. Phone
-                    if (!phone.isEmpty() && !phone.equals("null")) {
+                    if (isValid(phone)) {
                         p += 20;
                     } else {
                         missingFields.append("Phone, ");
                     }
 
                     // 3. Blood Group
-                    if (!blood.isEmpty() && !blood.equals("null")) {
+                    if (isValid(blood)) {
                         p += 20;
                     } else {
                         missingFields.append("Blood Group, ");
                     }
 
                     // 4. Location/City
-                    if (!location.isEmpty() && !location.equals("null")) {
+                    if (isValid(location)) {
                         p += 20;
                     } else {
                         missingFields.append("Location, ");
                     }
 
-                    // 5. Profile Image (Only real uploaded photos count for 20%)
-                    if (!image.isEmpty() && !image.equals("null") && !image.equals("default")) {
+                    // 5. Profile Image
+                    if (isValid(image) && !image.equals("default")) {
                         p += 20;
                     } else {
                         missingFields.append("Profile Photo, ");
@@ -274,21 +274,26 @@ public class ProfileFragment extends Fragment {
         AutoCompleteTextView spBlood = dialogView.findViewById(R.id.sp_blood);
         AutoCompleteTextView spCity = dialogView.findViewById(R.id.sp_city);
 
-        etName.setText(tvName.getText().toString());
-        etPhone.setText(tvMobile.getText().toString());
-        etLocation.setText(tvCity.getText().toString());
+        String currentName = tvName.getText().toString();
+        String currentPhone = tvMobile.getText().toString();
+        String currentAddress = tvCity.getText().toString();
+        String currentBlood = tvBlood.getText().toString();
+
+        etName.setText(currentName.equals("Not Set") ? "" : currentName);
+        etPhone.setText(currentPhone.equals("Not Set") ? "" : currentPhone);
+        etLocation.setText(currentAddress.equals("Not Set") ? "" : currentAddress);
 
         // Setup Blood Group Adapter
         String[] bloodGroups = {"A+", "A-", "B+", "B-", "O+", "O-", "AB+", "AB-"};
         ArrayAdapter<String> bloodAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, bloodGroups);
         spBlood.setAdapter(bloodAdapter);
-        spBlood.setText(tvBlood.getText().toString(), false);
+        spBlood.setText(currentBlood.equals("Not Set") ? "" : currentBlood, false);
 
         // Setup City Adapter (Talukas)
         String[] cities = {"Akola", "Akot", "Telhara", "Balapur", "Patur", "Murtizapur", "Barshitakli"};
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, cities);
         spCity.setAdapter(cityAdapter);
-        spCity.setText(tvCity.getText().toString(), false);
+        spCity.setText(currentAddress.equals("Not Set") ? "" : currentAddress, false);
 
         AlertDialog dialog = new MaterialAlertDialogBuilder(getContext())
                 .setView(dialogView)
@@ -391,6 +396,10 @@ public class ProfileFragment extends Fragment {
                 Toast.makeText(getContext(), "Failed to remove photo", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private boolean isValid(String val) {
+        return val != null && !val.isEmpty() && !val.equalsIgnoreCase("null") && !val.equalsIgnoreCase("Not Set");
     }
 
     private void uploadImage() {

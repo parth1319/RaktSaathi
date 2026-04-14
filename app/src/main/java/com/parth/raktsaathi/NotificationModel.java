@@ -6,7 +6,7 @@ public class NotificationModel {
     private String message;
     private String time;
     private boolean isRead;
-    private String type;
+    private String type; // e.g., "URGENT", "CAMP", "INFO"
 
     public NotificationModel(String id, String title, String message, String time, boolean isRead, String type) {
         this.id = id;
