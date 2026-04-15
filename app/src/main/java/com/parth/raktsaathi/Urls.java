@@ -9,7 +9,6 @@ public class Urls {
     public static final String LOGIN = BASE_URL + "users_login.php";
     public static final String GoogleSignIn = BASE_URL + "google_login.php";
     public static final String GET_STATS = BASE_URL + "get_stats.php";
-    public static final String GET_USER_ACTIVITY = BASE_URL + "get_user_activity.php";
     public static final String GET_CAMPS = BASE_URL + "get_camps.php";
     public static final String ADD_CAMP = BASE_URL + "add_camp.php";
     public static final String UPDATE_CAMP = BASE_URL + "update_camp.php";

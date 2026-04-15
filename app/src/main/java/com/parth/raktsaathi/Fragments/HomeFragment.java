@@ -410,17 +410,21 @@ public class HomeFragment extends Fragment {
                     return;
                 }
 
+                android.app.ProgressDialog pd = new android.app.ProgressDialog(getContext());
+                pd.setMessage("Updating camp details...");
+                pd.setCancelable(false);
+                pd.show();
+
                 AsyncHttpClient client = new AsyncHttpClient();
+                // Disable caching to ensure fresh data
+                client.addHeader("Cache-Control", "no-cache");
+                
                 RequestParams params = new RequestParams();
                 try {
-                    // CRITICAL: Ensure your get_camps.php sends 'id'
                     String campId = camp.optString("id", "");
                     if(campId.isEmpty()){
-                        // Debugging: Show all available keys in the JSONObject
-                        java.util.Iterator<String> keys = camp.keys();
-                        StringBuilder sb = new StringBuilder("Keys: ");
-                        while(keys.hasNext()) sb.append(keys.next()).append(", ");
-                        Toast.makeText(getContext(), "ID missing. Found " + sb.toString(), Toast.LENGTH_LONG).show();
+                        pd.dismiss();
+                        Toast.makeText(getContext(), "Error: Camp ID not found in data", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -432,23 +436,26 @@ public class HomeFragment extends Fragment {
                     client.post(Urls.UPDATE_CAMP, params, new AsyncHttpResponseHandler() {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            pd.dismiss();
                             String res = new String(responseBody).trim();
-                            android.util.Log.d("UpdateCamp", "Server Response: " + res);
-                            
                             if (res.equalsIgnoreCase("success")) {
-                                Toast.makeText(getContext(), "✅ Updated Successfully", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "✅ Camp Updated Successfully", Toast.LENGTH_SHORT).show();
                                 dialog.dismiss();
-                                loadUpcomingCamps(); // Refresh the list
+                                loadUpcomingCamps(); // Refresh the list from server
                             } else {
-                                Toast.makeText(getContext(), "Server Error: " + res, Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(), "Update Failed: " + res, Toast.LENGTH_LONG).show();
                             }
                         }
                         @Override
                         public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                            Toast.makeText(getContext(), "Network Error: Update Failed", Toast.LENGTH_SHORT).show();
+                            pd.dismiss();
+                            Toast.makeText(getContext(), "Network Error! Please check your connection.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                } catch (Exception e) { e.printStackTrace(); }
+                } catch (Exception e) { 
+                    pd.dismiss();
+                    e.printStackTrace(); 
+                }
             });
 
             dialog.show();

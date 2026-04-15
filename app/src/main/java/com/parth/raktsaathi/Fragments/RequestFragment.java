@@ -315,6 +315,7 @@ public class RequestFragment extends Fragment {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("name", name);
+        params.put("email", userEmail);
         params.put("mobile", phone);
         params.put("blood", blood);
         params.put("units", units);
