@@ -53,7 +53,7 @@ This project was developed using an AI-assisted development workflow for faster 
 ## Application Screenshots
 
 ### Login & Authentication
-![Login Screen](RS_image1.jpeg)
+<img src="RS_image1.jpeg" width="250"/>
 ![Google Sign In](RS_image2.jpeg)
 
 ### Home Dashboard
