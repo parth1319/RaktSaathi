@@ -50,29 +50,29 @@ This project was developed using an AI-assisted development workflow for faster 
 - Smart Donor Matching
 - Emergency Blood Alerts
 
-## Application Screenshots
+<h2>Application Screenshots</h2>
 
-### Login & Authentication
+<h3>Login & Authentication</h3>
 <img src="RS_image1.jpeg" width="250"/>
-![Google Sign In](RS_image2.jpeg)
+<img src="RS_image2.jpeg" width="250"/>
 
-### Home Dashboard
-![Home Screen](RS_image3.jpeg)
-![Blood Inventory](RS_image4.jpeg)
-![Donation Camp](RS_image5.jpeg)
+<h3>Home Dashboard</h3>
+<img src="RS_image3.jpeg" width="250"/>
+<img src="RS_image4.jpeg" width="250"/>
+<img src="RS_image5.jpeg" width="250"/>
 
-### Blood Request Module
-![Blood Request Form](RS_image6.jpeg)
-![Available Donors](RS_image7.jpeg)
+<h3>Blood Request Module</h3>
+<img src="RS_image6.jpeg" width="250"/>
+<img src="RS_image7.jpeg" width="250"/>
 
-### Donate Blood Module
-![Donate Blood](RS_image8.jpeg)
-![Request Cards](RS_image9.jpeg)
+<h3>Donate Blood Module</h3>
+<img src="RS_image8.jpeg" width="250"/>
+<img src="RS_image9.jpeg" width="250"/>
 
-### Profile Section
-![Profile Screen](RS_image10.jpeg)
-![Settings](RS_image11.jpeg)
+<h3>Profile Section</h3>
+<img src="RS_image10.jpeg" width="250"/>
+<img src="RS_image11.jpeg" width="250"/>
 
-### Additional Screens
-![Extra Screen](RS_image12.jpeg)
-![More Features](RS_image13.jpeg)
+<h3>Additional Screens</h3>
+<img src="RS_image12.jpeg" width="250"/>
+<img src="RS_image13.jpeg" width="250"/>
