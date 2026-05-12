@@ -53,26 +53,26 @@ This project was developed using an AI-assisted development workflow for faster 
 ## Application Screenshots
 
 ### Login & Authentication
-![Login Screen](RS_image1.JPEG)
-![Google Sign In](RS_image2.JPEG)
+![Login Screen](RS_image1.jpeg)
+![Google Sign In](RS_image2.jpeg)
 
 ### Home Dashboard
-![Home Screen](RS_image3.JPEG)
-![Blood Inventory](RS_image4.JPEG)
-![Donation Camp](RS_image5.JPEG)
+![Home Screen](RS_image3.jpeg)
+![Blood Inventory](RS_image4.jpeg)
+![Donation Camp](RS_image5.jpeg)
 
 ### Blood Request Module
-![Blood Request Form](RS_image6.JPEG)
-![Available Donors](RS_image7.JPEG)
+![Blood Request Form](RS_image6.jpeg)
+![Available Donors](RS_image7.jpeg)
 
 ### Donate Blood Module
-![Donate Blood](RS_image8.JPEG)
-![Request Cards](RS_image9.JPEG)
+![Donate Blood](RS_image8.jpeg)
+![Request Cards](RS_image9.jpeg)
 
 ### Profile Section
-![Profile Screen](RS_image10.JPEG)
-![Settings](RS_image11.JPEG)
+![Profile Screen](RS_image10.jpeg)
+![Settings](RS_image11.jpeg)
 
 ### Additional Screens
-![Extra Screen](RS_image12.JPEG)
-![More Features](RS_image13.JPEG)
+![Extra Screen](RS_image12.jpeg)
+![More Features](RS_image13.jpeg)
